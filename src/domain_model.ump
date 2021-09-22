@@ -1,0 +1,24 @@
+// Cover all features from feature list
+// Show concepts, attributes, relationships
+// DO NOT include operations
+// DO NOT include validation checks using before/after
+
+namespace ca.mcgill.ecse223.climbsafe.model;
+
+class ClimbSafe {
+	// Contains singleton admin class (multi 1)
+	// Contains ClimbingSeason class
+	
+}
+
+
+
+class User {
+	unique username;
+	password;
+	
+	// Inherited by Admin, Guide, Member
+	
+}
+
+
