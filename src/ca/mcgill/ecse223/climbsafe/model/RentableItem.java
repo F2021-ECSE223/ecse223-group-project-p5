@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.climbsafe.model;
 
-// line 41 "../../../../../domain_model.ump"
+// line 50 "../../../../../domain_model.ump"
 public abstract class RentableItem
 {
 
@@ -13,14 +13,16 @@ public abstract class RentableItem
 
   //RentableItem Attributes
   private int cost;
+  private int discountPrice;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public RentableItem(int aCost)
+  public RentableItem(int aCost, int aDiscountPrice)
   {
     cost = aCost;
+    discountPrice = aDiscountPrice;
   }
 
   //------------------------
@@ -35,9 +37,22 @@ public abstract class RentableItem
     return wasSet;
   }
 
+  public boolean setDiscountPrice(int aDiscountPrice)
+  {
+    boolean wasSet = false;
+    discountPrice = aDiscountPrice;
+    wasSet = true;
+    return wasSet;
+  }
+
   public int getCost()
   {
     return cost;
+  }
+
+  public int getDiscountPrice()
+  {
+    return discountPrice;
   }
 
   public void delete()
@@ -47,6 +62,7 @@ public abstract class RentableItem
   public String toString()
   {
     return super.toString() + "["+
-            "cost" + ":" + getCost()+ "]";
+            "cost" + ":" + getCost()+ "," +
+            "discountPrice" + ":" + getDiscountPrice()+ "]";
   }
 }

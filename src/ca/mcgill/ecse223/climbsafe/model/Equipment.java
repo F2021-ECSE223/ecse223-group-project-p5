@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.climbsafe.model;
 
-// line 46 "../../../../../domain_model.ump"
+// line 56 "../../../../../domain_model.ump"
 public class Equipment extends RentableItem
 {
 
@@ -18,9 +18,9 @@ public class Equipment extends RentableItem
   // CONSTRUCTOR
   //------------------------
 
-  public Equipment(int aCost, Bundle aBundle)
+  public Equipment(int aCost, int aDiscountPrice, Bundle aBundle)
   {
-    super(aCost);
+    super(aCost, aDiscountPrice);
     boolean didAddBundle = setBundle(aBundle);
     if (!didAddBundle)
     {

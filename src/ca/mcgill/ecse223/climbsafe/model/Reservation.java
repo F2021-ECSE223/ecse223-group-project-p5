@@ -3,13 +3,16 @@
 
 package ca.mcgill.ecse223.climbsafe.model;
 
-// line 55 "../../../../../domain_model.ump"
+// line 65 "../../../../../domain_model.ump"
 public class Reservation
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
+
+  //Reservation Attributes
+  private int week;
 
   //Reservation Associations
   private Member member;
@@ -18,8 +21,9 @@ public class Reservation
   // CONSTRUCTOR
   //------------------------
 
-  public Reservation(Member aMember)
+  public Reservation(int aWeek, Member aMember)
   {
+    week = aWeek;
     boolean didAddMember = setMember(aMember);
     if (!didAddMember)
     {
@@ -30,6 +34,25 @@ public class Reservation
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setWeek(int aWeek)
+  {
+    boolean wasSet = false;
+    week = aWeek;
+    wasSet = true;
+    return wasSet;
+  }
+
+  /**
+   * Hired guide
+   * Rented equipment
+   * Hotel stay
+   * Total cost = {
+   */
+  public int getWeek()
+  {
+    return week;
+  }
   /* Code from template association_GetOne */
   public Member getMember()
   {
@@ -65,4 +88,11 @@ public class Reservation
     }
   }
 
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "week" + ":" + getWeek()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "member = "+(getMember()!=null?Integer.toHexString(System.identityHashCode(getMember())):"null");
+  }
 }

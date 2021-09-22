@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.climbsafe.model;
 import java.util.*;
 
-// line 50 "../../../../../domain_model.ump"
+// line 60 "../../../../../domain_model.ump"
 public class Bundle extends RentableItem
 {
 
@@ -19,9 +19,9 @@ public class Bundle extends RentableItem
   // CONSTRUCTOR
   //------------------------
 
-  public Bundle(int aCost)
+  public Bundle(int aCost, int aDiscountPrice)
   {
-    super(aCost);
+    super(aCost, aDiscountPrice);
     equipments = new ArrayList<Equipment>();
   }
 
@@ -64,9 +64,9 @@ public class Bundle extends RentableItem
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Equipment addEquipment(int aCost)
+  public Equipment addEquipment(int aCost, int aDiscountPrice)
   {
-    return new Equipment(aCost, this);
+    return new Equipment(aCost, aDiscountPrice, this);
   }
 
   public boolean addEquipment(Equipment aEquipment)

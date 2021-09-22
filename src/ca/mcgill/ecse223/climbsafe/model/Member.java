@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.climbsafe.model;
 import java.util.*;
 
-// line 36 "../../../../../domain_model.ump"
+// line 37 "../../../../../domain_model.ump"
 public class Member extends User
 {
 
@@ -64,9 +64,9 @@ public class Member extends User
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Reservation addReservation()
+  public Reservation addReservation(int aWeek)
   {
-    return new Reservation(this);
+    return new Reservation(aWeek, this);
   }
 
   public boolean addReservation(Reservation aReservation)

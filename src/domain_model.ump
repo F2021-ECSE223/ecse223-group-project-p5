@@ -19,7 +19,8 @@ class ClimbSafe {
 
 class User {
 	// How to make username both unique and immutable?
-	immutable username;
+	// option 1: do not provide setUsername() in the GUI
+	unique username;
 	password;
 }
 
@@ -38,9 +39,18 @@ class Member {
 	1 -- * Reservation reservations;
 }
 
+class Hotel {
+	// any additional attribute properties?
+	
+	name;
+	address;
+	rating;
+}
+
 class RentableItem {
 	abstract;
 	Integer cost;
+	Integer discountPrice;
 }
 
 class Equipment {
@@ -57,7 +67,7 @@ class Reservation {
 	// Rented equipment
 	// Hotel stay
 	// Total cost = {
-	
+	Integer week;
 }
 
 
