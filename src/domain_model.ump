@@ -69,6 +69,7 @@ class Equipment {
 
 class Bundle {
 	isA RentableItem;
+	unique name;
 }
 
 class Reservation {
