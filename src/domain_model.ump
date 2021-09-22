@@ -85,4 +85,3 @@ association {
 	1 Bundle bundle -- 2.. * Equipment includedItems;
 }
 
-
