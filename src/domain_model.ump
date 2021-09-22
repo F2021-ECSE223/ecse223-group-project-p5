@@ -52,8 +52,6 @@ class Hotel {
 	name;
 	address;
 	rating;
-	//test
-	
 }
 
 class RentableItem {
