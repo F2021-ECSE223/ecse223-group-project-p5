@@ -33,6 +33,7 @@ class Admin {
 
 class Guide {
 	isA User;
+	// double check properties of weeklyCost
 	lazy immutable weeklyCost;
 }
 
@@ -57,7 +58,8 @@ class RentableItem {
 	abstract;
 	Double price;
 	Double discountPercent;
-	Double discountedPrice = (1 - (getDiscountPercent() / 100)) * getPrice();
+	// Double discountedPrice = (1 - (getDiscountPercent() / 100)) * getPrice();
+	Double discountedPrice;
 }
 
 class Equipment {
