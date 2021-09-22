@@ -43,7 +43,6 @@ class Member {
 	Boolean hotelStay;
 	// equipment: List
 	
-	1 -- * Reservation reservations;
 }
 
 class Hotel {
@@ -56,17 +55,18 @@ class Hotel {
 
 class RentableItem {
 	abstract;
-	Integer cost;
-	Integer discountPrice;
+	Double price;
+	Double discountPercent;
+	Double discountedPrice = (1 - (getDiscountPercent() / 100)) * getPrice();
 }
 
 class Equipment {
 	isA RentableItem;
+	Double weight;
 }
 
 class Bundle {
 	isA RentableItem;
-	1 -- * Equipment equipments;
 }
 
 class Reservation {
@@ -75,6 +75,14 @@ class Reservation {
 	// Hotel stay
 	// Total cost = {
 	Integer week;
+}
+
+association {
+	0..1 Guide guide -- * Reservation reservations;
+	1 Member member -- * Reservation reservations;
+	0..1 Hotel hotel -- * Reservation reservations;
+	
+	1 Bundle bundle -- 2.. * Equipment includedItems;
 }
 
 
