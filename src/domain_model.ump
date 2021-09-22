@@ -22,6 +22,7 @@ class User {
 	// option 1: do not provide setUsername() in the GUI
 	unique username;
 	password;
+	phoneNumber;
 }
 
 class Admin {
@@ -32,10 +33,16 @@ class Admin {
 
 class Guide {
 	isA User;
+	lazy immutable weeklyCost;
 }
 
 class Member {
 	isA User;
+	Integer noWeeks;
+	Boolean guide;
+	Boolean hotelStay;
+	// equipment: List
+	
 	1 -- * Reservation reservations;
 }
 
