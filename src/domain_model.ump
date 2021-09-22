@@ -6,18 +6,57 @@
 namespace ca.mcgill.ecse223.climbsafe.model;
 
 class ClimbSafe {
-	// Contains singleton admin class (multi 1)
+	// Contains singleton? admin class (multi 1)
+	// singleton isn't needed since it's 1--1 with the application already
+	// also attributes will then have to be lazy
+	1 <@>- 1 Admin administrator;
+	
 	// Contains ClimbingSeason class
+		// Contains members/guides
+		// Contains reservations, etc
 	
 }
 
-
-
 class User {
-	unique username;
+	// How to make username both unique and immutable?
+	immutable username;
 	password;
-	
-	// Inherited by Admin, Guide, Member
+}
+
+class Admin {
+	isA User;
+	username = "admin@nmc.nt";
+	password = "admin";
+}
+
+class Guide {
+	isA User;
+}
+
+class Member {
+	isA User;
+	1 -- * Reservation reservations;
+}
+
+class RentableItem {
+	abstract;
+	Integer cost;
+}
+
+class Equipment {
+	isA RentableItem;
+}
+
+class Bundle {
+	isA RentableItem;
+	1 -- * Equipment equipments;
+}
+
+class Reservation {
+	// Hired guide
+	// Rented equipment
+	// Hotel stay
+	// Total cost = {
 	
 }
 
