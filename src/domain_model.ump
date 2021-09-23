@@ -82,9 +82,10 @@ class Reservation {
 
 association {
 	0..1 Guide guide -- * Reservation reservations;
-	1 Member member -- * Reservation reservations;
+	1..* Member member -- * Reservation reservations;
 	0..1 Hotel hotel -- * Reservation reservations;
 	
-	1 Bundle bundle -- 2.. * Equipment includedItems;
+	0..1 Bundle bundle <- 2.. * Equipment includedItems;
+	0..1 Member renter -- * RentableItem rentedItem;
 }
 
