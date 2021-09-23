@@ -82,10 +82,13 @@ class Reservation {
 
 association {
 	0..1 Guide guide -- * Reservation reservations;
+	// can multiple members be on the same reservation?
 	1..* Member member -- * Reservation reservations;
 	0..1 Hotel hotel -- * Reservation reservations;
 	
-	0..1 Bundle bundle -- 2.. * Equipment includedItems;
-	0..1 Member renter -- * RentableItem rentedItem;
+	// can one equipment be part of multiple bundles?
+	* Bundle bundle -> 2.. * Equipment includedItems;
+	// can one type of rentableitem be rented by multiple persons?
+	* Member renter -- * RentableItem rentedItem;
 }
 
