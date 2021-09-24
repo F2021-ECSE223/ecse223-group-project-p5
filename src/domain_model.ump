@@ -8,12 +8,11 @@ namespace ca.mcgill.ecse223.climbsafe.model;
 class ClimbSafe {
 	// User class associations
 	1 <@>- * User users; // all users
-	1 <@>- 1 Admin admin; // single admin user attached 
 	
 	1 <@>- * ClimbingSeason seasons;
 	
 	1 <@>- * Hotel hotels;
-	1 <@>- * PieceOfEquipment equipment;
+	1 <@>- * Equipment equipment;
 	1 <@>- * Bundle bundles;
 }
 
@@ -21,12 +20,13 @@ class User {
 	abstract; // this class should not be instantiated
 	
 	// umple cannot handle unique immutable attributes
-	unique String username; // username must be set uniquely and cannot be changed
+	immutable String username; // username must be set uniquely and cannot be changed
 	String password;
 }
 
 class Admin {
 	isA User;
+	
 	username = "admin@nmc.nt";
 	password = "admin";
 }
@@ -71,7 +71,7 @@ class Hotel {
 	Integer rating;
 }
 
-class PieceOfEquipment {
+class Equipment {
 	String name;
 	Integer weight;
 	Integer price;
@@ -81,7 +81,7 @@ class Bundle {
 	String name;
 	Double discountPercentage;
 	
-	* -> 2..* PieceOfEquipment inclusions; // must contain at least 2 pieces of equipment
+	* -> 2..* Equipment inclusions; // must contain at least 2 pieces of equipment
 }
 
 // admin will create this class to finalize details
@@ -93,5 +93,5 @@ class Assignment {
 	* assignments -- 0..1 Guide guide; // assignment may not require a guide
 	* assignments -- 0..1 Hotel hotel; // assignment may not require a hotel
 	* -> * Bundle bundles;
-	* -> * PieceOfEquipment equipment;
+	* -> * Equipment equipment;
 }
