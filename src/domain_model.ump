@@ -19,12 +19,16 @@ class Climbsafe {
 
 class User {
 	abstract; // this class should not be instantiated
-	unique immutable String username; // username must be set uniquely and cannot be changed
+	
+	// umple cannot handle unique immutable attributes
+	unique String username; // username must be set uniquely and cannot be changed
 	String password;
 }
 
 class Admin {
 	isA User;
+	username = "admin@nmc.nt";
+	password = "admin";
 }
 
 class SeasonalUser {
