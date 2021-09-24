@@ -1,2 +1,11 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+# Enforce LF line endings regardless of OS or git configs
+* text=auto eol=lf
+
+# Windows CMD & Visual Studio solution
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.sln text eol=crlf
+
+# Isolate binary files
+*.{ai, aiff, dll, eot, exe, gif, jar, jpg, jpeg, mp3, o, pdf, png, psd, so, ttf, webp, winmd, zip} binary
