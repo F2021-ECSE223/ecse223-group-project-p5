@@ -5,7 +5,7 @@
 
 namespace ca.mcgill.ecse223.climbsafe.model;
 
-class Climbsafe {
+class ClimbSafe {
 	// User class associations
 	1 <@>- * User users; // all users
 	1 <@>- 1 Admin admin; // single admin user attached 
