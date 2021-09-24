@@ -5,90 +5,89 @@
 
 namespace ca.mcgill.ecse223.climbsafe.model;
 
-class ClimbSafe {
-	// Contains singleton? admin class (multi 1)
-	// singleton isn't needed since it's 1--1 with the application already
-	// also attributes will then have to be lazy
-	1 <@>- 1 Admin administrator;
+class Climbsafe {
+	// User class associations
+	1 <@>- * User users; // all users
+	1 <@>- 1 Admin admin; // single admin user attached 
 	
-	// Contains ClimbingSeason class
-		// Contains members/guides
-		// Contains reservations, etc
+	1 <@>- * ClimbingSeason seasons;
 	
+	1 <@>- * Hotel hotels;
+	1 <@>- * PieceOfEquipment equipment;
+	1 <@>- * Bundle bundles;
 }
 
 class User {
-	// How to make username both unique and immutable?
-	// option 1: do not provide setUsername() in the GUI
-	unique username;
-	password;
-	phoneNumber;
+	abstract; // this class should not be instantiated
+	unique immutable String username; // username must be set uniquely and cannot be changed
+	String password;
 }
 
 class Admin {
 	isA User;
-	username = "admin@nmc.nt";
-	password = "admin";
 }
 
-class Guide {
+class SeasonalUser {
+	abstract; // this class should not be instantiated
+	
 	isA User;
-	// double check properties of weeklyCost
-	lazy immutable weeklyCost;
+	// need to add attributes to users for Members and Guides
+
+	String name;
+	String emergencyContact;	
 }
 
 class Member {
-	isA User;
-	Integer noWeeks;
-	Boolean guide;
-	Boolean hotelStay;
-	// equipment: List
+	isA SeasonalUser;
 	
+	// initialize preferences for a reservation before the admin finalizes details
+	Integer noWeeks; // number of weeks the member wants to climb for
+	Boolean hiredGuide; // if the member wants to hire a guide
+	Boolean hotelStay; // if the member wants to stay at a hotel before and after the climb	
+}
+
+class Guide {
+	isA SeasonalUser;
+}
+
+class ClimbingSeason {
+	Date start; // beginning week of climbing period
+	Date end; // end week of climbing period
+	
+	Integer guideCost; // constant for all guides
+	
+	1 season <@>- * Member members; // to access all users
+	1 season <@>- * Guide guides; // to access all guides
+	1 season <@>- * Assignment assignments; // all assignments that the admin makes
 }
 
 class Hotel {
-	// any additional attribute properties?
-	
-	name;
-	address;
-	rating;
+	String name;
+	String address;
+	Integer rating;
 }
 
-class RentableItem {
-	abstract;
-	Double price;
-	Double discountPercent;
-	// Double discountedPrice = (1 - (getDiscountPercent() / 100)) * getPrice();
-	Double discountedPrice;
-}
-
-class Equipment {
-	isA RentableItem;
-	Double weight;
+class PieceOfEquipment {
+	String name;
+	Integer weight;
+	Integer price;
 }
 
 class Bundle {
-	isA RentableItem;
-	unique name;
-}
-
-class Reservation {
-	// Hired guide
-	// Rented equipment
-	// Hotel stay
-	// Total cost = {
-	Integer week;
-}
-
-association {
-	0..1 Guide guide -- * Reservation reservations;
-	// can multiple members be on the same reservation?
-	1..* Member member -- * Reservation reservations;
-	0..1 Hotel hotel -- * Reservation reservations;
+	String name;
+	Double discountPercentage;
 	
-	// can one equipment be part of multiple bundles?
-	* Bundle bundle -> 2.. * Equipment includedItems;
-	// can one type of rentableitem be rented by multiple persons?
-	* Member renter -- * RentableItem rentedItem;
+	* -> 2..* PieceOfEquipment inclusions; // must contain at least 2 pieces of equipment
 }
 
+// admin will create this class to finalize details
+class Assignment {
+	Integer startWeek; // beginning of climb
+	Integer endWeek; // end of climb;
+	
+	0..1 assignment -- 1 Member member; // this assignment is not instantiated immediately when a user signs up
+	* assignments -- 0..1 Guide guide; // assignment may not require a guide
+	* assignments -- 0..1 Hotel hotel; // assignment may not require a hotel
+	* -> * Bundle bundles;
+	* -> * PieceOfEquipment equipment;
+}
