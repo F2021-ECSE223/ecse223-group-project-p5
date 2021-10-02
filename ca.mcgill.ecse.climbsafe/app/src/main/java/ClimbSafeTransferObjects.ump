@@ -1,0 +1,13 @@
+namespace ca.mcgill.ecse.climbsafe.controller;
+
+class TOAssignment {
+  memberEmail;
+  memberName;
+  guideEmail;
+  guideName;
+  hotelName;
+  Integer startWeek;
+  Integer endWeek;
+  Integer totalCostForGuide;
+  Integer totalCostForEquipment;
+}

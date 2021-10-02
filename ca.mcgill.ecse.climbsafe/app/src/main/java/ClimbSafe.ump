@@ -1,0 +1,87 @@
+namespace ca.mcgill.ecse.climbsafe.model;
+
+class ClimbSafe {
+  Date startDate;
+  Integer nrWeeks;
+  Integer priceOfGuidePerWeek;
+  1 <@>- 0..1 Administrator adminstrator;
+  1 <@>- * Guide guides;
+  1 <@>- * Member members;
+  1 <@>- * BookedItem bookedItems;
+  1 <@>- * Equipment equipment;
+  1 <@>- * EquipmentBundle bundles;
+  1 <@>- * BundleItem bundleItems;
+  1 <@>- * Hotel hotels;
+  1 <@>- * Assignment assignments;
+}
+
+class User {
+  abstract;
+  unique email;
+  password;
+}
+
+class Administrator {
+  isA User;
+}
+
+class NamedUser {
+  abstract;
+  isA User;
+  name;
+  emergencyContact;
+}
+
+class Guide {
+  isA NamedUser;
+}
+
+class Member {
+  isA NamedUser;
+  Integer nrWeeks;
+  Boolean guideRequired;
+  Boolean hotelRequired;
+}
+
+associationClass BookedItem {
+  Integer quantity;
+  * Member member;
+  * BookableItem item;
+}
+
+class BookableItem {
+  abstract;
+  unique name;
+}
+
+class Equipment {
+  isA BookableItem;
+  Integer weight;
+  Integer pricePerWeek;
+}
+
+class EquipmentBundle {
+  isA BookableItem;
+  Integer discount;
+}
+
+associationClass BundleItem {
+  Integer quantity;
+  * EquipmentBundle bundle;
+  * Equipment equipment;
+}
+
+class Hotel {
+  unique name;
+  address;
+  enum HotelRating { OneStar, TwoStars, ThreeStars, FourStars, FiveStars }
+  HotelRating rating;
+} 
+
+class Assignment {
+  Integer startWeek;
+  Integer endWeek;
+  0..1 -- 1 Member member;
+  * -- 0..1 Guide guide;
+  * -- 0..1 Hotel hotel;
+}

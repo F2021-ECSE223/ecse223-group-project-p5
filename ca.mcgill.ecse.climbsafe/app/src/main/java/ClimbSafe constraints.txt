@@ -1,0 +1,110 @@
+for each ClimbSafe:
+   // number of climbing weeks must be greater than or equal to zero
+   nrWeeks >= 0
+
+   // price of guide per week must be greater than or equal to zero
+   priceOfGuidePerWeek >= 0
+
+for each User:
+   // unique email already captured by unique keyword in Umple
+
+   // email must not contain any spaces
+   not password.contains(" ")
+
+   // email must contain some characters (anything is allowed except @), a @, some characters, a dot, and some characters
+   // this is a simplified check sufficient for this application
+   email.indexOf("@") > 0 // index starts at zero
+   email.indexOf("@") = email.lastIndexOf("@")
+   email.indexOf("@") < email.lastIndexOf(".") - 1
+   email.lastIndexOf(".") < email.length() - 1
+
+   // email cannot be admin@nmc.nt unless it is for the administrator
+   (not (self instanceof Administrator)) implies (email <> "admin@nmc.nt")
+
+   // password must not be empty or null
+   password <> ""
+   password <> null
+
+for each Administrator:
+   // email has to be admin@nmc.nt
+   email = "admin@nmc.nt"
+
+for each NamedUser:
+   // name must not be empty or null
+   name <> ""
+   name <> null
+
+   // emergencyContact must not be empty or null
+   emergencyContact <> ""
+   emergencyContact <> null
+
+for each Member:
+   // number of weeks must be greater than zero and less than or equal to the number of climbing weeks in the climbing season
+   nrWeeks > 0
+   nrWeeks <= climbSafe.nrWeeks
+
+for each BookedItem:
+   // quantity must be greater than zero
+   quantity > 0
+
+for each BookableItem:
+   // unique name already captured by unique keyword in Umple   
+
+   // name must not be empty or null
+   name <> ""
+   name <> null
+
+for each Equipment:
+   // weight must be greater than zero
+   weight > 0
+   
+   // price must be greater than or equal to zero
+   pricePerWeek >= 0
+
+for each EquipmentBundle:
+   // discount must be greater than or equal to zero and less than or equal to 100
+   discount >= 0
+   discount <= 100
+
+   // a bundle contains at least two different kinds of equipment
+   // (i.e., at least two instances of bundleItems exist for a bundle)
+   (select b in climbSafe.bundleItems such that self = b.bundle).size() > 1
+
+for each BundleItem:
+   // quantity must be greater than zero
+   quantity > 0
+
+for each Hotel:
+   // unique name already captured by unique keyword in Umple   
+
+   // name must not be empty or null
+   name <> ""
+   name <> null
+
+   // address must not be empty or null
+   address <> ""
+   address <> null
+
+for each Assignment:
+   // start week must be less than or equal to the end week
+   startWeek <= endWeek
+
+   // start week must be greater than or equal to one and less than or equal to the number of climbing weeks in the climbing season
+   startWeek >= 1
+   startWeek <= climbSafe.nrWeeks
+
+   // end week must be greater than or equal to one and less than or equal to the number of climbing weeks in the climbing season
+   endWeek >= 1
+   endWeek <= climbSafe.nrWeeks
+
+   // a guide is only assigned if requested
+   (guide <> null) implies member.guideRequired
+
+   // a hotel is only assigned if requested
+   (hotel <> null) implies member.hotelRequired
+
+   // if a guide was requested, it needs to be assigned
+   member.guideRequired implies (guide <> null)
+
+   // if a hotel was requested, it needs to be assigned
+   member.hotelRequired implies (hotel <> null)
