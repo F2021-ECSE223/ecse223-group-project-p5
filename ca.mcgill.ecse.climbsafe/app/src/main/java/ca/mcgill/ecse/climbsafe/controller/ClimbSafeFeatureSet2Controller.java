@@ -2,7 +2,7 @@ package ca.mcgill.ecse.climbsafe.controller;
 
 import java.util.List;
 
-class ClimbSafeFeatureSet2Controller {
+public class ClimbSafeFeatureSet2Controller {
 
   public static void registerMember(String email, String password, String name,
       String emergencyContact, int nrWeeks, boolean guideRequired, boolean hotelRequired,

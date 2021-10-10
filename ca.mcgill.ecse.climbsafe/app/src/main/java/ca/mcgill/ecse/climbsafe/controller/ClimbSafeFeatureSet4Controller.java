@@ -1,6 +1,6 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
-class ClimbSafeFeatureSet4Controller {
+public class ClimbSafeFeatureSet4Controller {
 
   public static void addEquipment(String name, int weight, int pricePerWeek)
       throws InvalidInputException {}

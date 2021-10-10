@@ -2,7 +2,7 @@ package ca.mcgill.ecse.climbsafe.controller;
 
 import java.sql.Date;
 
-class ClimbSafeFeatureSet1Controller {
+public class ClimbSafeFeatureSet1Controller {
 
   public static void setup(Date startDate, int nrWeeks, int priceOfGuidePerWeek)
       throws InvalidInputException {}
