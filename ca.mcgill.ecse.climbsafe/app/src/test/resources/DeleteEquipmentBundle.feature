@@ -47,10 +47,9 @@ Feature: Delete Equipment Bundle (p6)
     Then the equipment bundle "large bundle" shall preserve the following properties: (p6)
       | name         | discount | items                       | quantities |
       | large bundle |       25 | rope,pickaxe,portable stove |      2,1,1 |
-    Then the error "<error>" shall be raised (p6)
 
     Examples: 
-      | name            | error                                               |
-      | tiny bundle     | The equipment bundle tiny bundle does not exist     |
-      | clothing bundle | The equipment bundle clothing bundle does not exist |
-      | portable stove  | The equipment bundle portable stove does not exist  |
+      | name            |
+      | tiny bundle     |
+      | clothing bundle |
+      | portable stove  |
