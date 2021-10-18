@@ -35,7 +35,7 @@ Feature: Delete Equipment Bundle (p6)
       | small bundle |       10 | rope,pickaxe |        2,1 |
     Then the member "member1@email.com" shall have the following bookable items: (p6)
       | bookedItems | quantity |
-      | rope        |        1 |
+      | rope        |        2 |
 
   Scenario Outline: Attempt to delete an equipment bundle that does not exist
     When the administrator attempts to delete the equipment bundle "<name>" (p6)
