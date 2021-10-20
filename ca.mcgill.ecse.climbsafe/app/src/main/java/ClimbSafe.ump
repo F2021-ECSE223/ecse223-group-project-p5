@@ -4,7 +4,7 @@ class ClimbSafe {
   Date startDate;
   Integer nrWeeks;
   Integer priceOfGuidePerWeek;
-  1 <@>- 0..1 Administrator adminstrator;
+  1 <@>- 0..1 Administrator administrator;
   1 <@>- * Guide guides;
   1 <@>- * Member members;
   1 <@>- * BookedItem bookedItems;
