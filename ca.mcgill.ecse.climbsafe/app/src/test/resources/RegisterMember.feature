@@ -41,7 +41,6 @@ Feature: Register Member (p9)
 
     Examples: 
       | email          | password  | name  | emergencyContact | nrWeeks | bookableItems  | requestedQuantities | guideRequired | hotelRequired | error                                                                                                                       |
-      | user1@mail.ca  | password1 | User1 | (111)111-1111    |       1 | rope           |                   3 | true          | false         | A member with this email already exists                                                                                     |
       | user@ mail.ca  | password  | User  | (111)222-333     |       1 | pickaxe        |                   2 | true          | false         | The email must not contain any spaces                                                                                       |
       | user@mail@ca   | password  | User  | (111)222-333     |       1 | portable stove |                   3 | true          | false         | Invalid email                                                                                                               |
       | user@.ca       | password  | User  | (111)222-333     |       1 | portable stove |                   3 | true          | false         | Invalid email                                                                                                               |
@@ -56,3 +55,13 @@ Feature: Register Member (p9)
       | admin@nmc.nt   | password  | User  | (555)555-5555    |       5 | rope           |                   3 | true          | false         | The email entered is not allowed for members                                                                                |
       | john@email.com | password1 | User1 | (111)111-1111    |       1 | rope           |                   3 | true          | false         | A guide with this email already exists                                                                                      |
       | user@mail.ca   | password1 | User1 | (111)111-1111    |       1 | hammer         |                   3 | true          | false         | Requested item not found                                                                                                    |
+
+  Scenario Outline: Register member account failed due to duplicated emails
+    When a new member attempts to register with "<email>" , "<password>" , "<name>", "<emergencyContact>", "<nrWeeks>", "<bookableItems>", "<requestedQuantities>", "<guideRequired>", and "<hotelRequired>" (p9)
+    Then the following "<error>" shall be raised. (p9)
+    Then there are 2 members in the system. (p9)
+
+    Examples: 
+      | email         | password  | name  | emergencyContact | nrWeeks | bookableItems | requestedQuantities | guideRequired | hotelRequired | error                                   |
+      | user1@mail.ca | password1 | User1 | (111)111-1111    |       1 | rope          |                   3 | true          | false         | A member with this email already exists |
+      | user2@mail.ca | password2 | User2 | (111)111-1111    |       1 | rope          |                   3 | true          | false         | A member with this email already exists |
