@@ -37,9 +37,9 @@ public class ClimbSafeFeatureSet6Controller {
     // Fetch the instance of BookableItem associated with <name>
     BookableItem equipmentToBeDeleted = BookableItem.getWithName(name);
     /*
-     * Before casting equipmentToBeDeleted to Equipment and deleting, we need to verify that it is both not
-     * null and an instance of Equipment to guarantee we are calling the correct version of the
-     * method delete().
+     * Before casting equipmentToBeDeleted to Equipment and deleting, we need to verify that it is
+     * both not null and an instance of Equipment to guarantee we are calling the correct version of
+     * the method delete().
      */
     if (equipmentToBeDeleted != null && equipmentToBeDeleted instanceof Equipment) {
       /*
@@ -64,7 +64,7 @@ public class ClimbSafeFeatureSet6Controller {
    * @throws InvalidInputException if the corresponding <code>EquipmentBundle</code> instance does
    *         not exist.
    */
-  public static void deleteEquipmentBundle(String name) throws InvalidInputException {
+  public static void deleteEquipmentBundle(String name) {
     // Fetch instance of BookableItem associated with <name>
     BookableItem equipmentBundleToBeDeleted = BookableItem.getWithName(name);
     /*
@@ -75,9 +75,10 @@ public class ClimbSafeFeatureSet6Controller {
     if (equipmentBundleToBeDeleted != null
         && equipmentBundleToBeDeleted instanceof EquipmentBundle) {
       ((EquipmentBundle) equipmentBundleToBeDeleted).delete();
-    } else {
-      throw new InvalidInputException("The equipment bundle " + name + " does not exist");
     }
+    // } else {
+    // throw new InvalidInputException("The equipment bundle " + name + " does not exist");
+    // }
   }
 
   /**
