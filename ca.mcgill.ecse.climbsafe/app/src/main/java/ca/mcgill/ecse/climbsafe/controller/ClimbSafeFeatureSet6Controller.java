@@ -76,9 +76,6 @@ public class ClimbSafeFeatureSet6Controller {
         && equipmentBundleToBeDeleted instanceof EquipmentBundle) {
       ((EquipmentBundle) equipmentBundleToBeDeleted).delete();
     }
-    // } else {
-    // throw new InvalidInputException("The equipment bundle " + name + " does not exist");
-    // }
   }
 
   /**
