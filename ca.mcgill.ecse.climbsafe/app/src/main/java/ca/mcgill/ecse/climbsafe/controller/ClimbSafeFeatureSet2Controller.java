@@ -5,6 +5,7 @@ import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
+import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
 
@@ -44,9 +45,9 @@ public class ClimbSafeFeatureSet2Controller {
      * validate email
      */
     if (email == null) {
-      throw new InvalidInputException("An email address must be specified.");
+      throw new InvalidInputException("The email cannot be empty");
     } else if (email.contains(" ")) {
-      throw new InvalidInputException("Email must not contain any spaces.");
+      throw new InvalidInputException("The email must not contain any spaces");
     } else if (!(email.indexOf("@") > 0)) {
       invalidEmailFormat();
     } else if (!(email.indexOf("@") == email.lastIndexOf("@"))) {
@@ -56,7 +57,17 @@ public class ClimbSafeFeatureSet2Controller {
     } else if (!(email.lastIndexOf(".") < email.length() - 1)) {
       invalidEmailFormat();
     } else if (email.equals("admin@nmc.nt")) {
-      throw new InvalidInputException("This email address is reserved for the administrator.");
+      throw new InvalidInputException("The email entered is not allowed for members");
+    }
+    /*
+     * check if email doesn't belong to existing guide
+     * umple check this anyway but this prints the expected error message
+     */
+    var usr = User.getWithEmail(email);
+    if (usr != null) {
+      if (usr instanceof Guide) {
+        throw new InvalidInputException("A guide with this email already exists");
+      }
     }
     /*
      * more validations
@@ -73,7 +84,13 @@ public class ClimbSafeFeatureSet2Controller {
       var newMember = cs.addMember(email, password, name, emergencyContact, nrWeeks, guideRequired,
           hotelRequired);
       // book items for the member
-      bookItems(newMember, itemNames, itemQuantities);
+      try {
+        bookItems(newMember, itemNames, itemQuantities);
+      } catch (InvalidInputException e) {
+        // if exist invalid item, undo creation of the member
+        newMember.delete();
+        throw new InvalidInputException(e.getMessage());
+      }
     } catch (RuntimeException e) {
       throw new InvalidInputException(e.getMessage());
     }
@@ -103,14 +120,14 @@ public class ClimbSafeFeatureSet2Controller {
      * check email
      */
     if (email == null) {
-      throw new InvalidInputException("An email address must be specified.");
+      throw new InvalidInputException("The email cannot be empty");
     }
     // check if member exists
     var usr = User.getWithEmail(email);
     if (usr == null) {
-      throw new InvalidInputException("There's no registered user with such email address.");
+      throw new InvalidInputException("Member not found");
     } else if (!(usr instanceof Member)) {
-      throw new InvalidInputException("The email address is not associated with a member.");
+      throw new InvalidInputException("Member not found");
     }
     var member = (Member) usr;
     /*
@@ -122,19 +139,28 @@ public class ClimbSafeFeatureSet2Controller {
     validateNrWeeks(newNrWeeks);
     validateItems(newItemNames, newItemQuantities);
     /*
-     * remove old booked items
+     * update password, name, emergencyContact, nrWeeks, guide, hotel
      */
-    if (member.hasBookedItems()) {
-      for (var bookedItem : member.getBookedItems()) {
-        cs.removeBookedItem(bookedItem);
-      }
-    }
-    /*
-     * update guide, hotel, and items
-     */
+    member.setPassword(newPassword);
+    member.setName(newName);
+    member.setEmergencyContact(newEmergencyContact);
+    member.setNrWeeks(newNrWeeks);
     member.setGuideRequired(newGuideRequired);
     member.setHotelRequired(newHotelRequired);
-    bookItems(member, newItemNames, newItemQuantities);
+    /*
+     * remove old booked items
+     */
+    while (member.hasBookedItems()) {
+      member.getBookedItem(0).delete();
+    }
+    /*
+     * update items
+     */
+    try {
+      bookItems(member, newItemNames, newItemQuantities);
+    } catch (InvalidInputException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
   }
 
   /**
@@ -143,7 +169,7 @@ public class ClimbSafeFeatureSet2Controller {
    * @throws InvalidInputException
    */
   private static void invalidEmailFormat() throws InvalidInputException {
-    throw new InvalidInputException("Email address format is invalid.");
+    throw new InvalidInputException("Invalid email");
   }
 
   /**
@@ -154,11 +180,11 @@ public class ClimbSafeFeatureSet2Controller {
    */
   private static void validatePassword(String psw) throws InvalidInputException {
     if (psw == null) {
-      throw new InvalidInputException("A password must be specified.");
+      throw new InvalidInputException("The password cannot be empty");
     } else if (psw.contains(" ")) {
-      throw new InvalidInputException("Password must not contain any spaces.");
+      throw new InvalidInputException("The password must not contain any spaces");
     } else if (psw.equals("")) {
-      throw new InvalidInputException("Password must not be empty.");
+      throw new InvalidInputException("The password cannot be empty");
     }
   }
 
@@ -170,9 +196,9 @@ public class ClimbSafeFeatureSet2Controller {
    */
   private static void validateName(String name) throws InvalidInputException {
     if (name == null) {
-      throw new InvalidInputException("A name must be specified.");
+      throw new InvalidInputException("The name cannot be empty");
     } else if (name.equals("")) {
-      throw new InvalidInputException("Name must not be empty.");
+      throw new InvalidInputException("The name cannot be empty");
     }
   }
 
@@ -184,9 +210,9 @@ public class ClimbSafeFeatureSet2Controller {
    */
   private static void validateEmergencyContact(String contact) throws InvalidInputException {
     if (contact == null) {
-      throw new InvalidInputException("An emergency contact must be specified.");
+      throw new InvalidInputException("The emergence contact cannot be empty");
     } else if (contact.equals("")) {
-      throw new InvalidInputException("Emergency contact must not be empty");
+      throw new InvalidInputException("The emergence contact cannot be empty");
     }
   }
 
@@ -199,7 +225,7 @@ public class ClimbSafeFeatureSet2Controller {
   private static void validateNrWeeks(int nrWeeks) throws InvalidInputException {
     if (!(nrWeeks > 0 && nrWeeks <= cs.getNrWeeks())) {
       throw new InvalidInputException(
-          "Number of weeks must be > 0 and <= number of weeks in the climbing season.");
+          "The number of weeks must be greater than zero and less than or equal to the number of climbing weeks in the climbing season");
     }
   }
 
@@ -230,8 +256,8 @@ public class ClimbSafeFeatureSet2Controller {
    * @param itemNames
    * @param itemQuantities
    */
-  private static void bookItems(Member member, List<String> itemNames,
-      List<Integer> itemQuantities) {
+  private static void bookItems(Member member, List<String> itemNames, List<Integer> itemQuantities)
+      throws InvalidInputException {
     Iterator<String> itemIter = itemNames.iterator();
     Iterator<Integer> qtyIter = itemQuantities.iterator();
     while (itemIter.hasNext() && qtyIter.hasNext()) {
@@ -243,6 +269,8 @@ public class ClimbSafeFeatureSet2Controller {
         // check if item exists as a BookableItem
         if (bookedItem != null) {
           cs.addBookedItem(qty, member, bookedItem);
+        } else {
+          throw new InvalidInputException("Requested item not found");
         }
       }
     }
