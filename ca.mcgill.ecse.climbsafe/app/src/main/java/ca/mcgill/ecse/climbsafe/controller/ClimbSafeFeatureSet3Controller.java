@@ -131,15 +131,12 @@ checkemail(email);
 
 private static void checkemail(String email)  {
   if(email.equals("")) {
-    System.out.println("12346");
     throw new InvalidInputException("Email cannot be empty");
    }
     else if(email.equals("admin@nmc.nt")) {
-      System.out.println("123467");
       throw new InvalidInputException(" Email cannot be admin@nmc.nt");
     }
       else if(email.contains(" ")) {
-        System.out.println("123469");
         throw new InvalidInputException("Email must not contain any spaces");
       }
 }
