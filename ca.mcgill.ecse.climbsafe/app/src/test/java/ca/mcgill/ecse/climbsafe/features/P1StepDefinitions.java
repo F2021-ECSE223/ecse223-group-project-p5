@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.function.Executable;
+import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet4Controller;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
@@ -30,8 +31,10 @@ public class P1StepDefinitions {
     var rows = dataTable.asMaps();
 
     for (var row : rows) {
-      climbSafe = new ClimbSafe(Date.valueOf(row.get("startDate")),
-          Integer.parseInt(row.get("nrWeeks")), Integer.parseInt(row.get("priceOfGuidePerWeek")));
+      climbSafe = ClimbSafeApplication.getClimbSafe();
+      climbSafe.setStartDate(Date.valueOf(row.get("startDate")));
+      climbSafe.setNrWeeks(Integer.parseInt(row.get("nrWeeks")));
+      climbSafe.setPriceOfGuidePerWeek(Integer.parseInt(row.get("priceOfGuidePerWeek")));
     }
     error = "";
   }
