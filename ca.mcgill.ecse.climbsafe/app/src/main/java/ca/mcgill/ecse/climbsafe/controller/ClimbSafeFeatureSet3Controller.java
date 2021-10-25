@@ -23,38 +23,19 @@ public class ClimbSafeFeatureSet3Controller {
    * @param name
    * @param emergencyContact
    * @throws InvalidInputException
+   * 
    */
+  
+
   public static void registerGuide(String email, String password, String name,
       String emergencyContact) throws InvalidInputException {
    
          checkemail(email);
+         checkpassword(password);
+         checkemergencyContact(emergencyContact);
+         
             
-            User user=User.getWithEmail(email);
-            if(user.getClass()==Guide.class) {
-              System.out.println("Email already linked to a guide account");
-            throw new InvalidInputException("Email already linked to a guide account");
-          }
-            else {
-              System.out.println("Email already linked to a member account");
-              throw new InvalidInputException("Email already linked to a member account");
-            }
-        }
-          else if(password.equals("")) {
-            System.out.println("Password cannot be empty");
-            throw new InvalidInputException("Password cannot be empty");
            
-          }
-          else if(emergencyContact.equals("")) {
-            System.out.println("1234");
-            throw new InvalidInputException("mergency contact cannot be empty");
-          }
-          else if(name.equals("mergency contact cannot be empty")) {
-            System.out.println("12345");
-            throw new InvalidInputException(" Name cannot be empty");
-          }
-          else {
-            System.out.println("valid input");
-          }
     
     try {
       climbsafe.addGuide(email, password, name, emergencyContact);
@@ -74,34 +55,12 @@ public class ClimbSafeFeatureSet3Controller {
    */
   public static void updateGuide(String email, String newPassword, String newName,
       String newEmergencyContact) throws InvalidInputException {
-checkemail(email);
+     checkemail(email);
         
         
           
-              System.out.println(user.getClass());
-            throw new InvalidInputException("Email already linked to a guide account");
-          }
-            //else {
-             // System.out.println("Email already linked to a member account");
-            //  throw new InvalidInputException("Email already linked to a member account");
-          //  }
-   //     }
-          else if(newPassword.equals("")) {
-            System.out.println("Password cannot be empty");
-            throw new InvalidInputException("Password cannot be empty");
-           
-          }
-          else if(newEmergencyContact.equals("")) {
-            System.out.println("1234");
-            throw new InvalidInputException("mergency contact cannot be empty");
-          }
-          else if(newName.equals("mergency contact cannot be empty")) {
-            System.out.println("12345");
-            throw new InvalidInputException(" Name cannot be empty");
-          }
-          else {
-            System.out.println("valid input");
-          }
+          
+          
       
     Guide guide = findGuide(email);
     if (guide != null) {
@@ -109,6 +68,7 @@ checkemail(email);
       guide.setPassword(newPassword);
     }
   }
+  
 
   /**
    * the helper method to find the guide with its email as input
@@ -116,7 +76,20 @@ checkemail(email);
    * @author Yida Pan
    * @param email
    * @return
+   * @throws InvalidInputException 
    */
+  private static  void checkemail(String email) throws InvalidInputException  {
+    if(email.equals("")) {
+      throw new InvalidInputException("Email cannot be empty");
+     }
+      else if(email.equals("admin@nmc.nt")) {
+        throw new InvalidInputException(" Email cannot be admin@nmc.nt");
+      }
+        else if(email.contains(" ")) {
+          throw new InvalidInputException("Email must not contain any spaces");
+        }
+  }
+  
   private static Guide findGuide(String email) {
     Guide foundGuide = null;
     for (var guide : climbsafe.getGuides()) {
@@ -127,22 +100,36 @@ checkemail(email);
     }
     return foundGuide;
   }
-
-
-private static void checkemail(String email)  {
-  if(email.equals("")) {
-    throw new InvalidInputException("Email cannot be empty");
-   }
-    else if(email.equals("admin@nmc.nt")) {
-      throw new InvalidInputException(" Email cannot be admin@nmc.nt");
+  private static void checkname(String name) throws InvalidInputException {
+    if((name.equals(""))||(name==null)){
+      throw new InvalidInputException("Name cannot be empty");
     }
-      else if(email.contains(" ")) {
-        throw new InvalidInputException("Email must not contain any spaces");
+  }
+  private static void checkpassword(String password) throws InvalidInputException {
+    if((password.equals(""))||(password==null)){
+      throw new InvalidInputException("Password cannot be empty");
+  }
+}
+  private static void checkemergencyContact(String emergencyContact) throws InvalidInputException {
+    if((emergencyContact.equals(""))||(emergencyContact==null)){
+      throw new InvalidInputException(" Emergency contact cannot be empty");
+  }
+}
+  private static void checklinkeduser(String email) {
+    var user=User.getWithEmail(email);
+    if(user!=null) {
+      switch(user.getClass().hashCode()) {
+        case dummy.getCla :
+          
+        
       }
+    }
+  }
 }
-private void checkname(String name) {
   
-}
-}
-}
-}
+
+
+
+
+
+
