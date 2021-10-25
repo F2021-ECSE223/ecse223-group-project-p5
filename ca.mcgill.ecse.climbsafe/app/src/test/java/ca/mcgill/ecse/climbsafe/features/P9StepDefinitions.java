@@ -225,7 +225,7 @@ public class P9StepDefinitions {
    */
   @Then("the following {string} shall be raised. \\(p9)")
   public void the_following_shall_be_raised_p9(String errorString) {
-    assertTrue(errorString.contains(errorString));
+    assertTrue(error.contains(errorString));
   }
 
   /**

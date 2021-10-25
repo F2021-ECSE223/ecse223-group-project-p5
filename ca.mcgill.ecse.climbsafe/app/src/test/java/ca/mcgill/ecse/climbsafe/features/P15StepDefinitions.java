@@ -185,7 +185,7 @@ public class P15StepDefinitions {
     assertEquals(Boolean.parseBoolean(newHotelRequired), member.getHotelRequired());
 
 
-    List<Integer> actualQuantities = Arrays.stream(newRequestedQuantities.split(","))
+    List<Integer> expectedQuantities = Arrays.stream(newRequestedQuantities.split(","))
         .map(String::trim).mapToInt(Integer::parseInt).boxed().toList();
     List<String> expectedItems = Arrays.asList(newBookableItems.split(","));
 
@@ -198,7 +198,7 @@ public class P15StepDefinitions {
     for (BookedItem memberItem : memberItems) {
       assertTrue(expectedItems.contains(memberItem.getItem().getName()));
       int index = expectedItems.indexOf(memberItem.getItem().getName());
-      assertEquals((Integer) memberItem.getQuantity(), actualQuantities.get(index));
+      assertEquals(expectedQuantities.get(index), (Integer) memberItem.getQuantity());
     }
   }
 
