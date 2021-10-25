@@ -5,8 +5,6 @@ import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.Assignment;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
-import ca.mcgill.ecse.climbsafe.model.BookedItem;
-import ca.mcgill.ecse.climbsafe.model.BundleItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
 import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
@@ -37,9 +35,9 @@ public class ClimbSafeFeatureSet6Controller {
     // Fetch the instance of BookableItem associated with <name>
     BookableItem equipmentToBeDeleted = BookableItem.getWithName(name);
     /*
-     * Before casting equipmentToBeDeleted to Equipment and deleting, we need to verify that it is both not
-     * null and an instance of Equipment to guarantee we are calling the correct version of the
-     * method delete().
+     * Before casting equipmentToBeDeleted to Equipment and deleting, we need to verify that it is
+     * both not null and an instance of Equipment to guarantee we are calling the correct version of
+     * the method delete().
      */
     if (equipmentToBeDeleted != null && equipmentToBeDeleted instanceof Equipment) {
       /*
@@ -64,7 +62,7 @@ public class ClimbSafeFeatureSet6Controller {
    * @throws InvalidInputException if the corresponding <code>EquipmentBundle</code> instance does
    *         not exist.
    */
-  public static void deleteEquipmentBundle(String name) throws InvalidInputException {
+  public static void deleteEquipmentBundle(String name) {
     // Fetch instance of BookableItem associated with <name>
     BookableItem equipmentBundleToBeDeleted = BookableItem.getWithName(name);
     /*
@@ -75,8 +73,6 @@ public class ClimbSafeFeatureSet6Controller {
     if (equipmentBundleToBeDeleted != null
         && equipmentBundleToBeDeleted instanceof EquipmentBundle) {
       ((EquipmentBundle) equipmentBundleToBeDeleted).delete();
-    } else {
-      throw new InvalidInputException("The equipment bundle " + name + " does not exist");
     }
   }
 
@@ -89,14 +85,14 @@ public class ClimbSafeFeatureSet6Controller {
    */
   public static List<TOAssignment> getAssignments() {
     ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
-    ArrayList<TOAssignment> assignmentList = new ArrayList<TOAssignment>();
+    ArrayList<TOAssignment> TOAssignmentList = new ArrayList<TOAssignment>();
 
-    for (Assignment assignment : climbSafe.getAssignments()) {
-      TOAssignment newTOAssignment = wrapAssignment(assignment);
-      assignmentList.add(newTOAssignment);
+    for (var assignment : climbSafe.getAssignments()) {
+      var newTOAssignment = wrapAssignment(assignment);
+      TOAssignmentList.add(newTOAssignment);
     }
 
-    return assignmentList;
+    return TOAssignmentList;
   }
 
   /**
@@ -120,7 +116,6 @@ public class ClimbSafeFeatureSet6Controller {
     int nrOfWeeks = assignmentMember.getNrWeeks(), startWeek = assignment.getStartWeek(),
         endWeek = assignment.getEndWeek(), totalCostForGuide =
             assignment.hasGuide() ? nrOfWeeks * assignmentClimbSafe.getPriceOfGuidePerWeek() : 0;
-
     /*
      * Calculate the totalCostForEquipment.
      * 
@@ -130,14 +125,14 @@ public class ClimbSafeFeatureSet6Controller {
      * Multiply equipmentCostPerWeek by nrOfWeeks to get totalCostForEquipment.
      */
     int equipmentCostPerWeek = 0;
-    for (BookedItem bookedItem : assignmentMember.getBookedItems()) {
+    for (var bookedItem : assignmentMember.getBookedItems()) {
       BookableItem item = bookedItem.getItem();
       if (item instanceof Equipment) {
         equipmentCostPerWeek += ((Equipment) item).getPricePerWeek() * bookedItem.getQuantity();
       } else if (item instanceof EquipmentBundle) {
         EquipmentBundle bundle = ((EquipmentBundle) item);
         int bundleCost = 0;
-        for (BundleItem bundledItem : bundle.getBundleItems()) {
+        for (var bundledItem : bundle.getBundleItems()) {
           bundleCost += bundledItem.getEquipment().getPricePerWeek() * bundledItem.getQuantity();
         }
         /*
