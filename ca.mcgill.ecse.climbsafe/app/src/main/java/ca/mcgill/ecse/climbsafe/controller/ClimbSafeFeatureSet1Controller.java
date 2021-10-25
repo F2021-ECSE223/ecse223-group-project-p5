@@ -32,6 +32,7 @@ public class ClimbSafeFeatureSet1Controller {
       throw new InvalidInputException("The price of guide per week must be greater than or equal to zero.");
     }
 
+    // setup singleton ClimbSafe object with parameters
     ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
     cs.setStartDate(startDate);
     cs.setNrWeeks(nrWeeks);
