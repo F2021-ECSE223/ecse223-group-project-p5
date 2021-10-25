@@ -115,10 +115,10 @@ public class P11StepDefinitions {
 
     // check if its email, password, name and emergency contacts match the updated
     // information
-    assertEquals(guide.getEmail(), email);
-    assertEquals(guide.getPassword(), newPassword);
-    assertEquals(guide.getName(), newName);
-    assertEquals(guide.getEmergencyContact(), newEmergencyContact);
+    assertEquals(email, guide.getEmail());
+    assertEquals(newPassword, guide.getPassword());
+    assertEquals(newName, guide.getName());
+    assertEquals(newEmergencyContact, guide.getEmergencyContact());
   }
 
   /**
@@ -132,7 +132,7 @@ public class P11StepDefinitions {
   @Then("the number of guides in the system is {int} \\(p11)")
   public void the_number_of_guides_in_the_system_is_p11(Integer numOfGuides) {
 
-    assertEquals(climbSafe.getGuides().size(), numOfGuides); // check the number of guides in the
+    assertEquals(numOfGuides, climbSafe.getGuides().size()); // check the number of guides in the
                                                              // system corresponds
                                                              // to the integer
   }
@@ -170,10 +170,10 @@ public class P11StepDefinitions {
 
     // check its information corresponds to the strings which correspond to his
     // previous informations
-    assertEquals(guide.getEmail(), email);
-    assertEquals(guide.getPassword(), password);
-    assertEquals(guide.getName(), name);
-    assertEquals(guide.getEmergencyContact(), emergencyContact);
+    assertEquals(email, guide.getEmail());
+    assertEquals(password, guide.getPassword());
+    assertEquals(name, guide.getName());
+    assertEquals(emergencyContact, guide.getEmergencyContact());
 
   }
 

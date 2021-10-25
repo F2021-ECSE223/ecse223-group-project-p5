@@ -98,8 +98,8 @@ public class P13StepDefinitions {
       String numStars) {
     Hotel current = Hotel.getWithName(name);
     assertNotNull(current);
-    assertEquals(current.getAddress(), address);
-    assertEquals(current.getRating(), toRating(numStars));// Get the hotel using hotel by name
+    assertEquals(address, current.getAddress());
+    assertEquals(toRating(numStars), current.getRating());// Get the hotel using hotel by name
                                                           // method
                                                           // Next test if its null and whether the
                                                           // address and number of stars is correct
@@ -178,7 +178,7 @@ public class P13StepDefinitions {
   public void the_hotel_will_be_updated_to_have_a_and_p13(String newName, String newAddress,
       String newRating) {
     Hotel hotel = Hotel.getWithName(newName);
-    assertEquals(hotel.getAddress(), newAddress);
+    assertEquals(newAddress, hotel.getAddress());
     assertEquals(toRating(newRating), hotel.getRating());
   }
 
@@ -194,9 +194,9 @@ public class P13StepDefinitions {
   @Then("the hotel will keep its {string}, {string}, and {string} \\(p13)")
   public void the_hotel_will_keep_its_and_p13(String oldName, String oldAddress, String oldRating) {
     Hotel hotel = Hotel.getWithName(oldName);
-    assertEquals(hotel.getName(), oldName);
-    assertEquals(hotel.getAddress(), oldAddress);
-    assertEquals(hotel.getRating(), toRating(oldRating));
+    assertEquals(oldName, hotel.getName());
+    assertEquals(oldAddress, hotel.getAddress());
+    assertEquals(toRating(oldRating), hotel.getRating());
   }
 
   /**
@@ -208,7 +208,7 @@ public class P13StepDefinitions {
 
   @Then("the following error {string} shall be raised \\(p13)")
   public void the_following_error_shall_be_raised_p13(String string) {
-    Assertions.assertEquals(error, string);
+    Assertions.assertEquals(string, error);
   }
 
   /**
