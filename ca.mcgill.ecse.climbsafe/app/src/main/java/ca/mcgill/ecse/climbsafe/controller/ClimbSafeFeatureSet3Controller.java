@@ -33,10 +33,7 @@ public class ClimbSafeFeatureSet3Controller {
          checkemail(email);
          checkpassword(password);
          checkemergencyContact(emergencyContact);
-         
-            
-           
-    
+         checkname(name);
     try {
       climbsafe.addGuide(email, password, name, emergencyContact);
     } catch (RuntimeException e) {
@@ -55,13 +52,10 @@ public class ClimbSafeFeatureSet3Controller {
    */
   public static void updateGuide(String email, String newPassword, String newName,
       String newEmergencyContact) throws InvalidInputException {
-     checkemail(email);
-        
-        
-          
-          
-          
-      
+    checkemail(email);
+    checkpassword(newPassword);
+    checkemergencyContact(newEmergencyContact);
+    checkname(newName);
     Guide guide = findGuide(email);
     if (guide != null) {
       guide.setName(newName);
@@ -87,6 +81,9 @@ public class ClimbSafeFeatureSet3Controller {
       }
         else if(email.contains(" ")) {
           throw new InvalidInputException("Email must not contain any spaces");
+        }
+        else {
+          checklinkeduser(email);
         }
   }
   
@@ -115,17 +112,20 @@ public class ClimbSafeFeatureSet3Controller {
       throw new InvalidInputException(" Emergency contact cannot be empty");
   }
 }
-  private static void checklinkeduser(String email) {
+  private static void checklinkeduser(String email) throws InvalidInputException {
     var user=User.getWithEmail(email);
     if(user!=null) {
-      switch(user.getClass().hashCode()) {
-        case dummy.getCla :
-          
-        
+      if(user.getClass()==Guide.class) {
+        throw new InvalidInputException(" Email already linked to a guide account");
+      }
+        else {
+        throw new InvalidInputException(" Email already linked to a member account");    
       }
     }
   }
+  
 }
+
   
 
 
