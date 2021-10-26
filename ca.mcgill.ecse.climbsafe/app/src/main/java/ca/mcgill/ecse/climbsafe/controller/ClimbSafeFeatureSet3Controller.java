@@ -30,7 +30,7 @@ public class ClimbSafeFeatureSet3Controller {
   public static void registerGuide(String email, String password, String name,
       String emergencyContact) throws InvalidInputException {
    
-         checkemail(email);
+         checkemail(email,name);
          checkpassword(password);
          checkemergencyContact(emergencyContact);
          checkname(name);
@@ -52,7 +52,7 @@ public class ClimbSafeFeatureSet3Controller {
    */
   public static void updateGuide(String email, String newPassword, String newName,
       String newEmergencyContact) throws InvalidInputException {
-    checkemail(email);
+   // checkemail(email,newName);
     checkpassword(newPassword);
     checkemergencyContact(newEmergencyContact);
     checkname(newName);
@@ -60,6 +60,7 @@ public class ClimbSafeFeatureSet3Controller {
     if (guide != null) {
       guide.setName(newName);
       guide.setPassword(newPassword);
+      guide.setEmergencyContact(newEmergencyContact);
     }
   }
   
@@ -72,7 +73,7 @@ public class ClimbSafeFeatureSet3Controller {
    * @return
    * @throws InvalidInputException 
    */
-  private static  void checkemail(String email) throws InvalidInputException  {
+  private static  void checkemail(String email,String name) throws InvalidInputException  {
     if(email.equals("")) {
       throw new InvalidInputException("Email cannot be empty");
      }
@@ -83,14 +84,16 @@ public class ClimbSafeFeatureSet3Controller {
           throw new InvalidInputException("Email must not contain any spaces");
         }
         else {
+          
           checklinkeduser(email);
+          checkvalidemail(email,name);
         }
   }
   
   private static Guide findGuide(String email) {
     Guide foundGuide = null;
     for (var guide : climbsafe.getGuides()) {
-      if (guide.getEmail() == email) {
+      if (guide.getEmail().equals(email)) {
         foundGuide = guide;
         break;
       }
@@ -123,15 +126,39 @@ public class ClimbSafeFeatureSet3Controller {
       }
     }
   }
-  private static void checkvalidemail(String email) throws InvalidInputException {
+  private static void checkvalidemail(String email,String name) throws InvalidInputException {
+    int firstindex=email.indexOf("@");
+    StringBuilder n=new StringBuilder();
+    for(int i=firstindex;i<=firstindex+9;i++) {
+      try{n.append(email.charAt(i));
+    }
+      catch(RuntimeException e ){
+        throw new InvalidInputException("Invalid email");
+      }
+    }
+    String EMAIL=n.toString();
+    System.out.println(EMAIL);
+    if(!EMAIL.equals("@email.com")) {
+    throw new InvalidInputException("Invalid email");
+    }
+      
+    int namelength=name.length();
+    StringBuilder m=new StringBuilder();
+    for(int j=0;j<=namelength-1;j++) {
+      try{m.append(email.charAt(j));
+    }
+      catch(RuntimeException e){
+        throw new InvalidInputException("Invalid email");
+      } 
+    }
+    String NAME=m.toString();
+    if (!NAME.equalsIgnoreCase(name)) {
+      throw new InvalidInputException("Invalid email");
     
   }
+  }
+  }
   
-}
-
-  
-
-
 
 
 
