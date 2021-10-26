@@ -1,8 +1,10 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
+import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.BundleItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
@@ -22,12 +24,11 @@ public class ClimbSafeFeatureSet5Controller {
    * @param equipmentQuantities
    * @throws InvalidInputException
    */
-
+  private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
   public static void addEquipmentBundle(String name, int discount, List<String> equipmentNames,
       List<Integer> equipmentQuantities) throws InvalidInputException {
 
-    ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
- 
+    
 
     validate_equipmentQuantities(equipmentQuantities);
     validate_discount(discount);
@@ -37,7 +38,7 @@ public class ClimbSafeFeatureSet5Controller {
     /**
      * validation check for List<String> equipmentNames
      */
-    List<Equipment> existing_equipment= climbSafe.getEquipment();
+    //List<Equipment> existing_equipment= climbSafe.getEquipment();
        
     //does not exist equipment name
     for (String itemName : equipmentNames) {
@@ -64,11 +65,10 @@ public class ClimbSafeFeatureSet5Controller {
        }
     }
     
-    climbSafe.addBundle(name, discount);
+    EquipmentBundle new_added_bundle = climbSafe.addBundle(name, discount);
+    bundleItems(new_added_bundle, equipmentNames, equipmentQuantities);
     
-    
- 
-  }
+     }
 
   /**
    * @author Annie Kang October 20th, 2021
@@ -83,29 +83,13 @@ public class ClimbSafeFeatureSet5Controller {
   public static void updateEquipmentBundle(String oldName, String newName, int newDiscount,
       List<String> newEquipmentNames, List<Integer> newEquipmentQuantities)
           throws InvalidInputException {
-
-
-    ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
-    
-    
-
-    validate_equipmentQuantities(newEquipmentQuantities);
-    validate_discount(newDiscount);
-    validate_name(newName);
-    
     
     /**
      * validation check for List<String> equipmentNames
      */
-    List<Equipment> existing_equipment= climbSafe.getEquipment();
+   // List<Equipment> existing_equipment= climbSafe.getEquipment();
        
-    //does not exist equipment name
-    for (String itemName : newEquipmentNames) {
-      if( Equipment.getWithName(itemName) == null) {
-        throw new InvalidInputException("Equipment "+itemName+" does not exist");
-      }
-    }
-    
+ 
     
     // at least 2 distinct equipment
     if(newEquipmentNames.size()<=1) {
@@ -123,25 +107,48 @@ public class ClimbSafeFeatureSet5Controller {
          temp.add(eq_name);
        }
     }
+    
+    //does not exist equipment name
+    for (String itemName : newEquipmentNames) {
+      if( BookableItem.getWithName(itemName) == null) {
+        throw new InvalidInputException("Equipment "+itemName+" does not exist");
+      }
+    }
 
- 
+    validate_equipmentQuantities(newEquipmentQuantities);
+    validate_discount(newDiscount);
+    validate_name(newName);
+    
+    
     /**
      * Existence of bundle with old name
      */
 
-    //did not find the bundle with old name
-    if (EquipmentBundle.hasWithName(oldName)) {
-      throw new InvalidInputException("Equipment bundle "+oldName+"does not exist");
-    }
+    var checker = BookableItem.getWithName(oldName);
     
+    if(checker != null && checker instanceof EquipmentBundle) {
+      var found_bundle = (EquipmentBundle) checker;
+      
+          if(oldName != newName) {
+            found_bundle.setName(newName);
+          }
+          
+          found_bundle.setDiscount(newDiscount);
+          //delete old
+          while (found_bundle.hasBundleItems()) {
+            found_bundle.getBundleItem(0).delete();
+          }
+          //update new
+          //---------------------------------
+          bundleItems(found_bundle, newEquipmentNames, newEquipmentQuantities);
+
   
-    EquipmentBundle found_bundle = (EquipmentBundle) EquipmentBundle.getWithName(oldName);
-    //update
-    found_bundle.setName(newName);
-    found_bundle.setDiscount(newDiscount);
-   
-    
+    }
+    else {
+      throw new InvalidInputException("Equipment bundle "+oldName+" does not exist");
+    }
  }
+
   
 /**
  * Helper method for validating equipment quantities list
@@ -201,10 +208,35 @@ public class ClimbSafeFeatureSet5Controller {
     }
     
   }
-  private static void validate_equipmentNames_list(List<String> equipmentNames) throws InvalidInputException {
+  
+  private static void bundleItems (EquipmentBundle equipmentBundle, List<String> equipmentNames, List<Integer> equipmentQuantities) throws InvalidInputException {
+    Iterator<String> equi_iterator = equipmentNames.iterator();
+    Iterator<Integer> quanti_iterator = equipmentQuantities.iterator();
+    while (equi_iterator.hasNext() && quanti_iterator.hasNext()) {
+      String item = equi_iterator.next();
+      Integer qty = quanti_iterator.next();
+      // only add item when quantity is larger than 0
+      if (qty > 0) {
+        var bookable = BookableItem.getWithName(item);
+        if (bookable instanceof Equipment) {
+          Equipment found_eq = (Equipment) bookable;
+       // check if item exists as a BookableItem
+          if (bookable != null) {
+            climbSafe.addBundleItem(qty, equipmentBundle, found_eq);
+          } 
+        }
+        
+        else {
+          throw new InvalidInputException("Requested item not found");
+        }
+      }
+    }
     
   }
-
-
   
-  }
+
+
+
+
+
+}
