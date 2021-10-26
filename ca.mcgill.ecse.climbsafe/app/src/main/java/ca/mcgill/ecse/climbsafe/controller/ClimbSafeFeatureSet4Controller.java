@@ -3,6 +3,7 @@ package ca.mcgill.ecse.climbsafe.controller;
 import java.util.Iterator;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
+import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.BundleItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
@@ -18,7 +19,9 @@ import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
 public class ClimbSafeFeatureSet4Controller {
 
   public static void addEquipment(String name, int weight, int pricePerWeek) throws InvalidInputException {
-     
+  
+  ClimbSafe climbsafe = ClimbSafeApplication.getClimbSafe();
+    
   if (weight <= 0) {
 	  throw new InvalidInputException("The weight must be greater than 0.");
  // } else if (weight < 0) {
@@ -27,14 +30,19 @@ public class ClimbSafeFeatureSet4Controller {
 	  throw new InvalidInputException("The price per week must be greater than or equal to 0");
   } else if (name == null) {
 	  throw new InvalidInputException("The name must not be empty");
-  } else if (name.contains("bundle")){	 
-	  throw new InvalidInputException("The equipment bundle already exists");	  
-  } else {  
-	  ClimbSafe climbsafe = ClimbSafeApplication.getClimbSafe();
-		  Equipment equipment =  new Equipment(name, weight, pricePerWeek, climbsafe);
-		  Boolean check = climbsafe.addEquipment(equipment);
-		  if (!check) {
-		  throw new InvalidInputException("The piece of "+name+" already exists");
+  } 
+  
+  var equipbun = BookableItem.getWithName(name);
+  if (equipbun != null) {
+    if (equipbun instanceof EquipmentBundle) {
+      throw new InvalidInputException("The equipment bundle already exists");
+    }
+  }
+  
+  var equip = BookableItem.getWithName(name);
+  if (equip != null) {
+    if (equip instanceof Equipment) {
+      throw new InvalidInputException("The piece of equipment already exists");
 	  }	  
   }
 }
