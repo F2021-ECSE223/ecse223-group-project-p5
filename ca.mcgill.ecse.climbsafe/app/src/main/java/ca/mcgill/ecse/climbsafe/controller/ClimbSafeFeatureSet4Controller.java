@@ -75,13 +75,17 @@ public class ClimbSafeFeatureSet4Controller {
 	}  
 	
 	var newequip = BookableItem.getWithName(newName);
-	if (newequip instanceof Equipment) {
-	  throw new InvalidInputException("The piece of equipment already exists");
+	if (!newName.equals(oldName)) {
+	  if (newequip instanceof Equipment) {
+	      throw new InvalidInputException("The piece of equipment already exists");
+	    }
+	    
+	    if (newequip instanceof EquipmentBundle) {
+	      throw new InvalidInputException("An equipment bundle with the same name already exists");
+	    }
+	  
 	}
 	
-	if (newequip instanceof EquipmentBundle) {
-	  throw new InvalidInputException("An equipment bundle with the same name already exists");
-	}
 
 	var checker = BookableItem.getWithName(oldName);
 	
