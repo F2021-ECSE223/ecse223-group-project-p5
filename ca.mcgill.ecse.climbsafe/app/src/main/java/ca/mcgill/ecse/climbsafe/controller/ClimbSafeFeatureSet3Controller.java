@@ -77,7 +77,7 @@ public class ClimbSafeFeatureSet3Controller {
       throw new InvalidInputException("Email cannot be empty");
      }
       else if(email.equals("admin@nmc.nt")) {
-        throw new InvalidInputException(" Email cannot be admin@nmc.nt");
+        throw new InvalidInputException("Email cannot be admin@nmc.nt");
       }
         else if(email.contains(" ")) {
           throw new InvalidInputException("Email must not contain any spaces");
@@ -109,19 +109,22 @@ public class ClimbSafeFeatureSet3Controller {
 }
   private static void checkemergencyContact(String emergencyContact) throws InvalidInputException {
     if((emergencyContact.equals(""))||(emergencyContact==null)){
-      throw new InvalidInputException(" Emergency contact cannot be empty");
+      throw new InvalidInputException("Emergency contact cannot be empty");
   }
 }
   private static void checklinkeduser(String email) throws InvalidInputException {
     var user=User.getWithEmail(email);
     if(user!=null) {
-      if(user.getClass()==Guide.class) {
-        throw new InvalidInputException(" Email already linked to a guide account");
+      if(user.getClass().equals(Guide.class)) {
+        throw new InvalidInputException("Email already linked to a guide account");
       }
         else {
-        throw new InvalidInputException(" Email already linked to a member account");    
+        throw new InvalidInputException("Email already linked to a member account");    
       }
     }
+  }
+  private static void checkvalidemail(String email) throws InvalidInputException {
+    
   }
   
 }
