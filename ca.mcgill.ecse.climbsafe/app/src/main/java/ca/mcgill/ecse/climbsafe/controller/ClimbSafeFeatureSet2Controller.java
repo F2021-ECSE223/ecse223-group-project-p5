@@ -60,13 +60,15 @@ public class ClimbSafeFeatureSet2Controller {
       throw new InvalidInputException("The email entered is not allowed for members");
     }
     /*
-     * check if email doesn't belong to existing guide
-     * umple check this anyway but this prints the expected error message
+     * check if email doesn't belong to existing guide or member umple check this anyway but this
+     * prints the expected error message
      */
     var usr = User.getWithEmail(email);
     if (usr != null) {
       if (usr instanceof Guide) {
         throw new InvalidInputException("A guide with this email already exists");
+      } else if (usr instanceof Member) {
+        throw new InvalidInputException("A member with this email already exists");
       }
     }
     /*
@@ -210,9 +212,9 @@ public class ClimbSafeFeatureSet2Controller {
    */
   private static void validateEmergencyContact(String contact) throws InvalidInputException {
     if (contact == null) {
-      throw new InvalidInputException("The emergence contact cannot be empty");
+      throw new InvalidInputException("The emergency contact cannot be empty");
     } else if (contact.equals("")) {
-      throw new InvalidInputException("The emergence contact cannot be empty");
+      throw new InvalidInputException("The emergency contact cannot be empty");
     }
   }
 
