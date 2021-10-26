@@ -248,9 +248,9 @@ public class P7StepDefinitions {
 
       assertTrue(e instanceof Equipment);
 
-      assertEquals(((Equipment) e).getWeight(), Integer.parseInt(rows.get(i).get(weight)));
-      assertEquals(((Equipment) e).getPricePerWeek(),
-          Integer.parseInt(rows.get(i).get(pricePerWeek)));
+      assertEquals(Integer.parseInt(rows.get(i).get(weight)), ((Equipment) e).getWeight());
+      assertEquals(Integer.parseInt(rows.get(i).get(pricePerWeek)),
+          ((Equipment) e).getPricePerWeek());
 
     }
   }
@@ -309,7 +309,7 @@ public class P7StepDefinitions {
       }
     }
     assertNotNull(item);
-    assertEquals(item.getQuantity(), Integer.parseInt(itemQuantity));
+    assertEquals(Integer.parseInt(itemQuantity), item.getQuantity());
   }
 
   /**

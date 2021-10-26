@@ -14,6 +14,6 @@ Feature: Setup NMC program information (p10)
 
     Examples: 
       | startDate  | nrWeeks | priceOfGuidePerWeek | error                                                              |
-      | 2022-01-13 |       0 |                  50 | The number of climbing weeks must be greater than or equal to zero |
-      | 2022-01-13 |      20 |                   0 | The price of guide per week must be greater than or equal to zero  |
+      | 2022-01-13 |      -1 |                  50 | The number of climbing weeks must be greater than or equal to zero |
+      | 2022-01-13 |      20 |                  -1 | The price of guide per week must be greater than or equal to zero  |
       | 2021-31-31 |      20 |                  50 | Invalid date                                                       |
