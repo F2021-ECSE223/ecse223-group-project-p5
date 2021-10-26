@@ -1,7 +1,5 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
-import java.util.Iterator;
-import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
@@ -21,28 +19,26 @@ public class ClimbSafeFeatureSet4Controller {
   public static void addEquipment(String name, int weight, int pricePerWeek) throws InvalidInputException {
   
    /*
-    * Validate weight & pricePerWeek
+    * Validate weight & pricePerWeek & name
     */
    
   if (weight <= 0) {
-	  throw new InvalidInputException("The weight must be greater than 0.");
+	  throw new InvalidInputException("The weight must be greater than 0");
   } else if (pricePerWeek < 0) {
 	  throw new InvalidInputException("The price per week must be greater than or equal to 0");
-  } 
+  } else if (name == null || name.equals("") || name.equals(" ")) {
+    throw new InvalidInputException("The name must not be empty"); 
+  }
   
   /*
    * Validate name
    */
   
-  var equip = BookableItem.getWithName(name);  
-  if (equip == null) {
-    throw new InvalidInputException("The name must not be empty");
-} 
-  else {
+  var equip = BookableItem.getWithName(name);
     if (equip instanceof Equipment) {
       throw new InvalidInputException("The piece of equipment already exists");
-      }   
-  }
+    }   
+  
   
   var equipbun = BookableItem.getWithName(name);
   if (equipbun != null) {
