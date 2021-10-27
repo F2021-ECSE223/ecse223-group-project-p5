@@ -14,7 +14,8 @@ import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
  *
  */
 public class ClimbSafeFeatureSet4Controller {
-
+  
+  // reference to ClimbSafe
   private static ClimbSafe climbsafe = ClimbSafeApplication.getClimbSafe();
   public static void addEquipment(String name, int weight, int pricePerWeek) throws InvalidInputException {
   
@@ -31,7 +32,7 @@ public class ClimbSafeFeatureSet4Controller {
   }
   
   /*
-   * Validate name
+   * Validate existent of equipment and equipment bundle in the system
    */
   
   var equip = BookableItem.getWithName(name);
