@@ -54,7 +54,10 @@ public class ClimbSafeFeatureSet4Controller {
 
   public static void updateEquipment(String oldName, String newName, int newWeight,
       int newPricePerWeek) throws InvalidInputException {
-	  
+	
+    /*
+     * Validate newWeight & newPricePerWeek & newName
+     */
 
 	if (newWeight <= 0) {
 		throw new InvalidInputException("The weight must be greater than 0");
@@ -65,6 +68,10 @@ public class ClimbSafeFeatureSet4Controller {
 	} else if (newName.equals(" ")) {
 	    throw new InvalidInputException("The name must not be empty");
 	}
+	
+	/*
+	 * Validate existent of equipment and equipment bundle in the system
+	 */
 	
 	var equip = BookableItem.getWithName(oldName);
 	if (equip == null) {
@@ -83,6 +90,7 @@ public class ClimbSafeFeatureSet4Controller {
 	  
 	}
 	
+	// update the equipment with new information
 
 	var checker = BookableItem.getWithName(oldName);
 	
