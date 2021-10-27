@@ -13,9 +13,9 @@ import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
 public class ClimbSafeFeatureSet5Controller {
 
   /**
-   * @author Annie Kang October 26th, 2021
-   * 
    * Method to add a instance of equipment bundle to the application.
+   * 
+   * @author Annie Kang October 26th, 2021
    * @param name
    * @param discount
    * @param equipmentNames
@@ -23,6 +23,7 @@ public class ClimbSafeFeatureSet5Controller {
    * @throws InvalidInputException
    */
   private static ClimbSafe climbSafe = ClimbSafeApplication.getClimbSafe();
+
   public static void addEquipmentBundle(String name, int discount, List<String> equipmentNames,
       List<Integer> equipmentQuantities) throws InvalidInputException {
 
@@ -38,32 +39,33 @@ public class ClimbSafeFeatureSet5Controller {
     /**
      * validation check for List<String> equipmentNames
      */
-    //List<Equipment> existing_equipment= climbSafe.getEquipment();
+    // List<Equipment> existing_equipment= climbSafe.getEquipment();
 
-    //does not exist equipment name
+    // does not exist equipment name
     for (String itemName : equipmentNames) {
-      if( Equipment.getWithName(itemName) == null) {
-        throw new InvalidInputException("Equipment "+itemName+" does not exist");
+      if (Equipment.getWithName(itemName) == null) {
+        throw new InvalidInputException("Equipment " + itemName + " does not exist");
       }
     }
 
     // at least 2 distinct equipment
-    if(equipmentNames.size()<=1) {
-      throw new InvalidInputException("Equipment bundle must contain at least two distinct types of equipment");
+    if (equipmentNames.size() <= 1) {
+      throw new InvalidInputException(
+          "Equipment bundle must contain at least two distinct types of equipment");
     }
 
-    //repeating equipment  
-    List<String> temp=new ArrayList<String>();
-    //temp.add(equipmentNames.get(0));
-    for(String eq_name : equipmentNames) {
-      if(temp.contains(eq_name)) {
-        throw new InvalidInputException("Equipment bundle must contain at least two distinct types of equipment");
-      }
-      else {
+    // repeating equipment
+    List<String> temp = new ArrayList<String>();
+    // temp.add(equipmentNames.get(0));
+    for (String eq_name : equipmentNames) {
+      if (temp.contains(eq_name)) {
+        throw new InvalidInputException(
+            "Equipment bundle must contain at least two distinct types of equipment");
+      } else {
         temp.add(eq_name);
       }
     }
-    
+
     /**
      * validate to add equipment bundle and bundle items
      */
@@ -84,36 +86,37 @@ public class ClimbSafeFeatureSet5Controller {
    */
   public static void updateEquipmentBundle(String oldName, String newName, int newDiscount,
       List<String> newEquipmentNames, List<Integer> newEquipmentQuantities)
-          throws InvalidInputException {
+      throws InvalidInputException {
 
     /**
      * validation check for List<String> equipmentNames
      */
-   
+
     // at least 2 distinct equipment
-    if(newEquipmentNames.size()<=1) {
-      throw new InvalidInputException("Equipment bundle must contain at least two distinct types of equipment");
+    if (newEquipmentNames.size() <= 1) {
+      throw new InvalidInputException(
+          "Equipment bundle must contain at least two distinct types of equipment");
     }
 
-    //repeating equipment  
-    List<String> temp=new ArrayList<String>();
-    for(String eq_name : newEquipmentNames) {
-      if(temp.contains(eq_name)) {
-        throw new InvalidInputException("Equipment bundle must contain at least two distinct types of equipment");
-      }
-      else {
+    // repeating equipment
+    List<String> temp = new ArrayList<String>();
+    for (String eq_name : newEquipmentNames) {
+      if (temp.contains(eq_name)) {
+        throw new InvalidInputException(
+            "Equipment bundle must contain at least two distinct types of equipment");
+      } else {
         temp.add(eq_name);
       }
     }
 
-    //does not exist equipment name
+    // does not exist equipment name
     for (String itemName : newEquipmentNames) {
-      if( BookableItem.getWithName(itemName) == null) {
-        throw new InvalidInputException("Equipment "+itemName+" does not exist");
+      if (BookableItem.getWithName(itemName) == null) {
+        throw new InvalidInputException("Equipment " + itemName + " does not exist");
       }
     }
 
-    
+
     /**
      * validation for discount and quantities
      */
@@ -126,15 +129,13 @@ public class ClimbSafeFeatureSet5Controller {
      */
     if (newName == null) {
       throw new InvalidInputException("Equipment bundle name cannot be empty");
-    }
-    else if (newName.equals("")) {
+    } else if (newName.equals("")) {
+      throw new InvalidInputException("Equipment bundle name cannot be empty");
+    } else if (newName.equals(" ")) {
       throw new InvalidInputException("Equipment bundle name cannot be empty");
     }
-    else if (newName.equals(" ")) {
-      throw new InvalidInputException("Equipment bundle name cannot be empty");
-    }
-    if( EquipmentBundle.getWithName(newName) != null && !newName.equals(oldName)) {
-      throw new InvalidInputException("A bookable item called "+newName+" already exists");
+    if (EquipmentBundle.getWithName(newName) != null && !newName.equals(oldName)) {
+      throw new InvalidInputException("A bookable item called " + newName + " already exists");
     }
 
 
@@ -144,24 +145,24 @@ public class ClimbSafeFeatureSet5Controller {
 
     var checker = BookableItem.getWithName(oldName);
 
-    if(checker != null && checker instanceof EquipmentBundle) {
+    if (checker != null && checker instanceof EquipmentBundle) {
       var found_bundle = (EquipmentBundle) checker;
 
       found_bundle.setName(newName);
       found_bundle.setDiscount(newDiscount);
 
-      
-      //delete old
+
+      // delete old
       while (found_bundle.hasBundleItems()) {
         found_bundle.getBundleItem(0).delete();
       }
-      //update new
-     
+      // update new
+
       bundleItems(found_bundle, newEquipmentNames, newEquipmentQuantities);
     }
 
     else {
-      throw new InvalidInputException("Equipment bundle "+oldName+" does not exist");
+      throw new InvalidInputException("Equipment bundle " + oldName + " does not exist");
     }
   }
 
@@ -172,17 +173,20 @@ public class ClimbSafeFeatureSet5Controller {
    * @param equipmentQuantities
    * @throws InvalidInputException
    */
-  private static void validate_equipmentQuantities(List<Integer> equipmentQuantities) throws InvalidInputException {
+  private static void validate_equipmentQuantities(List<Integer> equipmentQuantities)
+      throws InvalidInputException {
     /**
-     * validation check for List<Integer> equipmentQuantities        
+     * validation check for List<Integer> equipmentQuantities
      */
     for (int quantity : equipmentQuantities) {
-      if (quantity <1) {
-        throw new InvalidInputException("Each bundle item must have quantity greater than or equal to 1");
+      if (quantity < 1) {
+        throw new InvalidInputException(
+            "Each bundle item must have quantity greater than or equal to 1");
       }
     }
 
   }
+
   /**
    * Helper method for validating input discount
    * 
@@ -191,16 +195,16 @@ public class ClimbSafeFeatureSet5Controller {
    */
   private static void validate_discount(int discount) throws InvalidInputException {
     /**
-     * validation check for discount 
+     * validation check for discount
      */
 
     if (discount < 0) {
       throw new InvalidInputException("Discount must be at least 0");
-    }
-    else if (discount > 100) {
+    } else if (discount > 100) {
       throw new InvalidInputException("Discount must be no more than 100");
     }
   }
+
   private static void validate_name(String name) throws InvalidInputException {
     /**
      * validation check for name
@@ -208,31 +212,32 @@ public class ClimbSafeFeatureSet5Controller {
 
     if (name == null) {
       throw new InvalidInputException("Equipment bundle name cannot be empty");
-    }
-    else if (name.equals("")) {
+    } else if (name.equals("")) {
       throw new InvalidInputException("Equipment bundle name cannot be empty");
-    }
-    else if (name.equals(" ")) {
+    } else if (name.equals(" ")) {
       throw new InvalidInputException("Equipment bundle name cannot be empty");
     }
 
     /**
      * validation check for duplicated name
      */
-    if( EquipmentBundle.getWithName(name) != null) {
-      throw new InvalidInputException("A bookable item called "+name+" already exists");
+    if (EquipmentBundle.getWithName(name) != null) {
+      throw new InvalidInputException("A bookable item called " + name + " already exists");
     }
 
   }
+
   /**
    * adding bundle items to equipment bundle
+   * 
    * @param equipmentBundle
    * @param equipmentNames
    * @param equipmentQuantities
    * @throws InvalidInputException
    */
 
-  private static void bundleItems (EquipmentBundle equipmentBundle, List<String> equipmentNames, List<Integer> equipmentQuantities) throws InvalidInputException {
+  private static void bundleItems(EquipmentBundle equipmentBundle, List<String> equipmentNames,
+      List<Integer> equipmentQuantities) throws InvalidInputException {
     Iterator<String> equi_iterator = equipmentNames.iterator();
     Iterator<Integer> quanti_iterator = equipmentQuantities.iterator();
     while (equi_iterator.hasNext() && quanti_iterator.hasNext()) {
@@ -246,7 +251,7 @@ public class ClimbSafeFeatureSet5Controller {
           // check if item exists as a BookableItem
           if (bookable != null) {
             climbSafe.addBundleItem(quantity, equipmentBundle, found_eq);
-          } 
+          }
         }
 
         else {
@@ -256,9 +261,6 @@ public class ClimbSafeFeatureSet5Controller {
     }
 
   }
-
-
-
 
 
 
