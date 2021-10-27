@@ -13,6 +13,7 @@ import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
  * @author SiboHuang
  *
  */
+
 public class ClimbSafeFeatureSet4Controller {
 
   // reference to ClimbSafe
@@ -25,7 +26,7 @@ public class ClimbSafeFeatureSet4Controller {
    * @param pricePerWeek
    * @throws InvalidInputException
    */
-  
+
   public static void addEquipment(String name, int weight, int pricePerWeek)
       throws InvalidInputException {
 
@@ -61,7 +62,7 @@ public class ClimbSafeFeatureSet4Controller {
     climbsafe.addEquipment(name, weight, pricePerWeek);
   }
 
-  
+
   /**
    * 
    * @param oldName
