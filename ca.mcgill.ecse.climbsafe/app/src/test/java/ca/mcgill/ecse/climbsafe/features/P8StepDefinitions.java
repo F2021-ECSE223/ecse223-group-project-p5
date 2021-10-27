@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet5Controller;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
@@ -125,6 +127,9 @@ public class P8StepDefinitions {
     }
 
     assertNotNull(equipmentBundle);
+    
+     // check bundle size
+     assertEquals(itemNamesCleaned.size(), equipmentBundle.getBundleItems().size());
 
     for (int i = 0; i < itemNamesCleaned.size(); i++) {
       BundleItem currentItem = null;
@@ -138,6 +143,7 @@ public class P8StepDefinitions {
       assertNotNull(currentItem);
       assertEquals(quantity, currentItem.getQuantity());
     }
+
   }
 
   // @Ke
@@ -182,5 +188,6 @@ public class P8StepDefinitions {
   public void the_error_shall_be_raised_p8(String string) {
     assertTrue(error.contains(string));
   }
-  
+
 }
+
