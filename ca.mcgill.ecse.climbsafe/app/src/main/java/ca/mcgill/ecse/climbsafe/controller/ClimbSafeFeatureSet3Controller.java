@@ -6,13 +6,13 @@ import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.User;
 
 /**
- * controller to register guide and updateguide
+ * controller to register guide and update guide
  * 
  * @author Yida Pan
  *
  */
 public class ClimbSafeFeatureSet3Controller {
-  //// reference to ClimbSafe
+  // reference to ClimbSafe
   private static ClimbSafe climbsafe = ClimbSafeApplication.getClimbSafe();
 
   /**
@@ -26,8 +26,6 @@ public class ClimbSafeFeatureSet3Controller {
    * @throws InvalidInputException
    * 
    */
-
-
   public static void registerGuide(String email, String password, String name,
       // check invalid input and trow exceptions
       String emergencyContact) throws InvalidInputException {
@@ -124,7 +122,6 @@ public class ClimbSafeFeatureSet3Controller {
    * @param password
    * @throws InvalidInputException if the password is empty
    */
-
   private static void checkpassword(String password) throws InvalidInputException {
     if ((password.equals("")) || (password == null)) {
       throw new InvalidInputException("Password cannot be empty");
@@ -149,7 +146,6 @@ public class ClimbSafeFeatureSet3Controller {
    * @param email
    * @throws InvalidInputException if the email is linked to existing guide or member
    */
-
   private static void checklinkeduser(String email) throws InvalidInputException {
     var user = User.getWithEmail(email);
     if (user != null) {
