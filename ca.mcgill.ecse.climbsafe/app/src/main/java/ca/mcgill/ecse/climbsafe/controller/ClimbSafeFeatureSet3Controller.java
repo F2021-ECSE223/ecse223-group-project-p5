@@ -82,7 +82,6 @@ public class ClimbSafeFeatureSet3Controller {
     } else if (email.contains(" ")) {
       throw new InvalidInputException("Email must not contain any spaces");
     } else {
-
       checklinkeduser(email);
       checkvalidemail(email, name);
     }
@@ -200,7 +199,6 @@ public class ClimbSafeFeatureSet3Controller {
     String NAME = m.toString();
     if (!NAME.equalsIgnoreCase(name)) {
       throw new InvalidInputException("Invalid email");
-
     }
   }
 }
