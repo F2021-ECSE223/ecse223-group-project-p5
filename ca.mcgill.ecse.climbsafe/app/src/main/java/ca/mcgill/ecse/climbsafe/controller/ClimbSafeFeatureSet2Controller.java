@@ -60,8 +60,8 @@ public class ClimbSafeFeatureSet2Controller {
       throw new InvalidInputException("The email entered is not allowed for members");
     }
     /*
-     * check if email doesn't belong to existing guide or member umple check this anyway but this
-     * prints the expected error message
+     * check if email doesn't belong to existing guide or member and print the expected error
+     * messages
      */
     var usr = User.getWithEmail(email);
     if (usr != null) {
@@ -80,19 +80,14 @@ public class ClimbSafeFeatureSet2Controller {
     validateNrWeeks(nrWeeks);
     validateItems(itemNames, itemQuantities);
     /*
-     * create the member
+     * create the member, handle umple's exception if somehow member still fails to create after all
+     * checks
      */
     try {
       var newMember = cs.addMember(email, password, name, emergencyContact, nrWeeks, guideRequired,
           hotelRequired);
       // book items for the member
-      try {
-        bookItems(newMember, itemNames, itemQuantities);
-      } catch (InvalidInputException e) {
-        // if exist invalid item, undo creation of the member
-        newMember.delete();
-        throw new InvalidInputException(e.getMessage());
-      }
+      bookItems(newMember, itemNames, itemQuantities);
     } catch (RuntimeException e) {
       throw new InvalidInputException(e.getMessage());
     }
@@ -158,11 +153,7 @@ public class ClimbSafeFeatureSet2Controller {
     /*
      * update items
      */
-    try {
-      bookItems(member, newItemNames, newItemQuantities);
-    } catch (InvalidInputException e) {
-      throw new InvalidInputException(e.getMessage());
-    }
+    bookItems(member, newItemNames, newItemQuantities);
   }
 
   /**
@@ -241,40 +232,36 @@ public class ClimbSafeFeatureSet2Controller {
   private static void validateItems(List<String> itemNames, List<Integer> itemQuantities)
       throws InvalidInputException {
     if (itemNames == null) {
-      throw new InvalidInputException("A list of items must be specified.");
+      throw new InvalidInputException("A list of items must be specified");
     }
     if (itemQuantities == null) {
-      throw new InvalidInputException("A list of item quantities must be specified.");
+      throw new InvalidInputException("A list of item quantities must be specified");
     }
     if (itemNames.size() != itemQuantities.size()) {
-      throw new InvalidInputException("Length of list of item and item quantities doesn't match.");
+      throw new InvalidInputException("Length of list of item and item quantities doesn't match");
+    }
+    for (var item : itemNames) {
+      if (BookableItem.getWithName(item) == null) {
+        throw new InvalidInputException("Requested item not found");
+      }
     }
   }
 
   /**
-   * Book the items in the list for the member
+   * Book the items in the list for the member. Assuming the inputs have already been validated.
    * 
    * @param member
    * @param itemNames
    * @param itemQuantities
    */
-  private static void bookItems(Member member, List<String> itemNames, List<Integer> itemQuantities)
-      throws InvalidInputException {
+  private static void bookItems(Member member, List<String> itemNames,
+      List<Integer> itemQuantities) {
     Iterator<String> itemIter = itemNames.iterator();
     Iterator<Integer> qtyIter = itemQuantities.iterator();
     while (itemIter.hasNext() && qtyIter.hasNext()) {
       String item = itemIter.next();
       Integer qty = qtyIter.next();
-      // only add item when quantity is larger than 0
-      if (qty > 0) {
-        var bookedItem = BookableItem.getWithName(item);
-        // check if item exists as a BookableItem
-        if (bookedItem != null) {
-          cs.addBookedItem(qty, member, bookedItem);
-        } else {
-          throw new InvalidInputException("Requested item not found");
-        }
-      }
+      cs.addBookedItem(qty, member, BookableItem.getWithName(item));
     }
   }
 
