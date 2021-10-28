@@ -6,6 +6,7 @@ import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
+import ca.mcgill.ecse.climbsafe.model.User;
 
 /**
  * ClimbSafeFeatureSet1 is the first feature set for the ClimbSafe system
@@ -24,10 +25,12 @@ public class ClimbSafeFeatureSet1Controller {
    */
   public static void setup(Date startDate, int nrWeeks, int priceOfGuidePerWeek)
       throws InvalidInputException {
+    // constraint ensuring positive number of weeks
     if (nrWeeks < 0) {
       throw new InvalidInputException("The number of climbing weeks must be greater than or equal to zero.");
     }
 
+    // constraint ensuring positive guide price
     if (priceOfGuidePerWeek < 0.0) {
       throw new InvalidInputException("The price of guide per week must be greater than or equal to zero.");
     }
@@ -45,14 +48,14 @@ public class ClimbSafeFeatureSet1Controller {
    * @param email the email of the member to delete
    */
   public static void deleteMember(String email) {
-    ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
-
-    for (Member member : cs.getMembers()) {
-      if (member.getEmail() == email) {
-        // found member
-        member.delete();
-        break;
-      }
+    User targetUser = Member.getWithEmail(email);
+    /*
+     * After checking the found User is not null, we must verify targetUser is indeed a Member because
+     * Member.getWithEmail calls the superclass method, User.getWithEmail which iterates through all
+     * users, including the Admin and Guides.
+     */
+    if (targetUser != null && targetUser instanceof Member) {
+      targetUser.delete();
     }
   }
 
@@ -62,14 +65,14 @@ public class ClimbSafeFeatureSet1Controller {
    * @param email the email of the guide to delete
    */
   public static void deleteGuide(String email) {
-    ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
-
-    for (Guide guide : cs.getGuides()) {
-      if (guide.getEmail() == email) {
-        // found guide
-        guide.delete();
-        break;
-      }
+    User targetUser = Guide.getWithEmail(email);
+    /*
+     * After checking the found User is not null, we must verify targetUser is indeed a Guide because
+     * Guide.getWithEmail calls the superclass method, User.getWithEmail which iterates through all
+     * users, including the Admin and Members.
+     */
+    if (targetUser != null && targetUser instanceof Guide) {
+      targetUser.delete();
     }
   }
 
