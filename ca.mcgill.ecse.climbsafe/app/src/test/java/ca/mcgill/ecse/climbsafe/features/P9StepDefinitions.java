@@ -145,11 +145,11 @@ public class P9StepDefinitions {
    * @param password
    * @param name
    * @param emergencyContact
-   * @param strnrWeeks
-   * @param stritemNames
-   * @param stritemQuantities
-   * @param strguideRequired
-   * @param strhotelRequired
+   * @param strNrWeeks
+   * @param strBookableItems
+   * @param strItemQuantities
+   * @param strGuideRequired
+   * @param strHotelRequired
    * @author KaraBest & JoeyKoay & VictorMicha
    */
 
