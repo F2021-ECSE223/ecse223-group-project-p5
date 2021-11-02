@@ -5,7 +5,7 @@ Feature: Process assignments
     Given the following ClimbSafe system exists:
       | startDate  | nrWeeks | priceOfGuidePerWeek |
       | 2022-01-13 |       5 |                  50 |
-    Given the following equipment exists in the system:
+    Given the following pieces of equipment exist in the system:
       | name           | weight | pricePerWeek |
       | rope           |   3000 |            5 |
       | pickaxe        |   1000 |           50 |
@@ -186,28 +186,28 @@ Feature: Process assignments
     When the administrator attempts to cancel the trip for "charlie@hotmail.ca"
     Then the error "Cannot cancel a trip which has finished" shall be raised
     Then the assignment for "charlie@hotmail.ca" shall be marked as "Finished"
-    
+
   Scenario: Administrator starts trips
-      Given the member with "alice@gmail.com" has paid for their trip
-      When the administrator attempts to start the trips for week "1"
-      Then the assignment for "alice@gmail.com" shall be marked as "Started"
-      Then the member with email "charlie@hotmail.ca" shall be banned
-      Then the member with email "john@hotmail.ca" shall be banned
-      Then the assignment for "emily@hotmail.ca" shall be marked as "Assigned"
+    Given the member with "alice@gmail.com" has paid for their trip
+    When the administrator attempts to start the trips for week "1"
+    Then the assignment for "alice@gmail.com" shall be marked as "Started"
+    Then the member with email "charlie@hotmail.ca" shall be "Banned"
+    Then the member with email "john@hotmail.ca" shall be "Banned"
+    Then the assignment for "emily@hotmail.ca" shall be marked as "Assigned"
 
-    Scenario Outline: Successfully finish trip for member
-      Given the member with "<email>" has started their trip
-      When the administrator attempts to finish the trip for the member with email "<email>"
-      Then the assignment for "<email>" shall be marked as "Finished"
-      Then the member with email address "<email>" shall receive a refund of "0" percent
+  Scenario Outline: Successfully finish trip for member
+    Given the member with "<email>" has started their trip
+    When the administrator attempts to finish the trip for the member with email "<email>"
+    Then the assignment for "<email>" shall be marked as "Finished"
+    Then the member with email address "<email>" shall receive a refund of "0" percent
 
-      Examples:
-        | email              |
-        | alice@gmail.com    |
-        | charlie@hotmail.ca |
+    Examples: 
+      | email              |
+      | alice@gmail.com    |
+      | charlie@hotmail.ca |
 
-    Scenario: Finish trip with invalid email
-      When the administrator attempts to finish the trip for the member with email "nonexisting@mail.ca"
-      Then the member account with the email "nonexisting@mail.ca" does not exist
-      Then there are "4" members in the system
-      Then the error "Member with email address nonexisting@mail.ca does not exist" shall be raised 
+  Scenario: Finish trip with invalid email
+    When the administrator attempts to finish the trip for the member with email "nonexisting@mail.ca"
+    Then the member account with the email "nonexisting@mail.ca" does not exist
+    Then there are "4" members in the system
+    Then the error "Member with email address nonexisting@mail.ca does not exist" shall be raised
