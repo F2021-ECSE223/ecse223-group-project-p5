@@ -1,0 +1,75 @@
+external interface Serializable {}
+
+namespace ca.mcgill.ecse.climbsafe.model;
+
+use ClimbSafePersistence.ump;
+
+class ClimbSafe {
+  depend java.io.Serializable;
+  isA Serializable;
+  // TODO: set serial value
+  private static final long serialVersionUID = 0L;
+}
+
+class Administrator {
+  depend java.io.Serializable;
+  isA Serializable;
+  // TODO: set serial value
+  private static final long serialVersionUID = 0L;
+}
+class Guide {
+  depend java.io.Serializable;
+  isA Serializable;
+  // TODO: set serial value
+  private static final long serialVersionUID = 0L;
+}
+
+class Member {
+  depend java.io.Serializable;
+  isA Serializable;
+  // TODO: set serial value
+  private static final long serialVersionUID = 0L;
+}
+
+associationClass BookedItem {
+  depend java.io.Serializable;
+  isA Serializable;
+  // TODO: set serial value
+  private static final long serialVersionUID = 0L;
+}
+
+class Equipment {
+  depend java.io.Serializable;
+  isA Serializable;
+  // TODO: set serial value
+  private static final long serialVersionUID = 0L;
+}
+
+class EquipmentBundle {
+  depend java.io.Serializable;
+  isA Serializable;
+  // TODO: set serial value
+  private static final long serialVersionUID = 0L;
+}
+
+associationClass BundleItem {
+  depend java.io.Serializable;
+  isA Serializable;
+  // TODO: set serial value
+  private static final long serialVersionUID = 0L;
+}
+
+class Hotel {
+  unique name;
+  address;
+  enum HotelRating { OneStar, TwoStars, ThreeStars, FourStars, FiveStars }
+  HotelRating rating;
+} 
+
+class Assignment {
+  Integer startWeek;
+  Integer endWeek;
+  0..1 -- 1 Member member;
+  * -- 0..1 Guide guide;
+  * -- 0..1 Hotel hotel;
+}

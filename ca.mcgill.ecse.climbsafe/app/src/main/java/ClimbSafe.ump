@@ -1,6 +1,7 @@
 namespace ca.mcgill.ecse.climbsafe.model;
 
 use ClimbSafeStates.ump;
+use ClimbSafePersistence.ump;
 
 class ClimbSafe {
   Date startDate;
