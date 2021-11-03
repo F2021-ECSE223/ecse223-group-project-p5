@@ -4,9 +4,9 @@ class Member {
 	  toggleBan() -> Banned;
 		ban() -> Banned;
 	  }
-	  Banned {
-		toggleBan() -> Unbanned;
-		unban() -> Unbanned;
-	  }
+	Banned {
+	  toggleBan() -> Unbanned;
+	  unban() -> Unbanned;
+	}
   }
 }
