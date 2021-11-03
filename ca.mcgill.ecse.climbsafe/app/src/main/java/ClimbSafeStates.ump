@@ -1,0 +1,12 @@
+class Member {
+  banStatus {
+	Unbanned {
+	  toggleBan() -> Banned;
+		ban() -> Banned;
+	  }
+	  Banned {
+		toggleBan() -> Unbanned;
+		unban() -> Unbanned;
+	  }
+  }
+}
