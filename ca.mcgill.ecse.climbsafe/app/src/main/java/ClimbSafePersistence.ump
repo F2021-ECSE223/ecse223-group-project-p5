@@ -1,9 +1,5 @@
 external interface Serializable {}
 
-namespace ca.mcgill.ecse.climbsafe.model;
-
-use ClimbSafePersistence.ump;
-
 class ClimbSafe {
   depend java.io.Serializable;
   isA Serializable;
