@@ -152,17 +152,21 @@ public class Assignment
         wasEventProcessed = true;
         break;
       case Paid:
-        setAssignmentStatus(AssignmentStatus.Started);
-        wasEventProcessed = true;
+        if (checkBan("start"))
+        {
+          setAssignmentStatus(AssignmentStatus.Started);
+          wasEventProcessed = true;
+          break;
+        }
         break;
       case Cancelled:
-        // line 66 "../../../../../ClimbSafeStates.ump"
+        // line 65 "../../../../../ClimbSafeStates.ump"
         rejectAction("start", "been cancelled");
         setAssignmentStatus(AssignmentStatus.Cancelled);
         wasEventProcessed = true;
         break;
       case Finished:
-        // line 94 "../../../../../ClimbSafeStates.ump"
+        // line 93 "../../../../../ClimbSafeStates.ump"
         rejectAction("start", "finished");
         setAssignmentStatus(AssignmentStatus.Finished);
         wasEventProcessed = true;
@@ -182,32 +186,35 @@ public class Assignment
     switch (aAssignmentStatus)
     {
       case Assigned:
+        if (checkBan("pay for"))
+        {
         // line 31 "../../../../../ClimbSafeStates.ump"
-        checkBan("pay for");
-				doPay(code);
-        setAssignmentStatus(AssignmentStatus.Paid);
-        wasEventProcessed = true;
+          doPay(code);
+          setAssignmentStatus(AssignmentStatus.Paid);
+          wasEventProcessed = true;
+          break;
+        }
         break;
       case Paid:
-        // line 46 "../../../../../ClimbSafeStates.ump"
+        // line 45 "../../../../../ClimbSafeStates.ump"
         rejectRedundantPayment();
         setAssignmentStatus(AssignmentStatus.Paid);
         wasEventProcessed = true;
         break;
       case Cancelled:
-        // line 62 "../../../../../ClimbSafeStates.ump"
+        // line 61 "../../../../../ClimbSafeStates.ump"
         rejectAction("pay for", "been cancelled");
         setAssignmentStatus(AssignmentStatus.Cancelled);
         wasEventProcessed = true;
         break;
       case Started:
-        // line 84 "../../../../../ClimbSafeStates.ump"
+        // line 83 "../../../../../ClimbSafeStates.ump"
         rejectRedundantPayment();
         setAssignmentStatus(AssignmentStatus.Started);
         wasEventProcessed = true;
         break;
       case Finished:
-        // line 90 "../../../../../ClimbSafeStates.ump"
+        // line 89 "../../../../../ClimbSafeStates.ump"
         rejectAction("pay for", "finished");
         setAssignmentStatus(AssignmentStatus.Finished);
         wasEventProcessed = true;
@@ -227,25 +234,37 @@ public class Assignment
     switch (aAssignmentStatus)
     {
       case Assigned:
-        // line 36 "../../../../../ClimbSafeStates.ump"
-        setRefundPercentage(100);
-        setAssignmentStatus(AssignmentStatus.Cancelled);
-        wasEventProcessed = true;
+        if (checkBan("cancel"))
+        {
+        // line 35 "../../../../../ClimbSafeStates.ump"
+          setRefundPercentage(100);
+          setAssignmentStatus(AssignmentStatus.Cancelled);
+          wasEventProcessed = true;
+          break;
+        }
         break;
       case Paid:
-        // line 50 "../../../../../ClimbSafeStates.ump"
-        setRefundPercentage(50);
-        setAssignmentStatus(AssignmentStatus.Cancelled);
-        wasEventProcessed = true;
+        if (checkBan("cancel"))
+        {
+        // line 49 "../../../../../ClimbSafeStates.ump"
+          setRefundPercentage(50);
+          setAssignmentStatus(AssignmentStatus.Cancelled);
+          wasEventProcessed = true;
+          break;
+        }
         break;
       case Started:
-        // line 76 "../../../../../ClimbSafeStates.ump"
-        setRefundPercentage(10);
-        setAssignmentStatus(AssignmentStatus.Cancelled);
-        wasEventProcessed = true;
+        if (checkBan("cancel"))
+        {
+        // line 75 "../../../../../ClimbSafeStates.ump"
+          setRefundPercentage(10);
+          setAssignmentStatus(AssignmentStatus.Cancelled);
+          wasEventProcessed = true;
+          break;
+        }
         break;
       case Finished:
-        // line 98 "../../../../../ClimbSafeStates.ump"
+        // line 97 "../../../../../ClimbSafeStates.ump"
         rejectAction("cancel", "finished");
         setAssignmentStatus(AssignmentStatus.Finished);
         wasEventProcessed = true;
@@ -265,28 +284,32 @@ public class Assignment
     switch (aAssignmentStatus)
     {
       case Assigned:
-        // line 40 "../../../../../ClimbSafeStates.ump"
+        // line 39 "../../../../../ClimbSafeStates.ump"
         rejectAction("finish", "not started");
         setAssignmentStatus(AssignmentStatus.Assigned);
         wasEventProcessed = true;
         break;
       case Paid:
-        // line 56 "../../../../../ClimbSafeStates.ump"
+        // line 55 "../../../../../ClimbSafeStates.ump"
         rejectAction("finish", "not started");
         setAssignmentStatus(AssignmentStatus.Paid);
         wasEventProcessed = true;
         break;
       case Cancelled:
-        // line 70 "../../../../../ClimbSafeStates.ump"
+        // line 69 "../../../../../ClimbSafeStates.ump"
         rejectAction("finish", "been cancelled");
         setAssignmentStatus(AssignmentStatus.Cancelled);
         wasEventProcessed = true;
         break;
       case Started:
-        // line 80 "../../../../../ClimbSafeStates.ump"
-        setRefundPercentage(0);
-        setAssignmentStatus(AssignmentStatus.Finished);
-        wasEventProcessed = true;
+        if (checkBan("finish"))
+        {
+        // line 79 "../../../../../ClimbSafeStates.ump"
+          setRefundPercentage(0);
+          setAssignmentStatus(AssignmentStatus.Finished);
+          wasEventProcessed = true;
+          break;
+        }
         break;
       default:
         // Other states do respond to this event
@@ -441,7 +464,7 @@ public class Assignment
     }
   }
 
-  // line 105 "../../../../../ClimbSafeStates.ump"
+  // line 104 "../../../../../ClimbSafeStates.ump"
    private void doPay(String code){
     if (code.equals("")) {
 			throw new RuntimeException("Invalid authorization code");
@@ -450,7 +473,7 @@ public class Assignment
 		setPaymentCode(code);
   }
 
-  // line 113 "../../../../../ClimbSafeStates.ump"
+  // line 112 "../../../../../ClimbSafeStates.ump"
    private void doAssign(int startWeek, int endWeek, Guide guide, Hotel hotel){
     setStartWeek(startWeek);
 		setEndWeek(endWeek);
@@ -462,19 +485,21 @@ public class Assignment
 		}
   }
 
-  // line 124 "../../../../../ClimbSafeStates.ump"
-   private void checkBan(String verb){
-    if (member.getBanStatus().equals(BanStatus.Banned)) {
+  // line 123 "../../../../../ClimbSafeStates.ump"
+   private boolean checkBan(String verb){
+    if (member.getBanStatus().equals(BanStatus.Unbanned)) {
 			throw new RuntimeException("Cannot " + verb + " the trip due to a ban");
 		}
+		
+		return true;
   }
 
-  // line 130 "../../../../../ClimbSafeStates.ump"
+  // line 131 "../../../../../ClimbSafeStates.ump"
    private void rejectAction(String verb, String reason){
     throw new RuntimeException("Cannot " + verb + " a trip which has " + reason);
   }
 
-  // line 134 "../../../../../ClimbSafeStates.ump"
+  // line 135 "../../../../../ClimbSafeStates.ump"
    private void rejectRedundantPayment(){
     throw new RuntimeException("Trip has already been paid for");
   }
