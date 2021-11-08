@@ -17,6 +17,10 @@ public class Member extends NamedUser
   private boolean guideRequired;
   private boolean hotelRequired;
 
+  //Member State Machines
+  public enum BanStatus { Unbanned, Banned }
+  private BanStatus banStatus;
+
   //Member Associations
   private ClimbSafe climbSafe;
   private Assignment assignment;
@@ -38,6 +42,7 @@ public class Member extends NamedUser
       throw new RuntimeException("Unable to create member due to climbSafe. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     bookedItems = new ArrayList<BookedItem>();
+    setBanStatus(BanStatus.Unbanned);
   }
 
   //------------------------
@@ -91,6 +96,80 @@ public class Member extends NamedUser
   public boolean isHotelRequired()
   {
     return hotelRequired;
+  }
+
+  public String getBanStatusFullName()
+  {
+    String answer = banStatus.toString();
+    return answer;
+  }
+
+  public BanStatus getBanStatus()
+  {
+    return banStatus;
+  }
+
+  public boolean toggleBan()
+  {
+    boolean wasEventProcessed = false;
+    
+    BanStatus aBanStatus = banStatus;
+    switch (aBanStatus)
+    {
+      case Unbanned:
+        setBanStatus(BanStatus.Banned);
+        wasEventProcessed = true;
+        break;
+      case Banned:
+        setBanStatus(BanStatus.Unbanned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean ban()
+  {
+    boolean wasEventProcessed = false;
+    
+    BanStatus aBanStatus = banStatus;
+    switch (aBanStatus)
+    {
+      case Unbanned:
+        setBanStatus(BanStatus.Banned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean unban()
+  {
+    boolean wasEventProcessed = false;
+    
+    BanStatus aBanStatus = banStatus;
+    switch (aBanStatus)
+    {
+      case Banned:
+        setBanStatus(BanStatus.Unbanned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  private void setBanStatus(BanStatus aBanStatus)
+  {
+    banStatus = aBanStatus;
   }
   /* Code from template association_GetOne */
   public ClimbSafe getClimbSafe()
