@@ -109,28 +109,6 @@ public class Member extends NamedUser
     return banStatus;
   }
 
-  public boolean toggleBan()
-  {
-    boolean wasEventProcessed = false;
-    
-    BanStatus aBanStatus = banStatus;
-    switch (aBanStatus)
-    {
-      case Unbanned:
-        setBanStatus(BanStatus.Banned);
-        wasEventProcessed = true;
-        break;
-      case Banned:
-        setBanStatus(BanStatus.Unbanned);
-        wasEventProcessed = true;
-        break;
-      default:
-        // Other states do respond to this event
-    }
-
-    return wasEventProcessed;
-  }
-
   public boolean ban()
   {
     boolean wasEventProcessed = false;
