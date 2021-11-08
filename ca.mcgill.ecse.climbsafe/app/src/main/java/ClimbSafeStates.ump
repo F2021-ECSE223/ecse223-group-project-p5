@@ -28,11 +28,12 @@ class Assignment {
 				member.ban();
 			} -> Assigned;
 			
-			pay(String code) [checkBan("pay for")] / {
+			pay(String code) / {
+				checkBan("pay for");
 				doPay(code);
 			} -> Paid;
 			
-			cancel() [checkBan("cancel")] / {
+			cancel() / {
 				setRefundPercentage(100);
 			} -> Cancelled;
 			
@@ -46,11 +47,11 @@ class Assignment {
 				rejectRedundantPayment();
 			} -> Paid;
 			
-			cancel() [checkBan("cancel")] / {
+			cancel() / {
 				setRefundPercentage(50);
 			} -> Cancelled;
 			
-			start() [checkBan("start")] -> Started;
+			start() -> Started;
 			
 			finish() / {
 				rejectAction("finish", "not started");
@@ -72,11 +73,11 @@ class Assignment {
 		}
 		
 		Started {
-			cancel() [checkBan("cancel")] / {
+			cancel() / {
 				setRefundPercentage(10);
 			} -> Cancelled;
 			
-			finish() [checkBan("finish")] / {
+			finish() / {
 				setRefundPercentage(0);
 			} -> Finished;
 			
@@ -119,12 +120,10 @@ class Assignment {
 		}
 	}
 	
-	private boolean checkBan(String verb) {
-		if (member.getBanStatus().equals(BanStatus.Unbanned)) {
+	private void checkBan(String verb) {
+		if (member.getBanStatus().equals(BanStatus.Banned)) {
 			throw new RuntimeException("Cannot " + verb + " the trip due to a ban");
 		}
-		
-		return true; 
 	}
 	
 	private void rejectAction(String verb, String reason) {
