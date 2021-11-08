@@ -1,5 +1,7 @@
 namespace ca.mcgill.ecse.climbsafe.model;
 
+use ClimbSafeStates.ump;
+
 class ClimbSafe {
   Date startDate;
   Integer nrWeeks;
