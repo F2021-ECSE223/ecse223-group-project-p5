@@ -22,8 +22,8 @@ Feature: Process assignments
       | email              | password | name             | emergencyContact | nrWeeks | guideRequired | hotelRequired | bookedItems          | bookedItemQuantities |
       | alice@gmail.com    | pass123  | Alice Jones      |       2005551234 |       3 | true          | false         | small bundle,pickaxe |                  2,1 |
       | charlie@hotmail.ca | charlie  | Charles Tremblay |       2005559876 |       3 | false         | true          | large bundle         |                    2 |
-      | john@hotmail.ca    | john123  | John Doe         |       2005551234 |       2 | true          | false         | small bundle,rope    |                  2,1 |
-      | emily@hotmail.ca   | emily007 | Emily Green      |       2005559876 |       3 | true          | true          | large bundle         |                    2 |
+      | john@hotmail.ca    | john123  | John Doe         |       2005551234 |       3 | true          | false         | small bundle,rope    |                  2,1 |
+      | emily@hotmail.ca   | emily007 | Emily Green      |       2005559876 |       2 | true          | true          | large bundle         |                    2 |
     Given the following assignments exist in the system:
       | memberEmail        | guideEmail   | startWeek | endWeek |
       | alice@gmail.com    | bob@nmc.nt   |         1 |       3 |
