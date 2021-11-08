@@ -34,6 +34,7 @@ class Assignment {
 			} -> Paid;
 			
 			cancel() / {
+				checkBan("cancel");
 				setRefundPercentage(100);
 			} -> Cancelled;
 			
@@ -48,10 +49,13 @@ class Assignment {
 			} -> Paid;
 			
 			cancel() / {
+				checkBan("cancel");
 				setRefundPercentage(50);
 			} -> Cancelled;
 			
-			start() -> Started;
+			start() / {
+				checkBan("start");
+			} -> Started;
 			
 			finish() / {
 				rejectAction("finish", "not started");
@@ -74,10 +78,12 @@ class Assignment {
 		
 		Started {
 			cancel() / {
+				checkBan("cancel");
 				setRefundPercentage(10);
 			} -> Cancelled;
 			
 			finish() / {
+				checkBan("finish");
 				setRefundPercentage(0);
 			} -> Finished;
 			
