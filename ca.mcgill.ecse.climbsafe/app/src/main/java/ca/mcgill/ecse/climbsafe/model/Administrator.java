@@ -4,7 +4,7 @@
 package ca.mcgill.ecse.climbsafe.model;
 import java.util.*;
 
-// line 24 "../../../../../ClimbSafe.ump"
+// line 26 "../../../../../ClimbSafe.ump"
 public class Administrator extends User
 {
 

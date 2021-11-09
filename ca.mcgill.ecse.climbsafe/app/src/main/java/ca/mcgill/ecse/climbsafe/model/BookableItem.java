@@ -4,7 +4,7 @@
 package ca.mcgill.ecse.climbsafe.model;
 import java.util.*;
 
-// line 52 "../../../../../ClimbSafe.ump"
+// line 54 "../../../../../ClimbSafe.ump"
 public abstract class BookableItem
 {
 

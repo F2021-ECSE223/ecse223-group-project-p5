@@ -5,7 +5,7 @@ package ca.mcgill.ecse.climbsafe.model;
 import java.sql.Date;
 import java.util.*;
 
-// line 3 "../../../../../ClimbSafe.ump"
+// line 5 "../../../../../ClimbSafe.ump"
 public class ClimbSafe
 {
 
