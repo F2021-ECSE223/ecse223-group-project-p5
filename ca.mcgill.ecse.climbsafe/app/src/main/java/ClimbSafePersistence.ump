@@ -3,69 +3,91 @@ external interface Serializable {}
 class ClimbSafe {
   depend java.io.Serializable;
   isA Serializable;
-  // TODO: set serial value
-  private static final long serialVersionUID = 0L;
+  private static final long serialVersionUID = 100L;
+  // TODO: addtional methods?
+  
+}
+
+class User {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 200L;
+  // TODO: additional methods?
+  
 }
 
 class Administrator {
   depend java.io.Serializable;
   isA Serializable;
-  // TODO: set serial value
-  private static final long serialVersionUID = 0L;
+  private static final long serialVersionUID = 300L;
+  // TODO: additional methods?
+  
 }
+
+// abstract class NamedUser do not need to be serialized
+
 class Guide {
   depend java.io.Serializable;
   isA Serializable;
-  // TODO: set serial value
-  private static final long serialVersionUID = 0L;
+  private static final long serialVersionUID = 400L;
+  // TODO: additional methods?
+  
 }
 
 class Member {
   depend java.io.Serializable;
   isA Serializable;
-  // TODO: set serial value
-  private static final long serialVersionUID = 0L;
+  private static final long serialVersionUID = 500L;
+  // TODO: additional methods?
+  
 }
 
 associationClass BookedItem {
   depend java.io.Serializable;
   isA Serializable;
-  // TODO: set serial value
-  private static final long serialVersionUID = 0L;
+  private static final long serialVersionUID = 600L;
+  // TODO: additional methods?
+  
 }
+
+
+// abstract class BookableItem do not need to be serialized
 
 class Equipment {
   depend java.io.Serializable;
   isA Serializable;
-  // TODO: set serial value
-  private static final long serialVersionUID = 0L;
+  private static final long serialVersionUID = 700L;
+  // TODO: additional methods?
+  
 }
 
 class EquipmentBundle {
   depend java.io.Serializable;
   isA Serializable;
-  // TODO: set serial value
-  private static final long serialVersionUID = 0L;
+  private static final long serialVersionUID = 800L;
+  // TODO: additional methods?
+  
 }
 
 associationClass BundleItem {
   depend java.io.Serializable;
   isA Serializable;
-  // TODO: set serial value
-  private static final long serialVersionUID = 0L;
+  private static final long serialVersionUID = 900L;
+  // TODO: additional methods?
+  
 }
 
 class Hotel {
-  unique name;
-  address;
-  enum HotelRating { OneStar, TwoStars, ThreeStars, FourStars, FiveStars }
-  HotelRating rating;
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 1000L;
 } 
 
 class Assignment {
-  Integer startWeek;
-  Integer endWeek;
-  0..1 -- 1 Member member;
-  * -- 0..1 Guide guide;
-  * -- 0..1 Hotel hotel;
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 1100L;
+  // TODO: additional methods?
+  
 }
+
