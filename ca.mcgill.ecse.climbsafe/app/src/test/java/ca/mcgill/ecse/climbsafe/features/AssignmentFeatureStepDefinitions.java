@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.climbsafe.features;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import io.cucumber.java.en.When;
 public class AssignmentFeatureStepDefinitions {
 
   private ClimbSafe climbSafe;
+  private String errorMessage;
 
   @Given("the following ClimbSafe system exists:")
   public void the_following_climb_safe_system_exists(io.cucumber.datatable.DataTable dataTable) {
@@ -39,6 +41,8 @@ public class AssignmentFeatureStepDefinitions {
     climbSafe.setStartDate(startDate);
     climbSafe.setNrWeeks(nrWeeks);
     climbSafe.setPriceOfGuidePerWeek(priceOfGuidePerWeek);
+    
+    errorMessage = null;
   }
 
   @Given("the following pieces of equipment exist in the system:")
@@ -133,15 +137,13 @@ public class AssignmentFeatureStepDefinitions {
   }
 
   @Then("the number of assignments in the system shall be {string}")
-  public void the_number_of_assignments_in_the_system_shall_be(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_number_of_assignments_in_the_system_shall_be(String expectedNumberOfAssignments) {
+    assertEquals(Integer.valueOf(expectedNumberOfAssignments), climbSafe.numberOfAssignments());
   }
 
   @Then("the system shall raise the error {string}")
-  public void the_system_shall_raise_the_error(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_system_shall_raise_the_error(String expectedError) {
+    assertEquals(expectedError, errorMessage);
   }
 
   @Given("the following assignments exist in the system:")
@@ -183,15 +185,13 @@ public class AssignmentFeatureStepDefinitions {
   }
 
   @Then("there are {string} members in the system")
-  public void there_are_members_in_the_system(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void there_are_members_in_the_system(String expectedNumberOfMembers) {
+    assertEquals(Integer.valueOf(expectedNumberOfMembers), climbSafe.numberOfMembers());
   }
 
   @Then("the error {string} shall be raised")
-  public void the_error_shall_be_raised(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_error_shall_be_raised(String expectedError) {
+    assertEquals(expectedError, errorMessage);
   }
 
   @When("the administrator attempts to cancel the trip for {string}")
