@@ -1,140 +1,140 @@
 class Member {
   banStatus {
-	Unbanned {
-	  ban() -> Banned;
-	}
-	Banned {
-	  unban() -> Unbanned;
-	}
+    Unbanned {
+      ban() -> Banned;
+    }
+    Banned {
+      unban() -> Unbanned;
+    }
   }
 }
 
 class Assignment {
-	depend ca.mcgill.ecse.climbsafe.model.Member.BanStatus;
-	lazy String paymentCode;
-	Integer refundPercentage = 0;
-	
-	assignmentStatus {
-		Unassigned {
-			assign(Integer startWeek, Integer endWeek, Guide guide, Hotel hotel) / {
-				doAssign(startWeek, endWeek, guide, hotel);
-			} -> Assigned;
-		}
-		
-		Assigned {
-			start() / {
-				member.ban();
-			} -> Assigned;
-			
-			pay(String code) / {
-				checkBan("pay for");
-				doPay(code);
-			} -> Paid;
-			
-			cancel() / {
-				checkBan("cancel");
-				setRefundPercentage(100);
-			} -> Cancelled;
-			
-			finish() / {
-				rejectAction("finish", "not started");
-			} -> Assigned;
-		}
-		
-		Paid {
-			pay(String code) / {
-				rejectRedundantPayment();
-			} -> Paid;
-			
-			cancel() / {
-				checkBan("cancel");
-				setRefundPercentage(50);
-			} -> Cancelled;
-			
-			start() / {
-				checkBan("start");
-			} -> Started;
-			
-			finish() / {
-				rejectAction("finish", "not started");
-			} -> Paid;
-		}
-		
-		Started {
-			cancel() / {
-				checkBan("cancel");
-				setRefundPercentage(10);
-			} -> Cancelled;
-			
-			finish() / {
-				checkBan("finish");
-				setRefundPercentage(0);
-			} -> Finished;
-			
-			pay(String code) / {
-				rejectRedundantPayment();
-			} -> Started;
-		}
-		
-		Finished {
-			pay(String code) / {
-				rejectAction("pay for", "finished");
-			} -> Finished;
-			
-			start() / {
-				rejectAction("start", "finished");
-			} -> Finished;
-			
-			cancel() / {
-				rejectAction("cancel", "finished");
-			} -> Finished;
-		}
+  depend ca.mcgill.ecse.climbsafe.model.Member.BanStatus;
+  lazy String paymentCode;
+  Integer refundPercentage = 0;
 
-		Cancelled {
-			pay(String code) / {
-				rejectAction("pay for", "been cancelled");
-			} -> Cancelled;
-			
-			start() / {
-				rejectAction("start", "been cancelled");
-			} -> Cancelled;
-			
-			finish() / {
-				rejectAction("finish", "been cancelled");
-			} -> Cancelled;
-		}
-	}
+  assignmentStatus {
+    Unassigned {
+      assign(Integer startWeek, Integer endWeek, Guide guide, Hotel hotel) / {
+        doAssign(startWeek, endWeek, guide, hotel);
+      } -> Assigned;
+    }
 
-	private void doPay(String code) {
-		if (code.equals("")) {
-			throw new RuntimeException("Invalid authorization code");
-		}
-		
-		setPaymentCode(code);
-	}
-	
-	private void doAssign(int startWeek, int endWeek, Guide guide, Hotel hotel) {
-		setStartWeek(startWeek);
-		setEndWeek(endWeek);
-		if (guide != null) {
-			setGuide(guide);
-		}
-		if (hotel != null) {
-			setHotel(hotel);
-		}
-	}
-	
-	private void checkBan(String verb) {
-		if (member.getBanStatus().equals(BanStatus.Banned)) {
-			throw new RuntimeException("Cannot " + verb + " the trip due to a ban");
-		}
-	}
-	
-	private void rejectAction(String verb, String reason) {
-		throw new RuntimeException("Cannot " + verb + " a trip which has " + reason);
-	}
-	
-	private void rejectRedundantPayment() {
-		throw new RuntimeException("Trip has already been paid for");
-	}
+    Assigned {
+      start() / {
+        member.ban();
+      } -> Assigned;
+
+      pay(String code) / {
+        checkBan("pay for");
+        doPay(code);
+      } -> Paid;
+
+      cancel() / {
+        checkBan("cancel");
+        setRefundPercentage(100);
+      } -> Cancelled;
+
+      finish() / {
+        rejectAction("finish", "not started");
+      } -> Assigned;
+    }
+
+    Paid {
+      pay(String code) / {
+        rejectRedundantPayment();
+      } -> Paid;
+
+      cancel() / {
+        checkBan("cancel");
+        setRefundPercentage(50);
+      } -> Cancelled;
+
+      start() / {
+        checkBan("start");
+      } -> Started;
+
+      finish() / {
+        rejectAction("finish", "not started");
+      } -> Paid;
+    }
+
+    Started {
+      cancel() / {
+        checkBan("cancel");
+        setRefundPercentage(10);
+      } -> Cancelled;
+
+      finish() / {
+        checkBan("finish");
+        setRefundPercentage(0);
+      } -> Finished;
+
+      pay(String code) / {
+        rejectRedundantPayment();
+      } -> Started;
+    }
+
+    Finished {
+      pay(String code) / {
+        rejectAction("pay for", "finished");
+      } -> Finished;
+
+      start() / {
+        rejectAction("start", "finished");
+      } -> Finished;
+
+      cancel() / {
+        rejectAction("cancel", "finished");
+      } -> Finished;
+    }
+
+    Cancelled {
+      pay(String code) / {
+        rejectAction("pay for", "been cancelled");
+      } -> Cancelled;
+
+      start() / {
+        rejectAction("start", "been cancelled");
+      } -> Cancelled;
+
+      finish() / {
+        rejectAction("finish", "been cancelled");
+      } -> Cancelled;
+    }
+  }
+
+  private void doPay(String code) {
+    if (code.equals("")) {
+      throw new RuntimeException("Invalid authorization code");
+    }
+
+    setPaymentCode(code);
+  }
+
+  private void doAssign(int startWeek, int endWeek, Guide guide, Hotel hotel) {
+    setStartWeek(startWeek);
+    setEndWeek(endWeek);
+    if (guide != null) {
+      setGuide(guide);
+    }
+    if (hotel != null) {
+      setHotel(hotel);
+    }
+  }
+
+  private void checkBan(String verb) {
+    if (member.getBanStatus().equals(BanStatus.Banned)) {
+      throw new RuntimeException("Cannot " + verb + " the trip due to a ban");
+    }
+  }
+
+  private void rejectAction(String verb, String reason) {
+    throw new RuntimeException("Cannot " + verb + " a trip which has " + reason);
+  }
+
+  private void rejectRedundantPayment() {
+    throw new RuntimeException("Trip has already been paid for");
+  }
 }
