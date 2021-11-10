@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
+import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.model.Assignment;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
@@ -84,7 +86,7 @@ public class AssignmentFeatureStepDefinitions {
     for (var equipmentBundle : cucumberData) {
       int discount = Integer.valueOf(equipmentBundle.get("discount"));
       String items = equipmentBundle.get("items");
-      String quantities = equipmentBundle.get("quantities");
+      String quantities = equipmentBundle.get("quantity");
       String[] equipmentItems = items.split(",");
       String[] equipmentQuantities = quantities.split(",");
 
@@ -152,10 +154,10 @@ public class AssignmentFeatureStepDefinitions {
     }
   }
 
+  
   @When("the administrator attempts to initiate the assignment process")
   public void the_administrator_attempts_to_initiate_the_assignment_process() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    AssignmentController.initiateAssignment();
   }
 
   /**
@@ -237,16 +239,18 @@ public class AssignmentFeatureStepDefinitions {
       int endWeek = Integer.valueOf(assignmentData.get("endWeek"));
 
       Assignment newAssignment = climbSafe.addAssignment(startWeek, endWeek, assignmentMember);
-      newAssignment.setGuide(assignmentGuide);
-      newAssignment.setHotel(assignmentHotel);
+      newAssignment.assign(startWeek, endWeek, assignmentGuide, assignmentHotel);
     }
   }
 
   @When("the administrator attempts to confirm payment for {string} using authorization code {string}")
   public void the_administrator_attempts_to_confirm_payment_for_using_authorization_code(
       String string, String string2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    try {
+      AssignmentController.confirmPayment(string, string2);
+    } catch (InvalidInputException e) {
+      errorMessage = e.getMessage();
+    }
   }
   
   /**
@@ -299,8 +303,11 @@ public class AssignmentFeatureStepDefinitions {
 
   @When("the administrator attempts to cancel the trip for {string}")
   public void the_administrator_attempts_to_cancel_the_trip_for(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    try {
+      AssignmentController.cancelTrip(string);
+    } catch (InvalidInputException e) {
+      errorMessage = e.getMessage();
+    }
   }
 
   /**
@@ -345,8 +352,11 @@ public class AssignmentFeatureStepDefinitions {
   @When("the administrator attempts to finish the trip for the member with email {string}")
   public void the_administrator_attempts_to_finish_the_trip_for_the_member_with_email(
       String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    try {
+      AssignmentController.finishTrip(string);
+    } catch (InvalidInputException e) {
+      errorMessage = e.getMessage();
+    }
   }
 
   /**
@@ -376,8 +386,11 @@ public class AssignmentFeatureStepDefinitions {
 
   @When("the administrator attempts to start the trips for week {string}")
   public void the_administrator_attempts_to_start_the_trips_for_week(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    try {
+      AssignmentController.startTripsForWeek(Integer.valueOf(string));
+    } catch (InvalidInputException e) {
+      errorMessage = e.getMessage();
+    }
   }
 
   /**
