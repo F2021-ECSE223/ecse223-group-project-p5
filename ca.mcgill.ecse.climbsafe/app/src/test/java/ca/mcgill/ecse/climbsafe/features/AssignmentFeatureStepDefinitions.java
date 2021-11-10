@@ -183,10 +183,17 @@ public class AssignmentFeatureStepDefinitions {
     }
   }
 
+  /**
+   * Checks that the assignment is correctly marked in the system.
+   * 
+   * @param email The email of the Member associated with the Assignment
+   * @param assignmentStatus The AssignmentStatus expected by the Gherkin Scenario 
+   * @author Harrison Wang
+   */
   @Then("the assignment for {string} shall be marked as {string}")
-  public void the_assignment_for_shall_be_marked_as(String string, String string2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_assignment_for_shall_be_marked_as(String email, String assignmentStatus) {
+    var assignmentMember = (Member) User.getWithEmail(email);
+    assertEquals(assignmentStatus, assignmentMember.getAssignment().getAssignmentStatusFullName());
   }
 
   /**
@@ -241,18 +248,31 @@ public class AssignmentFeatureStepDefinitions {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
   }
-
+  
+  /**
+   * Checks that the assignment authorization code is correct.
+   * 
+   * @param email The email of the Member associated with the Assignment
+   * @param authCode The authorization code expected by the Gherkin Scenario 
+   * @author Harrison Wang
+   */
   @Then("the assignment for {string} shall record the authorization code {string}")
-  public void the_assignment_for_shall_record_the_authorization_code(String string,
-      String string2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_assignment_for_shall_record_the_authorization_code(String email,
+      String authCode) {
+    var assignmentMember = (Member) User.getWithEmail(email);
+    assertEquals(authCode, assignmentMember.getAssignment().getPaymentCode());
   }
 
+  /**
+   * Checks that the member with email does not exist in the system.
+   * 
+   * @param email The email of the Member
+   * @author Harrison Wang
+   */
   @Then("the member account with the email {string} does not exist")
-  public void the_member_account_with_the_email_does_not_exist(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_member_account_with_the_email_does_not_exist(String email) {
+    var member = (Member) User.getWithEmail(email);
+    assertEquals(null, member);
   }
 
   /**
@@ -283,23 +303,43 @@ public class AssignmentFeatureStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Sets the AssignmentStatus of the relevant member instance to Paid.
+   * 
+   * @param email The email of the Member
+   * @author Harrison Wang
+   */
   @Given("the member with {string} has paid for their trip")
-  public void the_member_with_has_paid_for_their_trip(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_member_with_has_paid_for_their_trip(String email) {
+    var member = (Member) User.getWithEmail(email);
+    member.getAssignment().pay("placeholderPaymentCode");
   }
 
+  /**
+   * Checks that the member with email has received the correct refund.
+   * 
+   * @param email The email of the Member
+   * @param refund The expected refund percentage
+   * @author Harrison Wang
+   */
   @Then("the member with email address {string} shall receive a refund of {string} percent")
-  public void the_member_with_email_address_shall_receive_a_refund_of_percent(String string,
-      String string2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_member_with_email_address_shall_receive_a_refund_of_percent(String email,
+      String refund) {
+    var member = (Member) User.getWithEmail(email);
+    assertEquals(Integer.valueOf(refund), member.getAssignment().getRefundPercentage());
   }
 
+  /**
+   * Sets the AssignmentStatus of the relevant member instance to Started.
+   * 
+   * @param email The email of the Member
+   * @author Harrison Wang
+   */
   @Given("the member with {string} has started their trip")
-  public void the_member_with_has_started_their_trip(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_member_with_has_started_their_trip(String email) {
+    var member = (Member) User.getWithEmail(email);
+    member.getAssignment().pay("placeholderPaymentCode");
+    member.getAssignment().start();
   }
 
   @When("the administrator attempts to finish the trip for the member with email {string}")
@@ -309,16 +349,29 @@ public class AssignmentFeatureStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Sets the BanStatus of the relevant member instance to Banned.
+   * 
+   * @param email The email of the Member
+   * @author Harrison Wang
+   */
   @Given("the member with {string} is banned")
-  public void the_member_with_is_banned(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_member_with_is_banned(String email) {
+    var member = (Member) User.getWithEmail(email);
+    member.ban();
   }
 
+  /**
+   * Checks that the member with email has the expected BanStatus.
+   * 
+   * @param email The email of the Member
+   * @param expectedBanStatus The expected BanStatus
+   * @author Harrison Wang
+   */
   @Then("the member with email {string} shall be {string}")
-  public void the_member_with_email_shall_be(String string, String string2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_member_with_email_shall_be(String email, String expectedBanStatus) {
+    var member = (Member) User.getWithEmail(email);
+    assertEquals(expectedBanStatus, member.getBanStatusFullName());
   }
 
   @When("the administrator attempts to start the trips for week {string}")
@@ -327,15 +380,29 @@ public class AssignmentFeatureStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Sets the AssignmentStatus of the relevant member instance to Cancelled.
+   * 
+   * @param email The email of the Member
+   * @author Harrison Wang
+   */
   @Given("the member with {string} has cancelled their trip")
-  public void the_member_with_has_cancelled_their_trip(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_member_with_has_cancelled_their_trip(String email) {
+    var member = (Member) User.getWithEmail(email);
+    member.getAssignment().cancel();
   }
 
+  /**
+   * Sets the AssignmentStatus of the relevant member instance to Finished.
+   * 
+   * @param email The email of the Member
+   * @author Harrison Wang
+   */
   @Given("the member with {string} has finished their trip")
-  public void the_member_with_has_finished_their_trip(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_member_with_has_finished_their_trip(String email) {
+    var member = (Member) User.getWithEmail(email);
+    member.getAssignment().pay("placeholderPaymentCode");
+    member.getAssignment().start();
+    member.getAssignment().finish();
   }
 }
