@@ -179,7 +179,7 @@ public class AssignmentController {
     var member  = (Member) user;
     
   //update state
-    member.toggleBan();
+    member.ban();
    
   }
   /**
