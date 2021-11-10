@@ -29,6 +29,12 @@ public class AssignmentFeatureStepDefinitions {
   private ClimbSafe climbSafe;
   private String errorMessage;
 
+  /**
+   * Instantiates <code>ClimbSafe</code> instance for use with Gherkin Scenario.
+   * 
+   * @param dataTable Data provided in the Cucumber Feature file.
+   * @author Harrison Wang
+   */
   @Given("the following ClimbSafe system exists:")
   public void the_following_climb_safe_system_exists(io.cucumber.datatable.DataTable dataTable) {
     Map<String, String> climbSafeDataFromCucumber = dataTable.asMaps().get(0);
@@ -41,10 +47,17 @@ public class AssignmentFeatureStepDefinitions {
     climbSafe.setStartDate(startDate);
     climbSafe.setNrWeeks(nrWeeks);
     climbSafe.setPriceOfGuidePerWeek(priceOfGuidePerWeek);
-    
+
     errorMessage = null;
   }
 
+  /**
+   * Adds equipment to the <code>ClimbSafe</code> instance for use with Gherkin Scenario. Copied
+   * from P5StepDefinitions.java, originally written by Annie Kang.
+   * 
+   * @param dataTable Data provided in the Cucumber Feature file.
+   * @author Harrison Wang
+   */
   @Given("the following pieces of equipment exist in the system:")
   public void the_following_pieces_of_equipment_exist_in_the_system(
       io.cucumber.datatable.DataTable dataTable) {
@@ -56,6 +69,13 @@ public class AssignmentFeatureStepDefinitions {
     }
   }
 
+  /**
+   * Adds equipment bundles to the <code>ClimbSafe</code> instance for use with Gherkin Scenario.
+   * Copied from P5StepDefinitions.java, originally written by Sibo Huang.
+   * 
+   * @param dataTable Data provided in the Cucumber Feature file.
+   * @author Harrison Wang
+   */
   @Given("the following equipment bundles exist in the system:")
   public void the_following_equipment_bundles_exist_in_the_system(
       io.cucumber.datatable.DataTable dataTable) {
@@ -77,6 +97,13 @@ public class AssignmentFeatureStepDefinitions {
     }
   }
 
+  /**
+   * Adds guides to the <code>ClimbSafe</code> instance for use with Gherkin Scenario. Copied from
+   * P5StepDefinitions.java, originally written by Yida Pan.
+   * 
+   * @param dataTable Data provided in the Cucumber Feature file.
+   * @author Harrison Wang
+   */
   @Given("the following guides exist in the system:")
   public void the_following_guides_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
     List<Map<String, String>> rows = dataTable.asMaps();
@@ -89,6 +116,13 @@ public class AssignmentFeatureStepDefinitions {
     }
   }
 
+  /**
+   * Adds members to the <code>ClimbSafe</code> instance for use with Gherkin Scenario. Copied from
+   * P5StepDefinitions.java, originally written by AJimmy Sheng.
+   * 
+   * @param dataTable Data provided in the Cucumber Feature file.
+   * @author Harrison Wang
+   */
   @Given("the following members exist in the system:")
   public void the_following_members_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
     List<Map<String, String>> rows = dataTable.asMaps();
@@ -124,10 +158,29 @@ public class AssignmentFeatureStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Checks that all assignments expected by the Gherkin Scenario are present in the system.
+   * 
+   * @param dataTable Data provided in the Cucumber Feature file.
+   * @author Harrison Wang
+   */
   @Then("the following assignments shall exist in the system:")
   public void the_following_assignments_shall_exist_in_the_system(
       io.cucumber.datatable.DataTable dataTable) {
+    List<Map<String, String>> expectedAssignments = dataTable.asMaps();
+    List<Assignment> assignments = climbSafe.getAssignments();
 
+    assertEquals(expectedAssignments.size(), assignments.size());
+
+    for (int i = 0; i < assignments.size(); i++) {
+      var assignment = assignments.get(i);
+      var expectedAssignment = expectedAssignments.get(i);
+      assertEquals(expectedAssignment.get("memberEmail"), assignment.getMember().getEmail());
+      assertEquals(expectedAssignment.get("guideEmail"),
+          assignment.hasGuide() ? assignment.getGuide().getEmail() : null);
+      assertEquals(Integer.valueOf(expectedAssignment.get("startWeek")), assignment.getStartWeek());
+      assertEquals(Integer.valueOf(expectedAssignment.get("endWeek")), assignment.getEndWeek());
+    }
   }
 
   @Then("the assignment for {string} shall be marked as {string}")
@@ -136,16 +189,34 @@ public class AssignmentFeatureStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Checks the number of assignments in the system.
+   * 
+   * @param expectedNumberOfAssignments The number of assignments that should be in the system.
+   * @author Harrison Wang
+   */
   @Then("the number of assignments in the system shall be {string}")
   public void the_number_of_assignments_in_the_system_shall_be(String expectedNumberOfAssignments) {
     assertEquals(Integer.valueOf(expectedNumberOfAssignments), climbSafe.numberOfAssignments());
   }
 
+  /**
+   * Checks the error raised by the system.
+   * 
+   * @param expectedError The error that should be raised by the system.
+   * @author Harrison Wang
+   */
   @Then("the system shall raise the error {string}")
   public void the_system_shall_raise_the_error(String expectedError) {
     assertEquals(expectedError, errorMessage);
   }
 
+  /**
+   * Instantiates <code>Assignment</code> instances for use with Gherkin Scenario.
+   * 
+   * @param dataTable Data provided in the Cucumber Feature file.
+   * @author Harrison Wang
+   */
   @Given("the following assignments exist in the system:")
   public void the_following_assignments_exist_in_the_system(
       io.cucumber.datatable.DataTable dataTable) {
@@ -184,11 +255,23 @@ public class AssignmentFeatureStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Checks the number of members in the system.
+   * 
+   * @param expectedNumberOfMembers The number of members that should be in the system.
+   * @author Harrison Wang
+   */
   @Then("there are {string} members in the system")
   public void there_are_members_in_the_system(String expectedNumberOfMembers) {
     assertEquals(Integer.valueOf(expectedNumberOfMembers), climbSafe.numberOfMembers());
   }
 
+  /**
+   * Checks the error raised by the system.
+   * 
+   * @param expectedError The error that should be raised by the system.
+   * @author Harrison Wang
+   */
   @Then("the error {string} shall be raised")
   public void the_error_shall_be_raised(String expectedError) {
     assertEquals(expectedError, errorMessage);
