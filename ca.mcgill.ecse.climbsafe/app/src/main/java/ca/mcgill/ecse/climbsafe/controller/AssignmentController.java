@@ -15,7 +15,8 @@ public class AssignmentController {
   /**
    * Initialization of the assignment this method first go through each member to assign to the
    * guide
-   * @throws Exception 
+   * 
+   * @throws Exception
    * 
    */
   public static void initiateAssignment() throws Exception {
@@ -27,62 +28,78 @@ public class AssignmentController {
     // Get members and guides
     List<Member> memberlist = climbsafe.getMembers();
     List<Guide> guidelist = climbsafe.getGuides();
-    for (int j = 0; j <= guidelist.size(); j++) {
+
+    for (int j = 0; j <= guidelist.size() - 1; j++) {
+
+
       Guide currentguide = guidelist.get(j);
-      int index = 0;
+      int leftweeks = numberofweeks;
       // Go throgh each member to assign the guide
-      for (int i = 0; i <= memberlist.size(); i++) {
+      for (int i = 0; i <= memberlist.size() - 1; i++) {
+
         Member temp = memberlist.get(i);
+
         // go to the next member if member already has assginment
         if (temp.hasAssignment() == true) {
           continue;
         }
-        // member does not require guide
-        if (temp.isGuideRequired() == false) {
-          // create a new assignment
-          int endweek = temp.getNrWeeks();
-          Assignment tempassignment = new Assignment(1, endweek, temp, climbsafe);
-          tempassignment.assign(1, endweek, null, null);
-          climbsafe.addAssignment(tempassignment);
-        }
-        // the member requries a guide
-        else if (temp.isGuideRequired() == true) {
-          // there is no member assigned to the current guide
-          if (index == 0) {
-            index = temp.getNrWeeks();
+        // the member does not have assignment
+        else {
+          // member does not require guide
+          if (temp.isGuideRequired() == false) {
+            // create a new assignment
             int endweek = temp.getNrWeeks();
             Assignment tempassignment = new Assignment(1, endweek, temp, climbsafe);
-            tempassignment.assign(1, endweek, currentguide, null);
+            tempassignment.assign(1, endweek, null, null);
             climbsafe.addAssignment(tempassignment);
+
+
           }
-          // there is some members assigned to the current guide already
-          // the member is assigned to the same period of time as the previous member
-          if (temp.getNrWeeks() == index) {
-            int endweek = temp.getNrWeeks();
-            Assignment tempassignment = new Assignment(1, endweek, temp, climbsafe);
-            tempassignment.assign(1, endweek, currentguide, null);
-            climbsafe.addAssignment(tempassignment);
-          }
-          // the member is assigned to the later weeks
-          if (temp.getNrWeeks() != index && temp.getNrWeeks() + index <= numberofweeks) {
-            int endweek = temp.getNrWeeks() + index;
-            Assignment tempassignment = new Assignment(index + 1, endweek, temp, climbsafe);
-            tempassignment.assign(index + 1, endweek, currentguide, null);
-            climbsafe.addAssignment(tempassignment);
-          }
-          // the member cannot be assigned
-          if (temp.getNrWeeks() != index && temp.getNrWeeks() + index > numberofweeks) {
+          // the member requries a guide
+          else {
+            // the member can be assigned to the current guide
+            if (leftweeks >= temp.getNrWeeks()) {
+              // there is no member assigned to the current guide
+              if (leftweeks == numberofweeks) {
+
+                int endweek = temp.getNrWeeks();
+                Assignment tempassignment = new Assignment(1, endweek, temp, climbsafe);
+                tempassignment.assign(1, endweek, currentguide, null);
+                climbsafe.addAssignment(tempassignment);
+                leftweeks -= endweek;
+
+
+              }
+              // there is some members assigned to the current guide already,and the member can
+              // still be assigned to the current guide
+              else if (leftweeks != numberofweeks && leftweeks >= temp.getNrWeeks()) {
+
+                int startweek = numberofweeks - leftweeks + 1;
+                int endweek = startweek + temp.getNrWeeks() - 1;
+                Assignment tempassignment = new Assignment(startweek, endweek, temp, climbsafe);
+                tempassignment.assign(startweek, endweek, currentguide, null);
+                climbsafe.addAssignment(tempassignment);
+                leftweeks -= temp.getNrWeeks();
+
+
+              }
+            }
+            // the member cannot be assgined to the current guide
+            else {
+
+              continue;
+            }
             continue;
+
+
           }
-
-
-
+          continue;
         }
-
 
       }
+      continue;
     }
-    if(memberlist.size()!=climbsafe.getAssignments().size()) {
+    if (climbsafe.getAssignments().size() != memberlist.size()) {
       throw new Exception("Assignments could not be completed for all members");
     }
   }
