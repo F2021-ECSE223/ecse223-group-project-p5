@@ -165,7 +165,7 @@ public class AssignmentController {
     ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
 
     for (Assignment a : cs.getAssignments()) {
-      if (a.getStartWeek() == 4) {
+      if (a.getStartWeek() == week) {
         switch (a.getMember().getBanStatus()) {
           case Banned:
             throw new InvalidInputException("Cannot start the trip due to a ban");
