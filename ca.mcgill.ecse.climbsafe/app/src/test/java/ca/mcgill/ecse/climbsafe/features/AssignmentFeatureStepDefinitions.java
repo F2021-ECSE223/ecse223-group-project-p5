@@ -157,7 +157,11 @@ public class AssignmentFeatureStepDefinitions {
   
   @When("the administrator attempts to initiate the assignment process")
   public void the_administrator_attempts_to_initiate_the_assignment_process() {
-    AssignmentController.initiateAssignment();
+    try {
+      AssignmentController.initiateAssignment();
+    } catch (Exception e) {
+      errorMessage = e.getMessage();
+    }
   }
 
   /**
