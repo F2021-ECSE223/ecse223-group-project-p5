@@ -60,20 +60,6 @@ class Assignment {
 			} -> Paid;
 		}
 		
-		Cancelled {
-			pay(String code) / {
-				rejectAction("pay for", "been cancelled");
-			} -> Cancelled;
-			
-			start() / {
-				rejectAction("start", "been cancelled");
-			} -> Cancelled;
-			
-			finish() / {
-				rejectAction("finish", "been cancelled");
-			} -> Cancelled;
-		}
-		
 		Started {
 			cancel() / {
 				checkBan("cancel");
@@ -102,6 +88,20 @@ class Assignment {
 			cancel() / {
 				rejectAction("cancel", "finished");
 			} -> Finished;
+		}
+
+		Cancelled {
+			pay(String code) / {
+				rejectAction("pay for", "been cancelled");
+			} -> Cancelled;
+			
+			start() / {
+				rejectAction("start", "been cancelled");
+			} -> Cancelled;
+			
+			finish() / {
+				rejectAction("finish", "been cancelled");
+			} -> Cancelled;
 		}
 	}
 
