@@ -5,7 +5,7 @@ package ca.mcgill.ecse.climbsafe.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 11 "../../../../../ClimbSafePersistence.ump"
+// line 28 "../../../../../ClimbSafePersistence.ump"
 // line 21 "../../../../../ClimbSafe.ump"
 public abstract class User implements Serializable
 {
@@ -93,6 +93,17 @@ public abstract class User implements Serializable
     usersByEmail.remove(getEmail());
   }
 
+  // line 34 "../../../../../ClimbSafePersistence.ump"
+   public static  void reinitializeUsersByEmail(Administrator administrator, List<Guide> guides, List<Member> members){
+    usersByEmail.put(administrator.getEmail(), administrator);
+    for (var x : guides) {
+      usersByEmail.put(x.getEmail(), x);
+    }
+    for (var x : members) {
+      usersByEmail.put(x.getEmail(), x);
+    }
+  }
+
 
   public String toString()
   {
@@ -104,8 +115,8 @@ public abstract class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 14 "../../../../../ClimbSafePersistence.ump"
-  private static final long serialVersionUID = 200L ;
+  // line 31 "../../../../../ClimbSafePersistence.ump"
+  private static final long serialVersionUID = 888L ;
 
   
 }

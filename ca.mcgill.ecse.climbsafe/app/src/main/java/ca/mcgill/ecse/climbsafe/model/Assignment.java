@@ -6,7 +6,7 @@ import ca.mcgill.ecse.climbsafe.model.Member.BanStatus;
 import java.io.Serializable;
 
 // line 12 "../../../../../ClimbSafeStates.ump"
-// line 65 "../../../../../ClimbSafePersistence.ump"
+// line 80 "../../../../../ClimbSafePersistence.ump"
 // line 98 "../../../../../ClimbSafe.ump"
 public class Assignment implements Serializable
 {
@@ -627,7 +627,7 @@ public class Assignment implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 68 "../../../../../ClimbSafePersistence.ump"
+  // line 83 "../../../../../ClimbSafePersistence.ump"
   private static final long serialVersionUID = 1100L ;
 
   
