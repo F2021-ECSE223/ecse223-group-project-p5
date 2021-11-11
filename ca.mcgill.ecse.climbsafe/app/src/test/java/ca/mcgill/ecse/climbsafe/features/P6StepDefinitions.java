@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.BundleItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
@@ -117,7 +118,11 @@ public class P6StepDefinitions {
    */
   @When("the administrator attempts to delete the equipment bundle {string} \\(p6)")
   public void the_administrator_attempts_to_delete_the_equipment_bundle_p6(String string) {
-    ClimbSafeFeatureSet6Controller.deleteEquipmentBundle(string);
+    try {
+      ClimbSafeFeatureSet6Controller.deleteEquipmentBundle(string);
+    } catch (InvalidInputException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   /**
