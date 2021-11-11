@@ -29,17 +29,17 @@ class Assignment {
       pay(String code) [!isBanned()] / {
         doPay(code);
       } -> Paid;
-      
+
       pay(String code) [isBanned()] / {
-      	rejectBanAction("pay for");
+        rejectBanAction("pay for");
       } -> Assigned;
 
       cancel() [!isBanned()] / {
         setRefundPercentage(100);
       } -> Cancelled;
-      
+
       cancel() [isBanned()] / {
-      	rejectBanAction("cancel");
+        rejectBanAction("cancel");
       } -> Assigned;
 
       finish() / {
@@ -55,16 +55,16 @@ class Assignment {
       cancel() [!isBanned()] / {
         setRefundPercentage(50);
       } -> Cancelled;
-      
+
       cancel() [isBanned()] / {
-      	rejectBanAction("cancel");
+        rejectBanAction("cancel");
       } -> Paid;
 
       start() [!isBanned()] -> Started;
-      
+
       start() [isBanned()] / {
-      	rejectBanAction("start");
-  	  } -> Paid;
+        rejectBanAction("start");
+      } -> Paid;
 
       finish() / {
         rejectTripAction("finish", "not started");
@@ -75,17 +75,17 @@ class Assignment {
       cancel() [!isBanned()] / {
         setRefundPercentage(10);
       } -> Cancelled;
-      
+
       cancel() [isBanned()] / {
-      	rejectBanAction("cancel");
-  	  } -> Started;
+        rejectBanAction("cancel");
+      } -> Started;
 
       finish() [!isBanned()] / {
         setRefundPercentage(0);
       } -> Finished;
-      
+
       finish() [isBanned()] / {
-      	rejectBanAction("finish");
+        rejectBanAction("finish");
       } -> Started;
 
       pay(String code) / {
@@ -161,10 +161,10 @@ class Assignment {
    * the assignment is banned
    *
    * @return true if the member's current state is Banned, false otherwise
-   * @author Micahel Grieco
+   * @author Michael Grieco
    */
   private boolean isBanned() {
-  	return member.getBanStatus().equals(BanStatus.Banned);
+    return member.getBanStatus().equals(BanStatus.Banned);
   }
 
   /**
@@ -187,7 +187,7 @@ class Assignment {
   private void rejectRedundantPayment() {
     throw new RuntimeException("Trip has already been paid for");
   }
-  
+
   /**
    * Function to be called to throw an error rejecting a requested action if
    * the attached member is banned
@@ -196,6 +196,6 @@ class Assignment {
    * @author Michael Grieco
    */
   private void rejectBanAction(String verb) {
-  	throw new RuntimeException("Cannot " + verb + " the trip due to a ban");
+    throw new RuntimeException("Cannot " + verb + " the trip due to a ban");
   }
 }

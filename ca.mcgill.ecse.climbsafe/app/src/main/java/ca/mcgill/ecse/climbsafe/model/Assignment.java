@@ -560,7 +560,7 @@ public class Assignment
    * the assignment is banned
    * 
    * @return true if the member's current state is Banned, false otherwise
-   * @author Micahel Grieco
+   * @author Michael Grieco
    */
   // line 167 "../../../../../ClimbSafeStates.ump"
    private boolean isBanned(){
