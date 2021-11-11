@@ -14,9 +14,6 @@ class Assignment {
   lazy String paymentCode;
   Integer refundPercentage = 0;
 
-  /**test
-   * @author Michael Grieco
-   */
   assignmentStatus {
     Unassigned {
       assign(Integer startWeek, Integer endWeek, Guide guide, Hotel hotel) / {
