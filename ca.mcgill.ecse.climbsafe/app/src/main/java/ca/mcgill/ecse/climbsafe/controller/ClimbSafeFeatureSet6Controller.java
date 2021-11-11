@@ -9,6 +9,7 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
 import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
 import ca.mcgill.ecse.climbsafe.model.Member;
+import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
 /**
  * Controller Methods for Feature Set 6.
@@ -49,6 +50,12 @@ public class ClimbSafeFeatureSet6Controller {
             "The piece of equipment is in a bundle and cannot be deleted");
       }
       ((Equipment) equipmentToBeDeleted).delete();
+      // persistence save
+      try {
+        ClimbSafePersistence.save();
+      } catch (RuntimeException e) {
+        throw new InvalidInputException(e.getMessage());
+      }
     } else {
       throw new InvalidInputException("The piece of equipment " + name + " does not exist");
     }
@@ -62,7 +69,7 @@ public class ClimbSafeFeatureSet6Controller {
    * @throws InvalidInputException if the corresponding <code>EquipmentBundle</code> instance does
    *         not exist.
    */
-  public static void deleteEquipmentBundle(String name) {
+  public static void deleteEquipmentBundle(String name) throws InvalidInputException {
     // Fetch instance of BookableItem associated with <name>
     BookableItem equipmentBundleToBeDeleted = BookableItem.getWithName(name);
     /*
@@ -73,6 +80,12 @@ public class ClimbSafeFeatureSet6Controller {
     if (equipmentBundleToBeDeleted != null
         && equipmentBundleToBeDeleted instanceof EquipmentBundle) {
       ((EquipmentBundle) equipmentBundleToBeDeleted).delete();
+      // persistence save
+      try {
+        ClimbSafePersistence.save();
+      } catch (RuntimeException e) {
+        throw new InvalidInputException(e.getMessage());
+      }
     }
   }
 

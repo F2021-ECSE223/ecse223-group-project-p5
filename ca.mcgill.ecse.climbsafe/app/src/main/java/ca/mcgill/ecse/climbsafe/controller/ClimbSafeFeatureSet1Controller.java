@@ -7,6 +7,7 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
+import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
 /**
  * ClimbSafeFeatureSet1 is the first feature set for the ClimbSafe system
@@ -40,14 +41,22 @@ public class ClimbSafeFeatureSet1Controller {
     cs.setStartDate(startDate);
     cs.setNrWeeks(nrWeeks);
     cs.setPriceOfGuidePerWeek(priceOfGuidePerWeek);
+    
+    // persistence save
+    try {
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
   }
 
   /**
    * Deletes a member from the ClimbSafe system
    * 
    * @param email the email of the member to delete
+   * @throws InvalidInputException if persistence fails to save
    */
-  public static void deleteMember(String email) {
+  public static void deleteMember(String email) throws InvalidInputException {
     User targetUser = Member.getWithEmail(email);
     /*
      * After checking the found User is not null, we must verify targetUser is indeed a Member because
@@ -56,6 +65,13 @@ public class ClimbSafeFeatureSet1Controller {
      */
     if (targetUser != null && targetUser instanceof Member) {
       targetUser.delete();
+      
+      // persistence save
+      try {
+        ClimbSafePersistence.save();
+      } catch (RuntimeException e) {
+        throw new InvalidInputException(e.getMessage());
+      }
     }
   }
 
@@ -63,8 +79,9 @@ public class ClimbSafeFeatureSet1Controller {
    * Deletes a guide from the system
    * 
    * @param email the email of the guide to delete
+   * @throws InvalidInputException if persistence fails to save
    */
-  public static void deleteGuide(String email) {
+  public static void deleteGuide(String email) throws InvalidInputException {
     User targetUser = Guide.getWithEmail(email);
     /*
      * After checking the found User is not null, we must verify targetUser is indeed a Guide because
@@ -73,6 +90,13 @@ public class ClimbSafeFeatureSet1Controller {
      */
     if (targetUser != null && targetUser instanceof Guide) {
       targetUser.delete();
+      
+      // persistence save
+      try {
+        ClimbSafePersistence.save();
+      } catch (RuntimeException e) {
+        throw new InvalidInputException(e.getMessage());
+      }
     }
   }
 

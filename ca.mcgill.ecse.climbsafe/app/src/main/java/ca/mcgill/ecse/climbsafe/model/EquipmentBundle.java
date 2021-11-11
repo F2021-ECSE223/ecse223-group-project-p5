@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.climbsafe.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 65 "../../../../../ClimbSafe.ump"
-public class EquipmentBundle extends BookableItem
+// line 68 "../../../../../ClimbSafePersistence.ump"
+// line 73 "../../../../../ClimbSafe.ump"
+public class EquipmentBundle extends BookableItem implements Serializable
 {
 
   //------------------------
@@ -200,5 +202,13 @@ public class EquipmentBundle extends BookableItem
     return super.toString() + "["+
             "discount" + ":" + getDiscount()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "climbSafe = "+(getClimbSafe()!=null?Integer.toHexString(System.identityHashCode(getClimbSafe())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 71 "../../../../../ClimbSafePersistence.ump"
+  private static final long serialVersionUID = 800L ;
+
+  
 }

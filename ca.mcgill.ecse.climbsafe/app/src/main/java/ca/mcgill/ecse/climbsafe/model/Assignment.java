@@ -3,10 +3,12 @@
 
 package ca.mcgill.ecse.climbsafe.model;
 import ca.mcgill.ecse.climbsafe.model.Member.BanStatus;
+import java.io.Serializable;
 
 // line 12 "../../../../../ClimbSafeStates.ump"
-// line 83 "../../../../../ClimbSafe.ump"
-public class Assignment
+// line 80 "../../../../../ClimbSafePersistence.ump"
+// line 98 "../../../../../ClimbSafe.ump"
+public class Assignment implements Serializable
 {
 
   //------------------------
@@ -620,5 +622,13 @@ public class Assignment
             "  " + "guide = "+(getGuide()!=null?Integer.toHexString(System.identityHashCode(getGuide())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "hotel = "+(getHotel()!=null?Integer.toHexString(System.identityHashCode(getHotel())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "climbSafe = "+(getClimbSafe()!=null?Integer.toHexString(System.identityHashCode(getClimbSafe())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 83 "../../../../../ClimbSafePersistence.ump"
+  private static final long serialVersionUID = 1100L ;
+
+  
 }

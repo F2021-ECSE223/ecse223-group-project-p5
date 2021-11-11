@@ -2,11 +2,13 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.climbsafe.model;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.*;
 
-// line 5 "../../../../../ClimbSafe.ump"
-public class ClimbSafe
+// line 3 "../../../../../ClimbSafePersistence.ump"
+// line 6 "../../../../../ClimbSafe.ump"
+public class ClimbSafe implements Serializable
 {
 
   //------------------------
@@ -1012,6 +1014,12 @@ public class ClimbSafe
     
   }
 
+  // line 8 "../../../../../ClimbSafePersistence.ump"
+   public void reinitialize(){
+    BookableItem.reinitializeItemsByName(this.getEquipment(), this.getBundles());
+    User.reinitializeUsersByEmail(this.getAdministrator(), this.getGuides(), this.getMembers());
+  }
+
 
   public String toString()
   {
@@ -1020,5 +1028,13 @@ public class ClimbSafe
             "priceOfGuidePerWeek" + ":" + getPriceOfGuidePerWeek()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "startDate" + "=" + (getStartDate() != null ? !getStartDate().equals(this)  ? getStartDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "administrator = "+(getAdministrator()!=null?Integer.toHexString(System.identityHashCode(getAdministrator())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 6 "../../../../../ClimbSafePersistence.ump"
+  private static final long serialVersionUID = 100L ;
+
+  
 }

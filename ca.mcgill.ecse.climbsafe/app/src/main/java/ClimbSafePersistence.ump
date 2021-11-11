@@ -1,0 +1,85 @@
+external interface Serializable {}
+
+class ClimbSafe {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 100L;
+  public void reinitialize() {
+    BookableItem.reinitializeItemsByName(this.getEquipment(), this.getBundles());
+    User.reinitializeUsersByEmail(this.getAdministrator(), this.getGuides(), this.getMembers());
+  }
+}
+
+class BookableItem {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 999L;
+  public static void reinitializeItemsByName(List<Equipment> equipment,
+      List<EquipmentBundle> bundles) {
+    for (var x : equipment) {
+      bookableitemsByName.put(x.getName(), x);
+    }
+    for (var x : bundles) {
+      bookableitemsByName.put(x.getName(), x);
+    }
+  }
+}
+
+class User {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 888L;
+  public static void reinitializeUsersByEmail(Administrator administrator, List<Guide> guides,
+      List<Member> members) {
+    usersByEmail.put(administrator.getEmail(), administrator);
+    for (var x : guides) {
+      usersByEmail.put(x.getEmail(), x);
+    }
+    for (var x : members) {
+      usersByEmail.put(x.getEmail(), x);
+    }
+  }
+}
+
+class Administrator {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 300L;
+}
+
+class Guide {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 400L;
+}
+
+class Member {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 500L;
+}
+
+class Equipment {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 700L;
+}
+
+class EquipmentBundle {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 800L;
+}
+
+class Hotel {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 1000L;
+} 
+
+class Assignment {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 1100L;
+}
+

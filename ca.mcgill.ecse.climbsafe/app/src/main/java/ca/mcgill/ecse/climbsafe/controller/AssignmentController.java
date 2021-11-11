@@ -9,6 +9,7 @@ import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Hotel;
 import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
+import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
 public class AssignmentController {
 
@@ -54,7 +55,13 @@ public class AssignmentController {
             Assignment tempassignment = new Assignment(1, endweek, temp, climbsafe);
             tempassignment.assign(1, endweek, null, null);
             climbsafe.addAssignment(tempassignment);
-
+            
+            // persistence save
+            try {
+              ClimbSafePersistence.save(climbsafe);
+            } catch (RuntimeException e) {
+              throw new Exception(e.getMessage());
+            }
 
           }
           // the member requries a guide
@@ -69,7 +76,13 @@ public class AssignmentController {
                 tempassignment.assign(1, endweek, currentguide, null);
                 climbsafe.addAssignment(tempassignment);
                 leftweeks -= endweek;
-
+                
+                // persistence save
+                try {
+                  ClimbSafePersistence.save(climbsafe);
+                } catch (RuntimeException e) {
+                  throw new Exception(e.getMessage());
+                }
 
               }
               // there is some members assigned to the current guide already,and the member can
@@ -82,7 +95,13 @@ public class AssignmentController {
                 tempassignment.assign(startweek, endweek, currentguide, null);
                 climbsafe.addAssignment(tempassignment);
                 leftweeks -= temp.getNrWeeks();
-
+                
+                // persistence save
+                try {
+                  ClimbSafePersistence.save(climbsafe);
+                } catch (RuntimeException e) {
+                  throw new Exception(e.getMessage());
+                }
 
               }
             }
@@ -132,6 +151,13 @@ public class AssignmentController {
     }
     // cancel assignment
     member.getAssignment().cancel();
+    
+    // persistence save
+    try {
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
 
   }
 
@@ -168,6 +194,13 @@ public class AssignmentController {
 
     // at valid state-> do transition
     member.getAssignment().finish();
+    
+    // persistence save
+    try {
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
 
   }
 
@@ -200,7 +233,13 @@ public class AssignmentController {
         }
         // valid status
         a.start();
-
+        
+        // persistence save
+        try {
+          ClimbSafePersistence.save();
+        } catch (RuntimeException e) {
+          throw new InvalidInputException(e.getMessage());
+        }
 
       }
     }
@@ -228,6 +267,13 @@ public class AssignmentController {
 
     // assign assignment
     member.getAssignment().assign(startWeek, endWeek, guide, hotel);
+    
+    // persistence save
+    try {
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
 
     if (code == null || code.equals("") || code.equals(" ")) {
       throw new InvalidInputException("Invalid authorization code");
@@ -259,6 +305,13 @@ public class AssignmentController {
 
     // update state
     member.getAssignment().pay(code);
+    
+    // persistence save
+    try {
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
 
   }
 
@@ -275,6 +328,13 @@ public class AssignmentController {
 
     // update state
     member.ban();
+    
+    // persistence save
+    try {
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
 
   }
 
