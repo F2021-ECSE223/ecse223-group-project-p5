@@ -4,6 +4,12 @@ import java.sql.Date;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 
+/**
+ * Modified from template from tutorial on persistence
+ * 
+ * @author Sibo Huang
+ *
+ */
 public class ClimbSafePersistence {
 
   private static String filename = "data.climbsafe";

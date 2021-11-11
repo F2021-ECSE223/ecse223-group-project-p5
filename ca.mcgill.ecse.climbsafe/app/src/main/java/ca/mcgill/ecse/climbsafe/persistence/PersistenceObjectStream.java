@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Modified from template from tutorial on persistence
+ * 
+ * @author Sibo Huang
+ *
+ */
 public class PersistenceObjectStream {
 
   private static String filename = "output.txt";
