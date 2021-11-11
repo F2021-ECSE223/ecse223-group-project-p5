@@ -13,9 +13,11 @@ import ca.mcgill.ecse.climbsafe.model.User;
 public class AssignmentController {
 
   /**
-   * Initialization of the assignment this method first go through each member to assign to the
-   * guide
+   * Initialization of the assignment This method initialize the assignment in the system and it
+   * follows the same procedure stated in the document
    * 
+   * @author Yida Pan
+   * @param void
    * @throws Exception
    * 
    */
