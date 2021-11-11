@@ -8,6 +8,7 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
+import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
 /**
  * Controller for register member and update member.
@@ -88,6 +89,8 @@ public class ClimbSafeFeatureSet2Controller {
           hotelRequired);
       // book items for the member
       bookItems(newMember, itemNames, itemQuantities);
+      // persistence save
+      ClimbSafePersistence.save();
     } catch (RuntimeException e) {
       throw new InvalidInputException(e.getMessage());
     }
@@ -144,6 +147,12 @@ public class ClimbSafeFeatureSet2Controller {
     member.setNrWeeks(newNrWeeks);
     member.setGuideRequired(newGuideRequired);
     member.setHotelRequired(newHotelRequired);
+    // persistence save
+    try {
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
     /*
      * remove old booked items
      */
@@ -154,6 +163,12 @@ public class ClimbSafeFeatureSet2Controller {
      * update items
      */
     bookItems(member, newItemNames, newItemQuantities);
+    // persistence save
+    try {
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
   }
 
   /**
