@@ -5,6 +5,7 @@ package ca.mcgill.ecse.climbsafe.application;
 
 import java.sql.Date;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
+import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
 public class ClimbSafeApplication {
   private static ClimbSafe climbSafe;
@@ -19,8 +20,8 @@ public class ClimbSafeApplication {
 
   public static ClimbSafe getClimbSafe() {
     if (climbSafe == null) {
-      // these attributes are default, you should set them later with the setters
-      climbSafe = new ClimbSafe(new Date(0), 0, 0);
+      // load model from persistence
+      climbSafe = ClimbSafePersistence.load();
     }
     
     return climbSafe;
