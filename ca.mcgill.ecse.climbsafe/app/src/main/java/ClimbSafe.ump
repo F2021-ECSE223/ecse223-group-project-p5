@@ -51,12 +51,10 @@ associationClass BookedItem {
   * Member member;
   * BookableItem item;
   
-  // umple gives errors when this is placed in ClimbSafePersistence.ump
+  // umple gives errors when this is placed in ClimbSafePersistence.ump since it's an associationClass
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = 600L;
-  // TODO: additional methods?
-  
 }
 
 class BookableItem {
@@ -80,12 +78,10 @@ associationClass BundleItem {
   * EquipmentBundle bundle;
   * Equipment equipment;
   
-  // umple gives errors when this is placed in ClimbSafePersistence.ump
+  // umple gives errors when this is placed in ClimbSafePersistence.ump since it's an associationClass
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = 900L;
-  // TODO: additional methods?
-  
 }
 
 class Hotel {
