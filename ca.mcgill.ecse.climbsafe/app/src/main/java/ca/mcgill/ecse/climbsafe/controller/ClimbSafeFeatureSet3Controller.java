@@ -4,6 +4,7 @@ import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.User;
+import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
 /**
  * controller to register guide and update guide
@@ -36,6 +37,8 @@ public class ClimbSafeFeatureSet3Controller {
     // add the guide to the climsafe
     try {
       climbsafe.addGuide(email, password, name, emergencyContact);
+      // persistence save
+      ClimbSafePersistence.save();
     } catch (RuntimeException e) {
       throw new InvalidInputException(e.getMessage());
     }
@@ -61,6 +64,12 @@ public class ClimbSafeFeatureSet3Controller {
       guide.setName(newName);
       guide.setPassword(newPassword);
       guide.setEmergencyContact(newEmergencyContact);
+      // persistence save
+      try {
+        ClimbSafePersistence.save();
+      } catch (RuntimeException e) {
+        throw new InvalidInputException(e.getMessage());
+      }
     }
   }
 
