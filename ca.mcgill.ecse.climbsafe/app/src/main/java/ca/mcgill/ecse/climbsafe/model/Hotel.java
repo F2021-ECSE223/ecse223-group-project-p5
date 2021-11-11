@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.climbsafe.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 76 "../../../../../ClimbSafe.ump"
-public class Hotel
+// line 59 "../../../../../ClimbSafePersistence.ump"
+// line 91 "../../../../../ClimbSafe.ump"
+public class Hotel implements Serializable
 {
 
   //------------------------
@@ -265,5 +267,13 @@ public class Hotel
             "address" + ":" + getAddress()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "rating" + "=" + (getRating() != null ? !getRating().equals(this)  ? getRating().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "climbSafe = "+(getClimbSafe()!=null?Integer.toHexString(System.identityHashCode(getClimbSafe())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 62 "../../../../../ClimbSafePersistence.ump"
+  private static final long serialVersionUID = 1000L ;
+
+  
 }
