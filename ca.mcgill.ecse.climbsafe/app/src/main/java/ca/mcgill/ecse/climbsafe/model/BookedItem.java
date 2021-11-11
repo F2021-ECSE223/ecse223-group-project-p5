@@ -258,6 +258,5 @@ public class BookedItem implements Serializable
   
   // line 57 ../../../../../ClimbSafe.ump
   private static final long serialVersionUID = 600L;
-  // TODO: additional methods?
   
 }

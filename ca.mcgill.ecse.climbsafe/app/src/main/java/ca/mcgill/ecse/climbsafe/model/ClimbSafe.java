@@ -1014,7 +1014,13 @@ public class ClimbSafe implements Serializable
     
   }
 
-  // line 8 "../../../../../ClimbSafePersistence.ump"
+
+  /**
+   * 
+   * Reinitialize static attributes on persistence load
+   * @author Jimmy Sheng
+   */
+  // line 12 "../../../../../ClimbSafePersistence.ump"
    public void reinitialize(){
     BookableItem.reinitializeItemsByName(this.getEquipment(), this.getBundles());
     User.reinitializeUsersByEmail(this.getAdministrator(), this.getGuides(), this.getMembers());
