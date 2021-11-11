@@ -6,6 +6,7 @@ import java.util.Map;
 import org.junit.Assert;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Member;
@@ -21,7 +22,7 @@ public class P12StepDefinitions {
    * Method containing the steps to be executed when setting up the climbsafe system instance for
    * the guide deletion tests
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param dataTable Datatable specifying the information with which to setup the climbsafe system
    *        instance
@@ -43,7 +44,7 @@ public class P12StepDefinitions {
    * Method used to instantiate the guides in the climbsafe system used in the gherkin test for
    * guide deletion
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param dataTable Datatable specifying the guides to be added to the climbsafe system instance
    */
@@ -61,7 +62,7 @@ public class P12StepDefinitions {
    * Method used to instantiate the members in the climbsafe system used in the gherkin test for
    * guide deletion
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param dataTable Datatable specifying the members to be added to the climbsafe system instance
    */
@@ -81,13 +82,17 @@ public class P12StepDefinitions {
    * Method called by the gherkin guide deletion test to interact with the controller api under
    * test. The method deletes a specified guide through a specific controller method
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param string Email of the guide to be deleted
    */
   @When("the admin attempts to delete the guide account linked to the {string} \\(p12)")
   public void the_admin_attempts_to_delete_the_guide_account_linked_to_the_p12(String string) {
-    ClimbSafeFeatureSet1Controller.deleteGuide(string);
+    try {
+      ClimbSafeFeatureSet1Controller.deleteGuide(string);
+    } catch (InvalidInputException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   /**
@@ -95,7 +100,7 @@ public class P12StepDefinitions {
    * the controller method used in previous test steps. Here, we make sure the specified guide does
    * not exist in the system
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param string Email of the guide which should not exist in the climbsafe system instance
    */
@@ -109,7 +114,7 @@ public class P12StepDefinitions {
    * the controller method used in previous test steps. Here, we make sure the amount of guides in
    * the system is the same as the number specified
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param string Expected number of guides in the climbsafe system instance in the form of a
    *        string
@@ -124,7 +129,7 @@ public class P12StepDefinitions {
    * the controller method used in previous test steps. Here, we make sure the specified member
    * exists in the system
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param string Email of the member which should exist in the system
    */
@@ -138,7 +143,7 @@ public class P12StepDefinitions {
    * the controller method used in previous test steps. Here, we make sure the number of guides in
    * the system is equal to the Integer specified
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param int1 Expected number of guides in the climbsafe system instance in the form of an
    *        Integer
@@ -151,7 +156,7 @@ public class P12StepDefinitions {
   /**
    * Helper method used to find a guide of the climbsafe system from its email address
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param email Email of the guide to find in the climbsafe system instance
    * @return
@@ -169,7 +174,7 @@ public class P12StepDefinitions {
   /**
    * Helper method used to find a member of the climbsafe system from its email address
    * 
-   * @author Cédric Barré, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
+   * @author Cï¿½dric Barrï¿½, Theo Ghanem, Zachary Godden, Chris Hatoum, Habib Jarweh, Philippe
    *         Sarouphim Hochar
    * @param email Email of the member to find in the climbsafe system instance
    * @return
