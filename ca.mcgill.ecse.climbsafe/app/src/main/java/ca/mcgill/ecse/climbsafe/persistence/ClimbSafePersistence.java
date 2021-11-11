@@ -6,7 +6,7 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 
 public class ClimbSafePersistence {
 
-  private static String filename = "data.btms";
+  private static String filename = "data.climbsafe";
 
   public static void setFilename(String filename) {
     ClimbSafePersistence.filename = filename;
@@ -25,7 +25,7 @@ public class ClimbSafePersistence {
   public static ClimbSafe load() {
     PersistenceObjectStream.setFilename(filename);
     var climbsafe = (ClimbSafe) PersistenceObjectStream.deserialize();
-    // model cannot be loaded - create empty BTMS
+    // model cannot be loaded - create empty ClimbSafe
     if (climbsafe == null) {
       climbsafe = new ClimbSafe(new Date(0), 0, 0);
     } else {
