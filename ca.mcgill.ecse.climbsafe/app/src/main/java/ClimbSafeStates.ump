@@ -14,6 +14,9 @@ class Assignment {
   lazy String paymentCode;
   Integer refundPercentage = 0;
 
+  /**test
+   * @author Michael Grieco
+   */
   assignmentStatus {
     Unassigned {
       assign(Integer startWeek, Integer endWeek, Guide guide, Hotel hotel) / {
@@ -122,6 +125,12 @@ class Assignment {
     }
   }
 
+  /**
+   * Function to validate and store payment code for a member
+   *
+   * @param code the payment code
+   * @author Michael Grieco
+   */
   private void doPay(String code) {
     if (code.equals("")) {
       throw new RuntimeException("Invalid authorization code");
@@ -130,6 +139,15 @@ class Assignment {
     setPaymentCode(code);
   }
 
+  /**
+   * Function to set up assignment instance variables
+   *
+   * @param startWeek the first week of the assignment
+   * @param endWeek the last week of the assignment
+   * @param guide the Guide if the member requested one, null otherwise
+   * @param hotel the Hotel if the member requested one, null otherwise
+   * @author Michael Grieco
+   */
   private void doAssign(int startWeek, int endWeek, Guide guide, Hotel hotel) {
     setStartWeek(startWeek);
     setEndWeek(endWeek);
@@ -141,18 +159,45 @@ class Assignment {
     }
   }
 
+  /**
+   * Function serving as a guard condition to determine if the member on
+   * the assignment is banned
+   *
+   * @return true if the member's current state is Banned, false otherwise
+   * @author Micahel Grieco
+   */
   private boolean isBanned() {
   	return member.getBanStatus().equals(BanStatus.Banned);
   }
 
+  /**
+   * Function to be called to throw an error rejecting a requested transition
+   *
+   * @param verb the requested action
+   * @param reason the reason the action cannot be completed
+   * @author Michael Grieco
+   */
   private void rejectTripAction(String verb, String reason) {
     throw new RuntimeException("Cannot " + verb + " a trip which has " + reason);
   }
 
+  /**
+   * Function to be called to throw an error rejecting a requested payment if
+   * the trip has already been paid for
+   *
+   * @author Michael Grieco
+   */
   private void rejectRedundantPayment() {
     throw new RuntimeException("Trip has already been paid for");
   }
   
+  /**
+   * Function to be called to throw an error rejecting a requested action if
+   * the attached member is banned
+   *
+   * @param verb the requested action
+   * @author Michael Grieco
+   */
   private void rejectBanAction(String verb) {
   	throw new RuntimeException("Cannot " + verb + " the trip due to a ban");
   }
