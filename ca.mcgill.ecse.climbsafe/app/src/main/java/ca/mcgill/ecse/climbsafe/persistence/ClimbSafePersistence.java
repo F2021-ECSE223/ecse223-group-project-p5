@@ -28,9 +28,10 @@ public class ClimbSafePersistence {
     // model cannot be loaded - create empty ClimbSafe
     if (climbsafe == null) {
       climbsafe = new ClimbSafe(new Date(0), 0, 0);
-    } else {
-      climbsafe.reinitialize();
-    }
+    } 
+//    else {
+//      climbsafe.reinitialize();
+//    }
     return climbsafe;
   }
 
