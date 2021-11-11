@@ -4,6 +4,10 @@ class ClimbSafe {
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = 100L;
+  /**
+   * Reinitialize static attributes on persistence load
+   * @author Jimmy Sheng
+   */
   public void reinitialize() {
     BookableItem.reinitializeItemsByName(this.getEquipment(), this.getBundles());
     User.reinitializeUsersByEmail(this.getAdministrator(), this.getGuides(), this.getMembers());
@@ -14,6 +18,12 @@ class BookableItem {
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = 999L;
+  /**
+   * Reinitialize the static HashMap bookableitemsByName
+   * @param equipment list
+   * @param bundles list
+   * @author Jimmy Sheng
+   */
   public static void reinitializeItemsByName(List<Equipment> equipment,
       List<EquipmentBundle> bundles) {
     for (var x : equipment) {
@@ -29,6 +39,13 @@ class User {
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = 888L;
+  /**
+   * Reinitialize static HashMap usersByEmail
+   * @param administrator
+   * @param guides list
+   * @param members list
+   * @author Jimmy Sheng
+   */
   public static void reinitializeUsersByEmail(Administrator administrator, List<Guide> guides,
       List<Member> members) {
     usersByEmail.put(administrator.getEmail(), administrator);
