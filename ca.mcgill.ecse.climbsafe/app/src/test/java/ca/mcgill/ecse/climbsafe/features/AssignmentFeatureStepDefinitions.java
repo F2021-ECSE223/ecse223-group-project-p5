@@ -120,7 +120,7 @@ public class AssignmentFeatureStepDefinitions {
 
   /**
    * Adds members to the <code>ClimbSafe</code> instance for use with Gherkin Scenario. Copied from
-   * P5StepDefinitions.java, originally written by AJimmy Sheng.
+   * P5StepDefinitions.java, originally written by Jimmy Sheng.
    * 
    * @param dataTable Data provided in the Cucumber Feature file.
    * @author Harrison Wang
@@ -154,7 +154,11 @@ public class AssignmentFeatureStepDefinitions {
     }
   }
 
-  
+  /**
+   * Calls the controller method to initiate the assignment process.
+   * 
+   * @author Harrison Wang
+   */
   @When("the administrator attempts to initiate the assignment process")
   public void the_administrator_attempts_to_initiate_the_assignment_process() {
     try {
@@ -247,11 +251,18 @@ public class AssignmentFeatureStepDefinitions {
     }
   }
 
+  /**
+   * Calls the controller method to confirm payment for member with email using authCode.
+   * 
+   * @param email The email of the Member
+   * @param authCode Authorization Code
+   * @author Harrison Wang
+   */
   @When("the administrator attempts to confirm payment for {string} using authorization code {string}")
   public void the_administrator_attempts_to_confirm_payment_for_using_authorization_code(
-      String string, String string2) {
+      String email, String authCode) {
     try {
-      AssignmentController.confirmPayment(string, string2);
+      AssignmentController.confirmPayment(email, authCode);
     } catch (InvalidInputException e) {
       errorMessage = e.getMessage();
     }
@@ -305,10 +316,16 @@ public class AssignmentFeatureStepDefinitions {
     assertEquals(expectedError, errorMessage);
   }
 
+  /**
+   * Calls the controller method to cancel the trip for member with email.
+   * 
+   * @param email The email of the Member
+   * @author Harrison Wang
+   */
   @When("the administrator attempts to cancel the trip for {string}")
-  public void the_administrator_attempts_to_cancel_the_trip_for(String string) {
+  public void the_administrator_attempts_to_cancel_the_trip_for(String email) {
     try {
-      AssignmentController.cancelTrip(string);
+      AssignmentController.cancelTrip(email);
     } catch (InvalidInputException e) {
       errorMessage = e.getMessage();
     }
@@ -353,11 +370,17 @@ public class AssignmentFeatureStepDefinitions {
     member.getAssignment().start();
   }
 
+  /**
+   * Calls the controller method to finish the trip for member with email.
+   * 
+   * @param email The email of the Member
+   * @author Harrison Wang
+   */
   @When("the administrator attempts to finish the trip for the member with email {string}")
   public void the_administrator_attempts_to_finish_the_trip_for_the_member_with_email(
-      String string) {
+      String email) {
     try {
-      AssignmentController.finishTrip(string);
+      AssignmentController.finishTrip(email);
     } catch (InvalidInputException e) {
       errorMessage = e.getMessage();
     }
@@ -388,10 +411,16 @@ public class AssignmentFeatureStepDefinitions {
     assertEquals(expectedBanStatus, member.getBanStatusFullName());
   }
 
+  /**
+   * Calls the controller method to start all trips for the week specified.
+   * 
+   * @param week The week number
+   * @author Harrison Wang
+   */
   @When("the administrator attempts to start the trips for week {string}")
-  public void the_administrator_attempts_to_start_the_trips_for_week(String string) {
+  public void the_administrator_attempts_to_start_the_trips_for_week(String week) {
     try {
-      AssignmentController.startTripsForWeek(Integer.valueOf(string));
+      AssignmentController.startTripsForWeek(Integer.valueOf(week));
     } catch (InvalidInputException e) {
       errorMessage = e.getMessage();
     }
