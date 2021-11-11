@@ -26,18 +26,24 @@ class Assignment {
         member.ban();
       } -> Assigned;
 
-      pay(String code) / {
-        checkBan("pay for");
+      pay(String code) [!isBanned()] / {
         doPay(code);
       } -> Paid;
+      
+      pay(String code) [isBanned()] / {
+      	rejectBanAction("pay for");
+      } -> Assigned;
 
-      cancel() / {
-        checkBan("cancel");
+      cancel() [!isBanned()] / {
         setRefundPercentage(100);
       } -> Cancelled;
+      
+      cancel() [isBanned()] / {
+      	rejectBanAction("cancel");
+      } -> Assigned;
 
       finish() / {
-        rejectAction("finish", "not started");
+        rejectTripAction("finish", "not started");
       } -> Assigned;
     }
 
@@ -46,30 +52,41 @@ class Assignment {
         rejectRedundantPayment();
       } -> Paid;
 
-      cancel() / {
-        checkBan("cancel");
+      cancel() [!isBanned()] / {
         setRefundPercentage(50);
       } -> Cancelled;
+      
+      cancel() [isBanned()] / {
+      	rejectBanAction("cancel");
+      } -> Paid;
 
-      start() / {
-        checkBan("start");
-      } -> Started;
+      start() [!isBanned()] -> Started;
+      
+      start() [isBanned()] / {
+      	rejectBanAction("start");
+  	  } -> Paid;
 
       finish() / {
-        rejectAction("finish", "not started");
+        rejectTripAction("finish", "not started");
       } -> Paid;
     }
 
     Started {
-      cancel() / {
-        checkBan("cancel");
+      cancel() [!isBanned()] / {
         setRefundPercentage(10);
       } -> Cancelled;
+      
+      cancel() [isBanned()] / {
+      	rejectBanAction("cancel");
+  	  } -> Started;
 
-      finish() / {
-        checkBan("finish");
+      finish() [!isBanned()] / {
         setRefundPercentage(0);
       } -> Finished;
+      
+      finish() [isBanned()] / {
+      	rejectBanAction("finish");
+      } -> Started;
 
       pay(String code) / {
         rejectRedundantPayment();
@@ -78,29 +95,29 @@ class Assignment {
 
     Finished {
       pay(String code) / {
-        rejectAction("pay for", "finished");
+        rejectTripAction("pay for", "finished");
       } -> Finished;
 
       start() / {
-        rejectAction("start", "finished");
+        rejectTripAction("start", "finished");
       } -> Finished;
 
       cancel() / {
-        rejectAction("cancel", "finished");
+        rejectTripAction("cancel", "finished");
       } -> Finished;
     }
 
     Cancelled {
       pay(String code) / {
-        rejectAction("pay for", "been cancelled");
+        rejectTripAction("pay for", "been cancelled");
       } -> Cancelled;
 
       start() / {
-        rejectAction("start", "been cancelled");
+        rejectTripAction("start", "been cancelled");
       } -> Cancelled;
 
       finish() / {
-        rejectAction("finish", "been cancelled");
+        rejectTripAction("finish", "been cancelled");
       } -> Cancelled;
     }
   }
@@ -124,17 +141,19 @@ class Assignment {
     }
   }
 
-  private void checkBan(String verb) {
-    if (member.getBanStatus().equals(BanStatus.Banned)) {
-      throw new RuntimeException("Cannot " + verb + " the trip due to a ban");
-    }
+  private boolean isBanned() {
+  	return member.getBanStatus().equals(BanStatus.Banned);
   }
 
-  private void rejectAction(String verb, String reason) {
+  private void rejectTripAction(String verb, String reason) {
     throw new RuntimeException("Cannot " + verb + " a trip which has " + reason);
   }
 
   private void rejectRedundantPayment() {
     throw new RuntimeException("Trip has already been paid for");
+  }
+  
+  private void rejectBanAction(String verb) {
+  	throw new RuntimeException("Cannot " + verb + " the trip due to a ban");
   }
 }
