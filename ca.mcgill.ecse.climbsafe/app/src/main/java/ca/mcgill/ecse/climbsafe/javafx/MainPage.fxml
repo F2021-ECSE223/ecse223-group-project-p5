@@ -3,6 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,19 +23,16 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="NEVER">
                      <children>
-                        <Label layoutX="6.0" layoutY="10.0" prefHeight="40.0" prefWidth="873.0" text="ClimbSafe" textFill="WHITE">
+                        <Label layoutX="6.0" layoutY="10.0" prefHeight="40.0" prefWidth="873.0" styleClass="main-window-title" text="ClimbSafe" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
                               <Insets left="50.0" />
                            </padding>
-                           <font>
-                              <Font name="Open Sans Bold Italic" size="28.0" />
-                           </font>
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="60.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                  <AnchorPane prefHeight="60.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="topBarCloseButton" layoutX="179.0" mnemonicParsing="false" onAction="#topBarCloseClicked" prefHeight="59.0" prefWidth="75.0" styleClass="top-bar-button" AnchorPane.rightAnchor="0.0">
+                        <Button fx:id="topBarCloseButton" focusTraversable="false" layoutX="179.0" mnemonicParsing="false" onAction="#topBarCloseClicked" prefHeight="60.0" prefWidth="75.0" styleClass="top-bar-close-button" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -48,66 +48,53 @@
          <left>
             <VBox prefHeight="600.0" prefWidth="233.0" style="-fx-background-color: #ffecd9;" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="setupNMCButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#setupNMCClicked" prefHeight="70.0" prefWidth="233.0" styleClass="main-menu-button" text="Setup NMC">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                  <ToggleButton fx:id="dashboardSetupNMCButton" alignment="CENTER_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#dashboardSetupNMCSelected" prefHeight="70.0" prefWidth="233.0" selected="true" styleClass="dashboard-menu-button" text="Setup NMC">
                      <padding>
                         <Insets left="40.0" />
-                     </padding></Button>
-                  <Button fx:id="membersButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#membersClicked" prefHeight="70.0" prefWidth="233.0" styleClass="main-menu-button" text="Members">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                     </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="dashboardMenuGroup" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton fx:id="dashboardMembersButton" alignment="CENTER_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#dashboardMembersSelected" prefHeight="70.0" prefWidth="233.0" styleClass="dashboard-menu-button" text="Members" toggleGroup="$dashboardMenuGroup">
                      <padding>
                         <Insets left="40.0" />
-                     </padding></Button>
-                  <Button fx:id="guidesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#guidesClicked" prefHeight="70.0" prefWidth="233.0" styleClass="main-menu-button" text="Guides">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                     </padding>
+                  </ToggleButton>
+                  <ToggleButton fx:id="dashboardGuidesButton" alignment="CENTER_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#dashboardGuidesSelected" prefHeight="70.0" prefWidth="233.0" styleClass="dashboard-menu-button" text="Guides" toggleGroup="$dashboardMenuGroup">
                      <padding>
                         <Insets left="40.0" />
-                     </padding></Button>
-                  <Button fx:id="equipmentsButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#equipmentsClicked" prefHeight="70.0" prefWidth="233.0" styleClass="main-menu-button" text="Equipments">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                     </padding>
+                  </ToggleButton>
+                  <ToggleButton fx:id="dashboardEquipmentsButton" alignment="CENTER_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#dashboardEquipmentsSelected" prefHeight="70.0" prefWidth="233.0" styleClass="dashboard-menu-button" text="Equipments" toggleGroup="$dashboardMenuGroup">
                      <padding>
                         <Insets left="40.0" />
-                     </padding></Button>
-                  <Button fx:id="bundlesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#bundlesClicked" prefHeight="70.0" prefWidth="233.0" styleClass="main-menu-button" text="Bundles">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                     </padding>
+                  </ToggleButton>
+                  <ToggleButton fx:id="dashboardBundlesButton" alignment="CENTER_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#dashboardBundlesSelected" prefHeight="70.0" prefWidth="233.0" styleClass="dashboard-menu-button" text="Bundles" toggleGroup="$dashboardMenuGroup">
                      <padding>
                         <Insets left="40.0" />
-                     </padding></Button>
-                  <Button fx:id="assignmentsButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#assignmentsClicked" prefHeight="70.0" prefWidth="233.0" styleClass="main-menu-button" text="Assignments">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                     </padding>
+                  </ToggleButton>
+                  <ToggleButton fx:id="dashboardAssignmentsButton" alignment="CENTER_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#dashboardAssignmentsSelected" prefHeight="70.0" prefWidth="233.0" styleClass="dashboard-menu-button" text="Assignments" toggleGroup="$dashboardMenuGroup">
                      <padding>
                         <Insets left="40.0" />
-                     </padding></Button>
-                  <Button fx:id="menuPayButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#menuPayClicked" prefHeight="70.0" prefWidth="233.0" styleClass="main-menu-button" text="Pay">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                     </padding>
+                  </ToggleButton>
+                  <ToggleButton fx:id="dashboardPayButton" alignment="CENTER_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#dashboardPaySelected" prefHeight="70.0" prefWidth="233.0" styleClass="dashboard-menu-button" text="Pay" toggleGroup="$dashboardMenuGroup">
                      <padding>
                         <Insets left="40.0" />
-                     </padding></Button>
-                  <Button fx:id="tripsButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#tripsClicked" prefHeight="70.0" prefWidth="233.0" styleClass="main-menu-button" text="Trips">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                     </padding>
+                  </ToggleButton>
+                  <ToggleButton fx:id="dashboardTripsButton" alignment="CENTER_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#dashboardTripsSelected" prefHeight="70.0" prefWidth="233.0" styleClass="dashboard-menu-button" text="Trips" toggleGroup="$dashboardMenuGroup">
                      <padding>
                         <Insets left="40.0" />
-                     </padding></Button>
+                     </padding>
+                  </ToggleButton>
                </children></VBox>
          </left>
          <center>
-            <StackPane fx:id="mainStackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <fx:include fx:id="assignmentsPane" source="pages/Assignments.fxml" />
                   <fx:include fx:id="bundlesPane" source="pages/BundlesPage.fxml" />
@@ -119,6 +106,21 @@
                   <fx:include fx:id="setupNMCPane" source="pages/SetupNMCPage.fxml" />
                </children></StackPane>
          </center>
+         <bottom>
+            <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="20.0" prefWidth="100.0" style="-fx-background-color: #ffecd9;" BorderPane.alignment="CENTER">
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <Label text="By ECSE223 Team 5">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>
