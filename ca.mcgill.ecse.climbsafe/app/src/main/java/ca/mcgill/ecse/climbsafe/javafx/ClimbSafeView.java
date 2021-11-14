@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class ClimbSafeView extends Application {
@@ -25,6 +26,7 @@ public class ClimbSafeView extends Application {
     try {
       var root = (Pane) FXMLLoader.load(getClass().getResource("MainPage.fxml"));
       var scene = new Scene(root);
+      primaryStage.initStyle(StageStyle.UNDECORATED);
       primaryStage.setScene(scene);
       primaryStage.setMinWidth(1133);
       primaryStage.setMinHeight(700);
