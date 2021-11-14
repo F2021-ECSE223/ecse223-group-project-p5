@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -19,12 +21,31 @@ public class ClimbSafeView extends Application {
   public static final EventType<Event> REFRESH_EVENT = new EventType<>("REFRESH");
   private static ClimbSafeView instance;
   private List<Node> refreshableNodes = new ArrayList<>();
+  private double xOffset = 0;
+  private double yOffset = 0;
 
   @Override
   public void start(Stage primaryStage) {
     instance = this;
     try {
       var root = (Pane) FXMLLoader.load(getClass().getResource("MainPage.fxml"));
+
+      // handle mouse drags
+      root.setOnMousePressed(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          xOffset = event.getSceneX();
+          yOffset = event.getSceneY();
+        }
+      });
+      root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          primaryStage.setX(event.getScreenX() - xOffset);
+          primaryStage.setY(event.getScreenY() - yOffset);
+        }
+      });
+
       var scene = new Scene(root);
       primaryStage.initStyle(StageStyle.UNDECORATED);
       primaryStage.setScene(scene);
@@ -45,7 +66,7 @@ public class ClimbSafeView extends Application {
 
   // Register multiple nodes for receiving refresh events
   public void registerRefreshEvent(Node... nodes) {
-    for (var node: nodes) {
+    for (var node : nodes) {
       refreshableNodes.add(node);
     }
   }
