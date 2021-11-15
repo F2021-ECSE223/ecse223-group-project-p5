@@ -10,4 +10,7 @@ class TOAssignment {
   Integer endWeek;
   Integer totalCostForGuide;
   Integer totalCostForEquipment;
+  status;
+  authorizationCode;
+  Integer refundedPercentageAmount;
 }
