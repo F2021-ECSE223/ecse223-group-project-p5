@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.util.*;
 
 // line 3 "../../../../../ClimbSafePersistence.ump"
-// line 6 "../../../../../ClimbSafe.ump"
+// line 8 "../../../../../ClimbSafe.ump"
 public class ClimbSafe implements Serializable
 {
 
@@ -1014,16 +1014,11 @@ public class ClimbSafe implements Serializable
     
   }
 
-
-  /**
-   * 
-   * Reinitialize static attributes on persistence load
-   * @author Jimmy Sheng
-   */
-  // line 12 "../../../../../ClimbSafePersistence.ump"
+  // line 9 "../../../../../ClimbSafePersistence.ump"
    public void reinitialize(){
-    BookableItem.reinitializeItemsByName(this.getEquipment(), this.getBundles());
-    User.reinitializeUsersByEmail(this.getAdministrator(), this.getGuides(), this.getMembers());
+    User.reinitializeUniqueEmail(this.getAdministrator(), this.getGuides(), this.getMembers());
+    BookableItem.reinitializeUniqueName(this.getEquipment(), this.getBundles());
+    Hotel.reinitializeUniqueName(this.getHotels());
   }
 
 
@@ -1040,7 +1035,7 @@ public class ClimbSafe implements Serializable
   //------------------------
   
   // line 6 "../../../../../ClimbSafePersistence.ump"
-  private static final long serialVersionUID = 100L ;
+  private static final long serialVersionUID = 1L ;
 
   
 }

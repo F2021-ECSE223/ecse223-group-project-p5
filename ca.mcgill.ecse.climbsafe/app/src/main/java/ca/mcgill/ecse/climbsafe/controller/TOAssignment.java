@@ -21,12 +21,15 @@ public class TOAssignment
   private int endWeek;
   private int totalCostForGuide;
   private int totalCostForEquipment;
+  private String status;
+  private String authorizationCode;
+  private int refundedPercentageAmount;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TOAssignment(String aMemberEmail, String aMemberName, String aGuideEmail, String aGuideName, String aHotelName, int aStartWeek, int aEndWeek, int aTotalCostForGuide, int aTotalCostForEquipment)
+  public TOAssignment(String aMemberEmail, String aMemberName, String aGuideEmail, String aGuideName, String aHotelName, int aStartWeek, int aEndWeek, int aTotalCostForGuide, int aTotalCostForEquipment, String aStatus, String aAuthorizationCode, int aRefundedPercentageAmount)
   {
     memberEmail = aMemberEmail;
     memberName = aMemberName;
@@ -37,6 +40,9 @@ public class TOAssignment
     endWeek = aEndWeek;
     totalCostForGuide = aTotalCostForGuide;
     totalCostForEquipment = aTotalCostForEquipment;
+    status = aStatus;
+    authorizationCode = aAuthorizationCode;
+    refundedPercentageAmount = aRefundedPercentageAmount;
   }
 
   //------------------------
@@ -115,6 +121,30 @@ public class TOAssignment
     return wasSet;
   }
 
+  public boolean setStatus(String aStatus)
+  {
+    boolean wasSet = false;
+    status = aStatus;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setAuthorizationCode(String aAuthorizationCode)
+  {
+    boolean wasSet = false;
+    authorizationCode = aAuthorizationCode;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setRefundedPercentageAmount(int aRefundedPercentageAmount)
+  {
+    boolean wasSet = false;
+    refundedPercentageAmount = aRefundedPercentageAmount;
+    wasSet = true;
+    return wasSet;
+  }
+
   public String getMemberEmail()
   {
     return memberEmail;
@@ -160,6 +190,21 @@ public class TOAssignment
     return totalCostForEquipment;
   }
 
+  public String getStatus()
+  {
+    return status;
+  }
+
+  public String getAuthorizationCode()
+  {
+    return authorizationCode;
+  }
+
+  public int getRefundedPercentageAmount()
+  {
+    return refundedPercentageAmount;
+  }
+
   public void delete()
   {}
 
@@ -175,6 +220,9 @@ public class TOAssignment
             "startWeek" + ":" + getStartWeek()+ "," +
             "endWeek" + ":" + getEndWeek()+ "," +
             "totalCostForGuide" + ":" + getTotalCostForGuide()+ "," +
-            "totalCostForEquipment" + ":" + getTotalCostForEquipment()+ "]";
+            "totalCostForEquipment" + ":" + getTotalCostForEquipment()+ "," +
+            "status" + ":" + getStatus()+ "," +
+            "authorizationCode" + ":" + getAuthorizationCode()+ "," +
+            "refundedPercentageAmount" + ":" + getRefundedPercentageAmount()+ "]";
   }
 }
