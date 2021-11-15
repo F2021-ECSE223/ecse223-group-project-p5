@@ -96,7 +96,7 @@
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <fx:include fx:id="assignmentsPane" source="pages/Assignments.fxml" />
+                  <fx:include fx:id="assignmentsPane" source="pages/AssignmentsPage.fxml" />
                   <fx:include fx:id="bundlesPane" source="pages/BundlesPage.fxml" />
                   <fx:include fx:id="equipmentsPane" source="pages/EquipmentsPage.fxml" />
                   <fx:include fx:id="guidesPane" source="pages/GuidesPage.fxml" />
