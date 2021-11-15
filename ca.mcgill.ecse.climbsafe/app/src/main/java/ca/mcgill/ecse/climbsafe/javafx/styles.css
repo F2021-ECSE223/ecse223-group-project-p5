@@ -35,11 +35,54 @@
 	src: url("fonts/OpenSans-SemiBoldItalic.ttf");
 }
 
+/*
+ * Global TabPane styling for a uniformed look
+ * Can be overridden by specifying Style Class in SceneBuilder
+ */
+.tab-pane {
+	-fx-tab-min-height: 48px;
+	-fx-tab-max-height: 48px;
+	-fx-tab-min-width: 240px;
+	-fx-tab-max-width: 240px;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+	-fx-background-color: #FFF4E9;
+}
+
+.tab-pane .tab {
+	/* no gap between tabs */
+	-fx-background-insets: 0 0 0 0, 0, 0;
+	/* disable focus ring */
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+	/* match background color to header background */
+	-fx-background-color: #FFF4E9;
+}
+.tab-pane .tab:selected {
+	-fx-background-color: #FFECD9;
+	-fx-border-color: #5C5CCC;
+	-fx-border-width: 0px 0px 2px 0px;
+}
+
+.tab-pane .tab .tab-label {
+	-fx-font-family: "Open Sans SemiBold";
+	-fx-font-size: 18;
+	-fx-text-fill: #909099;
+	-fx-alignment: CENTER;
+}
+.tab-pane .tab:selected .tab-label {
+	-fx-text-fill: #5C5CCC;
+}
+
+/*
+ * MainPage components styling
+ */
 .dashboard-menu-button {
 	-fx-font-family: "Open Sans Light";
 	-fx-font-size: 22;
 	-fx-background-color: #FFECD9;
-	-fx-background-radius: 0em;
+	-fx-background-radius: 0px;
 }
 .dashboard-menu-button:hover {
 	-fx-background-color: #D9D9FF;
@@ -57,7 +100,7 @@
 
 .top-bar-close-button {
 	-fx-background-color:  #E6BE96;
-	-fx-background-radius: 0em;
+	-fx-background-radius: 0px;
 }
 .top-bar-close-button:hover {
 	-fx-background-color: #D9D9FF;
