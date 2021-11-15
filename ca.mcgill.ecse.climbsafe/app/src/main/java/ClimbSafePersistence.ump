@@ -3,100 +3,109 @@ external interface Serializable {}
 class ClimbSafe {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 100L;
-  /**
-   * Reinitialize static attributes on persistence load
-   * @author Jimmy Sheng
-   */
+  private static final long serialVersionUID = 1L;
+  
   public void reinitialize() {
-    BookableItem.reinitializeItemsByName(this.getEquipment(), this.getBundles());
-    User.reinitializeUsersByEmail(this.getAdministrator(), this.getGuides(), this.getMembers());
+    User.reinitializeUniqueEmail(this.getAdministrator(), this.getGuides(), this.getMembers());
+    BookableItem.reinitializeUniqueName(this.getEquipment(), this.getBundles());
+    Hotel.reinitializeUniqueName(this.getHotels());
   }
-}
-
-class BookableItem {
-  depend java.io.Serializable;
-  isA Serializable;
-  private static final long serialVersionUID = 999L;
-  /**
-   * Reinitialize the static HashMap bookableitemsByName
-   * @param equipment list
-   * @param bundles list
-   * @author Jimmy Sheng
-   */
-  public static void reinitializeItemsByName(List<Equipment> equipment,
-      List<EquipmentBundle> bundles) {
-    for (var x : equipment) {
-      bookableitemsByName.put(x.getName(), x);
-    }
-    for (var x : bundles) {
-      bookableitemsByName.put(x.getName(), x);
-    }
-  }
+  
 }
 
 class User {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 888L;
-  /**
-   * Reinitialize static HashMap usersByEmail
-   * @param administrator
-   * @param guides list
-   * @param members list
-   * @author Jimmy Sheng
-   */
-  public static void reinitializeUsersByEmail(Administrator administrator, List<Guide> guides,
-      List<Member> members) {
-    usersByEmail.put(administrator.getEmail(), administrator);
-    for (var x : guides) {
-      usersByEmail.put(x.getEmail(), x);
+  private static final long serialVersionUID = 2L;
+  
+  public static void reinitializeUniqueEmail(Administrator admin, List<Guide> guides, List<Member> members) {
+    usersByEmail = new HashMap<String, User>();
+    usersByEmail.put(admin.getEmail(), admin);
+    for (Guide guide : guides) {
+      usersByEmail.put(guide.getEmail(), guide);
     }
-    for (var x : members) {
-      usersByEmail.put(x.getEmail(), x);
+    for (Member member : members) {
+      usersByEmail.put(member.getEmail(), member);
     }
   }
+
 }
 
 class Administrator {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 300L;
+  private static final long serialVersionUID = 3L;
+}
+
+class NamedUser {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 4L;
 }
 
 class Guide {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 400L;
+  private static final long serialVersionUID = 5L;
 }
 
 class Member {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 500L;
+  private static final long serialVersionUID = 6L;
+}
+
+// persistence for BookedItem needs to be specified in ClimbSafe.ump
+// due to a bug in Umple (association classes cannot be defined in two files)
+
+class BookableItem {
+  depend java.io.Serializable;
+  isA Serializable;
+  private static final long serialVersionUID = 7L;
+
+  public static void reinitializeUniqueName(List<Equipment> equipment, List<EquipmentBundle> bundles) {
+    bookableitemsByName = new HashMap<String, BookableItem>();
+    for (Equipment e : equipment) {
+      bookableitemsByName.put(e.getName(), e);
+    }
+    for (EquipmentBundle bundle : bundles) {
+      bookableitemsByName.put(bundle.getName(), bundle);
+    }
+  }
+
 }
 
 class Equipment {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 700L;
+  private static final long serialVersionUID = 8L;
 }
 
 class EquipmentBundle {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 800L;
+  private static final long serialVersionUID = 9L;
 }
+
+// persistence for BundleItem needs to be specified in ClimbSafe.ump
+// due to a bug in Umple (association classes cannot be defined in two files)
 
 class Hotel {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 1000L;
+  private static final long serialVersionUID = 10L;
+
+  public static void reinitializeUniqueName(List<Hotel> hotels) {
+    hotelsByName = new HashMap<String, Hotel>();
+    for (Hotel hotel : hotels) {
+      hotelsByName.put(hotel.getName(), hotel);
+    }
+  }
+
 } 
 
 class Assignment {
   depend java.io.Serializable;
   isA Serializable;
-  private static final long serialVersionUID = 1100L;
+  private static final long serialVersionUID = 11L;
 }
-
