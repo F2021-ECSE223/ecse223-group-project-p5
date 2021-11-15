@@ -14,3 +14,49 @@ class TOAssignment {
   authorizationCode;
   Integer refundedPercentageAmount;
 }
+
+class TOClimbSafe {
+  Date startDate;
+  Integer nrWeeks;
+  Integer priceOfGuidePerWeek;
+}
+
+class TOGuide {
+  email;
+  password;
+  name;
+  emergencyContact;
+}
+
+class TOMember {
+  email;
+  password;
+  name;
+  emergencyContact;
+  Integer nrWeeks;
+  Boolean guideRequired;
+  Boolean hotelRequired;
+}
+
+class TOBookedItem {
+  Integer quantity;
+  memberEmail;
+  bookableItemName;
+}
+
+class TOEquipment {
+  name;
+  Integer weight;
+  Integer pricePerWeek;
+}
+
+class TOEquipmentBundle {
+  name;
+  Integer discount;
+}
+
+class TOBundleItem {
+  Integer quantity;
+  equipmentBundleName;
+  equipmentName;
+}
