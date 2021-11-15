@@ -160,8 +160,16 @@ public class ClimbSafeFeatureSet6Controller {
     }
     int totalCostForEquipment = equipmentCostPerWeek * nrOfWeeks;
 
+    /*
+     * New fields of TOAssignment
+     */
+    String status = assignment.getAssignmentStatusFullName();
+    String authorizationCode = assignment.getPaymentCode();
+    int refundPercentAmount = assignment.getRefundPercentage();
+
     return new TOAssignment(memberEmail, memberName, guideEmail, guideName, hotelName, startWeek,
-        endWeek, totalCostForGuide, totalCostForEquipment);
+        endWeek, totalCostForGuide, totalCostForEquipment, status, authorizationCode,
+        refundPercentAmount);
   }
 
 }
