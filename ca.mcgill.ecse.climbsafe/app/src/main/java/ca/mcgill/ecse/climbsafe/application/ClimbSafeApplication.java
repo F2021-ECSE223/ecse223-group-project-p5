@@ -3,19 +3,23 @@
  */
 package ca.mcgill.ecse.climbsafe.application;
 
-import java.sql.Date;
+import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
+import javafx.application.Application;
 
 public class ClimbSafeApplication {
   private static ClimbSafe climbSafe;
 
-  public String getGreeting() {
-    return "Hello World!";
-  }
-
+  /**
+   * Entry point of the program
+   * 
+   * @param args
+   * @author Jimmy Sheng
+   */
   public static void main(String[] args) {
-    System.out.println(new ClimbSafeApplication().getGreeting());
+    // start UI
+    Application.launch(ClimbSafeView.class, args);
   }
 
   public static ClimbSafe getClimbSafe() {
@@ -23,7 +27,6 @@ public class ClimbSafeApplication {
       // load model from persistence
       climbSafe = ClimbSafePersistence.load();
     }
-    
     return climbSafe;
   }
 }

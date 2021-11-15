@@ -1,0 +1,81 @@
+@font-face {
+	src: url("fonts/OpenSans-Bold.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-BoldItalic.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-ExtraBold.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-ExtraBoldItalic.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-Italic.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-Light.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-LightItalic.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-Medium.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-MediumItalic.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-Regular.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-SemiBold.ttf");
+}
+@font-face {
+	src: url("fonts/OpenSans-SemiBoldItalic.ttf");
+}
+
+.dashboard-menu-button {
+	-fx-font-family: "Open Sans Light";
+	-fx-font-size: 22;
+	-fx-background-color: #FFECD9;
+	-fx-background-radius: 0em;
+}
+.dashboard-menu-button:hover {
+	-fx-background-color: #D9D9FF;
+}
+.dashboard-menu-button:pressed {
+	-fx-background-color: #9696E6;
+}
+.dashboard-menu-button:selected {
+	-fx-background-color: #9696E6;
+	-fx-border-color: #5C5CCC;
+	-fx-border-width: 0px 0px 0px 4px;
+	-fx-font-family: "Open Sans Regular";
+	-fx-text-fill: #FFFFFF;
+}
+
+.top-bar-close-button {
+	-fx-background-color:  #E6BE96;
+	-fx-background-radius: 0em;
+}
+.top-bar-close-button:hover {
+	-fx-background-color: #D9D9FF;
+}
+.top-bar-close-button:pressed {
+	-fx-background-color: #9696E6;
+}
+.top-bar-close-button:focused {
+	-fx-border-color: #5C5CCC;
+	-fx-border-width: 1px 1px 1px 1px;
+}
+
+.main-window-title {
+	-fx-font-family: "Open Sans Bold Italic";
+	-fx-font-size: 32;
+}
+
+.root {
+	-fx-base: #FFECD9;
+}
+
