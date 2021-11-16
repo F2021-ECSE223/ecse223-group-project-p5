@@ -137,10 +137,6 @@ class Assignment {
    * @author Michael Grieco
    */
   private void doPay(String code) {
-    if (code.equals("")) {
-      throw new RuntimeException("Invalid authorization code");
-    }
-
     setPaymentCode(code);
   }
 
