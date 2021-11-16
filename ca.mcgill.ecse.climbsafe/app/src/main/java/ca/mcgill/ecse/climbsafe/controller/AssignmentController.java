@@ -55,7 +55,7 @@ public class AssignmentController {
             Assignment tempassignment = new Assignment(1, endweek, temp, climbsafe);
             tempassignment.assign(1, endweek, null, null);
             climbsafe.addAssignment(tempassignment);
-            
+
             // persistence save
             try {
               ClimbSafePersistence.save(climbsafe);
@@ -76,7 +76,7 @@ public class AssignmentController {
                 tempassignment.assign(1, endweek, currentguide, null);
                 climbsafe.addAssignment(tempassignment);
                 leftweeks -= endweek;
-                
+
                 // persistence save
                 try {
                   ClimbSafePersistence.save(climbsafe);
@@ -95,7 +95,7 @@ public class AssignmentController {
                 tempassignment.assign(startweek, endweek, currentguide, null);
                 climbsafe.addAssignment(tempassignment);
                 leftweeks -= temp.getNrWeeks();
-                
+
                 // persistence save
                 try {
                   ClimbSafePersistence.save(climbsafe);
@@ -111,12 +111,9 @@ public class AssignmentController {
               continue;
             }
             continue;
-
-
           }
           continue;
         }
-
       }
       continue;
     }
@@ -137,23 +134,10 @@ public class AssignmentController {
     var user = User.getWithEmail(email);
     var member = (Member) user;
 
-    switch (member.getBanStatus()) {
-      case Banned:
-        throw new InvalidInputException("Cannot cancel the trip due to a ban");
-      default:
-        break;
-    }
-    switch (member.getAssignment().getAssignmentStatus()) {
-      case Finished:
-        throw new InvalidInputException("Cannot cancel a trip which has finished");
-      default:
-        break;
-    }
-    // cancel assignment
-    member.getAssignment().cancel();
-    
-    // persistence save
     try {
+      // cancel assignment
+      member.getAssignment().cancel();
+      // persistence save
       ClimbSafePersistence.save();
     } catch (RuntimeException e) {
       throw new InvalidInputException(e.getMessage());
@@ -172,31 +156,10 @@ public class AssignmentController {
     var user = User.getWithEmail(email);
     var member = (Member) user;
 
-    switch (member.getBanStatus()) {
-      case Banned:
-        throw new InvalidInputException("Cannot finish the trip due to a ban");
-      default:
-        break;
-    }
-
-    switch (member.getAssignment().getAssignmentStatus()) {
-      case Assigned:
-        throw new InvalidInputException("Cannot finish a trip which has not started");
-
-      case Paid:
-        throw new InvalidInputException("Cannot finish a trip which has not started");
-      case Cancelled:
-        throw new InvalidInputException("Cannot finish a trip which has been cancelled");
-      default:
-        break;
-
-    }
-
-    // at valid state-> do transition
-    member.getAssignment().finish();
-    
-    // persistence save
     try {
+      // finish trip
+      member.getAssignment().finish();
+      // persistence save
       ClimbSafePersistence.save();
     } catch (RuntimeException e) {
       throw new InvalidInputException(e.getMessage());
@@ -211,39 +174,18 @@ public class AssignmentController {
    */
 
   public static void startTripsForWeek(int week) throws InvalidInputException {
-
     // reference to ClimbSafe
     ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
 
-    for (Assignment a : cs.getAssignments()) {
-      if (a.getStartWeek() == week) {
-        switch (a.getMember().getBanStatus()) {
-          case Banned:
-            throw new InvalidInputException("Cannot start the trip due to a ban");
-          default:
-            break;
+    try {
+      for (Assignment a : cs.getAssignments()) {
+        if (a.getStartWeek() == week) {
+          a.start();
         }
-        switch (a.getAssignmentStatus()) {
-          case Cancelled:
-            throw new InvalidInputException("Cannot start a trip which has been cancelled");
-          case Finished:
-            throw new InvalidInputException("Cannot start a trip which has finished");
-          default:
-            break;
-        }
-        // valid status
-        a.start();
-        
-        // persistence save
-        try {
-          ClimbSafePersistence.save();
-        } catch (RuntimeException e) {
-          throw new InvalidInputException(e.getMessage());
-        }
-
       }
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
     }
-
   }
 
   /**
@@ -254,7 +196,6 @@ public class AssignmentController {
    */
 
   public static void confirmPayment(String email, String code) throws InvalidInputException {
-
     validate_member(email);
     var user = User.getWithEmail(email);
     var member = (Member) user;
@@ -267,7 +208,7 @@ public class AssignmentController {
 
     // assign assignment
     member.getAssignment().assign(startWeek, endWeek, guide, hotel);
-    
+
     // persistence save
     try {
       ClimbSafePersistence.save();
@@ -279,35 +220,10 @@ public class AssignmentController {
       throw new InvalidInputException("Invalid authorization code");
     }
 
-    switch (member.getBanStatus()) {
-      case Banned:
-        throw new InvalidInputException("Cannot pay for the trip due to a ban");
-      default:
-        break;
-    }
-
-    switch (member.getAssignment().getAssignmentStatus()) {
-      case Started:
-        throw new InvalidInputException("Trip has already been paid for");
-
-      case Paid:
-        throw new InvalidInputException("Trip has already been paid for");
-
-      case Cancelled:
-        throw new InvalidInputException("Cannot pay for a trip which has been cancelled");
-
-      case Finished:
-        throw new InvalidInputException("Cannot pay for a trip which has finished");
-      default:
-        break;
-
-    }
-
-    // update state
-    member.getAssignment().pay(code);
-    
-    // persistence save
     try {
+      // update state
+      member.getAssignment().pay(code);
+      // persistence save
       ClimbSafePersistence.save();
     } catch (RuntimeException e) {
       throw new InvalidInputException(e.getMessage());
@@ -321,14 +237,13 @@ public class AssignmentController {
    * @throws InvalidInputException
    */
   public static void toggleBan(String email) throws InvalidInputException {
-
     validate_member(email);
     var user = User.getWithEmail(email);
     var member = (Member) user;
 
     // update state
     member.ban();
-    
+
     // persistence save
     try {
       ClimbSafePersistence.save();
