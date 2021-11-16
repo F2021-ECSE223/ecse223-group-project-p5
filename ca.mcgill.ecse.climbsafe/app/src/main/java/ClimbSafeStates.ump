@@ -22,9 +22,13 @@ class Assignment {
     }
 
     Assigned {
-      start() / {
+      start() [!isBanned()] / {
         member.ban();
       } -> Assigned;
+      
+      start() [isBanned()] / {
+      	rejectBanAction("start");
+  	  } -> Assigned;
 
       pay(String code) [!isBanned()] / {
         doPay(code);
@@ -42,8 +46,12 @@ class Assignment {
         rejectBanAction("cancel");
       } -> Assigned;
 
-      finish() / {
+      finish() [!isBanned()] / {
         rejectTripAction("finish", "not started");
+      } -> Assigned;
+      
+      finish() [isBanned()] / {
+      	rejectBanAction("finish");
       } -> Assigned;
     }
 
