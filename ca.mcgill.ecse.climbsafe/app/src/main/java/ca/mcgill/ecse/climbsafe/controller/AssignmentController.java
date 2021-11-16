@@ -197,6 +197,11 @@ public class AssignmentController {
 
   public static void confirmPayment(String email, String code) throws InvalidInputException {
     validate_member(email);
+    
+    if (code == null || code.isEmpty()) {
+      throw new InvalidInputException("Invalid authorization code");
+    }
+    
     var user = User.getWithEmail(email);
     var member = (Member) user;
 
@@ -208,17 +213,6 @@ public class AssignmentController {
 
     // assign assignment
     member.getAssignment().assign(startWeek, endWeek, guide, hotel);
-
-    // persistence save
-    try {
-      ClimbSafePersistence.save();
-    } catch (RuntimeException e) {
-      throw new InvalidInputException(e.getMessage());
-    }
-
-    if (code == null || code.equals("") || code.equals(" ")) {
-      throw new InvalidInputException("Invalid authorization code");
-    }
 
     try {
       // update state
