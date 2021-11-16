@@ -49,7 +49,6 @@
  */
 .button {
 	-fx-font-family: "Open Sans Medium";
-	-fx-font-size: 20;
 	-fx-text-fill: #5C5CCC;
 	-fx-base: #FFE2BF;
 	-fx-background-radius: 30;
