@@ -9,7 +9,7 @@ import java.util.*;
  * persistence for BundleItem needs to be specified in ClimbSafe.ump
  * due to a bug in Umple (association classes cannot be defined in two files)
  */
-// line 93 "../../../../../ClimbSafePersistence.ump"
+// line 95 "../../../../../ClimbSafePersistence.ump"
 // line 87 "../../../../../ClimbSafe.ump"
 public class Hotel implements Serializable
 {
@@ -263,7 +263,7 @@ public class Hotel implements Serializable
     }
   }
 
-  // line 99 "../../../../../ClimbSafePersistence.ump"
+  // line 101 "../../../../../ClimbSafePersistence.ump"
    public static  void reinitializeUniqueName(List<Hotel> hotels){
     hotelsByName = new HashMap<String, Hotel>();
     for (Hotel hotel : hotels) {
@@ -284,7 +284,7 @@ public class Hotel implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 96 "../../../../../ClimbSafePersistence.ump"
+  // line 98 "../../../../../ClimbSafePersistence.ump"
   private static final long serialVersionUID = 10L ;
 
   

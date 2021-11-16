@@ -9,7 +9,7 @@ import java.util.*;
  * persistence for BookedItem needs to be specified in ClimbSafe.ump
  * due to a bug in Umple (association classes cannot be defined in two files)
  */
-// line 61 "../../../../../ClimbSafePersistence.ump"
+// line 63 "../../../../../ClimbSafePersistence.ump"
 // line 61 "../../../../../ClimbSafe.ump"
 public abstract class BookableItem implements Serializable
 {
@@ -193,7 +193,7 @@ public abstract class BookableItem implements Serializable
     }
   }
 
-  // line 67 "../../../../../ClimbSafePersistence.ump"
+  // line 69 "../../../../../ClimbSafePersistence.ump"
    public static  void reinitializeUniqueName(List<Equipment> equipment, List<EquipmentBundle> bundles){
     bookableitemsByName = new HashMap<String, BookableItem>();
     for (Equipment e : equipment) {
@@ -214,7 +214,7 @@ public abstract class BookableItem implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 64 "../../../../../ClimbSafePersistence.ump"
+  // line 66 "../../../../../ClimbSafePersistence.ump"
   private static final long serialVersionUID = 7L ;
 
   
