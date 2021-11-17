@@ -185,6 +185,20 @@ public class ClimbSafeFeatureSet5Controller {
     }
   }
 
+  /**
+   * Getter for a list of all available equipment bundles in the model
+   * 
+   * @return ArrayList
+   * @author Jimmy Sheng
+   */
+  public static ArrayList<TOEquipmentBundle> getEquipmentBundles() {
+    var equipmentBundles = new ArrayList<TOEquipmentBundle>();
+    for (var bundle : climbSafe.getBundles()) {
+      equipmentBundles.add(new TOEquipmentBundle(bundle.getName(), bundle.getDiscount()));
+    }
+    return equipmentBundles;
+  }
+
 
   /**
    * Helper method for validating equipment quantities list
