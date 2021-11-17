@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
@@ -169,6 +170,22 @@ public class ClimbSafeFeatureSet2Controller {
     } catch (RuntimeException e) {
       throw new InvalidInputException(e.getMessage());
     }
+  }
+
+  /**
+   * Getter for a list of members
+   * 
+   * @return ArrayList containing all TO members in the model
+   * @author Jimmy Sheng
+   */
+  public static ArrayList<TOMember> getMembers() {
+    var members = new ArrayList<TOMember>();
+    for (var member : cs.getMembers()) {
+      members.add(new TOMember(member.getEmail(), member.getPassword(), member.getName(),
+          member.getEmergencyContact(), member.getNrWeeks(), member.getGuideRequired(),
+          member.getHotelRequired()));
+    }
+    return members;
   }
 
   /**
