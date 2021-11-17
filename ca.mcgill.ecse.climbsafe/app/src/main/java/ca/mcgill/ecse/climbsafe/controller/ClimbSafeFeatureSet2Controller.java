@@ -183,7 +183,7 @@ public class ClimbSafeFeatureSet2Controller {
     for (var member : cs.getMembers()) {
       members.add(new TOMember(member.getEmail(), member.getPassword(), member.getName(),
           member.getEmergencyContact(), member.getNrWeeks(), member.getGuideRequired(),
-          member.getHotelRequired()));
+          member.getHotelRequired(), member.getBanStatusFullName()));
     }
     return members;
   }
