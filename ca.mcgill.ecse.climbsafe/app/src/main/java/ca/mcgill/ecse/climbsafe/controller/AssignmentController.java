@@ -176,15 +176,23 @@ public class AssignmentController {
   public static void startTripsForWeek(int week) throws InvalidInputException {
     // reference to ClimbSafe
     ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
+    
+    String errorString = "";
 
-    try {
-      for (Assignment a : cs.getAssignments()) {
-        if (a.getStartWeek() == week) {
+    for (Assignment a : cs.getAssignments()) {
+      if (a.getStartWeek() == week) {
+        // do not want to stop execution if one trip cannot start
+        try {
           a.start();
+        } catch (RuntimeException e) {
+          errorString += e.getMessage() + ";";
         }
+        a.start();
       }
-    } catch (RuntimeException e) {
-      throw new InvalidInputException(e.getMessage());
+    }
+    
+    if (!errorString.isEmpty()) {
+      throw new InvalidInputException(errorString.substring(0, errorString.length() - 1));
     }
   }
 
