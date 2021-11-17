@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
+import java.util.ArrayList;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
@@ -71,6 +72,21 @@ public class ClimbSafeFeatureSet3Controller {
         throw new InvalidInputException(e.getMessage());
       }
     }
+  }
+
+  /**
+   * Getter for a list of guides
+   * 
+   * @return ArrayList containing all TO guides in the model
+   * @author Jimmy Sheng
+   */
+  public static ArrayList<TOGuide> getGuides() {
+    var guides = new ArrayList<TOGuide>();
+    for (var guide : climbsafe.getGuides()) {
+      guides.add(new TOGuide(guide.getEmail(), guide.getPassword(), guide.getName(),
+          guide.getEmergencyContact()));
+    }
+    return guides;
   }
 
 
