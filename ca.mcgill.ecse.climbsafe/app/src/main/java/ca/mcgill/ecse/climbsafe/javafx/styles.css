@@ -79,7 +79,9 @@
  */
 .button {
 	-fx-font-family: "Open Sans Semibold";
+	-fx-font-size: 18;
 	-fx-text-fill: #5C5CCC;
+	-fx-pref-height: 50px;
 	-fx-base: #FFE2BF;
 	-fx-background-radius: 30;
 	-fx-background-insets: 0, 1, 1;
@@ -94,8 +96,6 @@
 .tab-pane {
 	-fx-tab-min-height: 48px;
 	-fx-tab-max-height: 48px;
-	-fx-tab-min-width: 240px;
-	-fx-tab-max-width: 240px;
 }
 
 .tab-pane .tab-header-area .tab-header-background {
@@ -103,6 +103,7 @@
 }
 
 .tab-pane .tab {
+	-fx-padding: 0px 40px 0px 40px;
 	/* no gap between tabs */
 	-fx-background-insets: 0 0 0 0, 0, 0;
 	/* disable focus ring */
@@ -112,6 +113,7 @@
 	-fx-background-color: #FFF4E9;
 }
 .tab-pane .tab:selected {
+	-fx-padding: 0px 40px -2px 40px;
 	-fx-background-color: #FFECD9;
 	-fx-border-color: #5C5CCC;
 	-fx-border-width: 0px 0px 2px 0px;
