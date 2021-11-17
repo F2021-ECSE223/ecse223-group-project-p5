@@ -28,6 +28,42 @@
 @font-face {
 	src: url("fonts/OpenSans-SemiboldItalic.ttf");
 }
+@font-face {
+	src: url("fonts/Montserrat-Bold.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-BoldItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-ExtraLight.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-ExtraLightItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Italic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Light.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-LightItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Medium.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-MediumItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Regular.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-SemiBold.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-SemiBoldItalic.otf");
+}
 
 /*
  * Global Label styling
