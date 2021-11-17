@@ -20,26 +20,56 @@
 	src: url("fonts/OpenSans-LightItalic.ttf");
 }
 @font-face {
-	src: url("fonts/OpenSans-Medium.ttf");
-}
-@font-face {
-	src: url("fonts/OpenSans-MediumItalic.ttf");
-}
-@font-face {
 	src: url("fonts/OpenSans-Regular.ttf");
 }
 @font-face {
-	src: url("fonts/OpenSans-SemiBold.ttf");
+	src: url("fonts/OpenSans-Semibold.ttf");
 }
 @font-face {
-	src: url("fonts/OpenSans-SemiBoldItalic.ttf");
+	src: url("fonts/OpenSans-SemiboldItalic.ttf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Bold.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-BoldItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-ExtraLight.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-ExtraLightItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Italic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Light.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-LightItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Medium.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-MediumItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Regular.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-SemiBold.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-SemiBoldItalic.otf");
 }
 
 /*
  * Global Label styling
  */
  .label {
- 	-fx-font-family: "Open Sans Regular";
+ 	-fx-font-family: "Montserrat Regular";
  }
 
 /*
@@ -48,7 +78,7 @@
  * Or use another CSS file
  */
 .button {
-	-fx-font-family: "Open Sans Medium";
+	-fx-font-family: "Open Sans Semibold";
 	-fx-text-fill: #5C5CCC;
 	-fx-base: #FFE2BF;
 	-fx-background-radius: 30;
@@ -88,7 +118,7 @@
 }
 
 .tab-pane .tab .tab-label {
-	-fx-font-family: "Open Sans SemiBold";
+	-fx-font-family: "Open Sans Semibold";
 	-fx-font-size: 18;
 	-fx-text-fill: #909099;
 	-fx-alignment: CENTER;

@@ -20,12 +20,6 @@
 	src: url("fonts/OpenSans-LightItalic.ttf");
 }
 @font-face {
-	src: url("fonts/OpenSans-Medium.ttf");
-}
-@font-face {
-	src: url("fonts/OpenSans-MediumItalic.ttf");
-}
-@font-face {
 	src: url("fonts/OpenSans-Regular.ttf");
 }
 @font-face {
@@ -33,6 +27,42 @@
 }
 @font-face {
 	src: url("fonts/OpenSans-SemiBoldItalic.ttf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Bold.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-BoldItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-ExtraLight.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-ExtraLightItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Italic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Light.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-LightItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Medium.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-MediumItalic.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-Regular.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-SemiBold.otf");
+}
+@font-face {
+	src: url("fonts/Montserrat-SemiBoldItalic.otf");
 }
 
 /*
@@ -54,7 +84,7 @@
 	-fx-background-color: #9696E6;
 	-fx-border-color: #5C5CCC;
 	-fx-border-width: 0px 0px 0px 4px;
-	-fx-font-family: "Open Sans Regular";
+	-fx-font-family: "Open Sans";
 	-fx-text-fill: #FFFFFF;
 }
 
