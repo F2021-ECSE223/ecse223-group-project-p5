@@ -1,6 +1,8 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
@@ -86,6 +88,8 @@ public class ClimbSafeFeatureSet3Controller {
       guides.add(new TOGuide(guide.getEmail(), guide.getPassword(), guide.getName(),
           guide.getEmergencyContact()));
     }
+    // by default, sort by name
+    Collections.sort(guides, Comparator.comparing((TOGuide guide) -> guide.getName()));
     return guides;
   }
 

@@ -1,6 +1,8 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
@@ -150,6 +152,9 @@ public class ClimbSafeFeatureSet4Controller {
       equipments.add(
           new TOEquipment(equipment.getName(), equipment.getWeight(), equipment.getPricePerWeek()));
     }
+    // by default, sort by name
+    Comparator<TOEquipment> comp = Comparator.comparing(TOEquipment::getName);
+    Collections.sort(equipments, comp);
     return equipments;
   }
 

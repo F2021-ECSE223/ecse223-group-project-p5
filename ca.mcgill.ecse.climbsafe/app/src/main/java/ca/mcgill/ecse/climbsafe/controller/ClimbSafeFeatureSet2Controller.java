@@ -1,6 +1,8 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
@@ -185,6 +187,8 @@ public class ClimbSafeFeatureSet2Controller {
           member.getEmergencyContact(), member.getNrWeeks(), member.getGuideRequired(),
           member.getHotelRequired(), member.getBanStatusFullName()));
     }
+    // by default, sort by name
+    Collections.sort(members, Comparator.comparing((TOMember member) -> member.getName()));
     return members;
   }
 
@@ -210,6 +214,9 @@ public class ClimbSafeFeatureSet2Controller {
     for (var item : member.getBookedItems()) {
       bookedItems.add(new TOBookedItem(item.getQuantity(), memberEmail, item.getItem().getName()));
     }
+    // by default, sort by item name
+    Collections.sort(bookedItems,
+        Comparator.comparing((TOBookedItem item) -> item.getBookableItemName()));
     return bookedItems;
   }
 
@@ -225,6 +232,9 @@ public class ClimbSafeFeatureSet2Controller {
       bookedItems.add(new TOBookedItem(item.getQuantity(), item.getMember().getEmail(),
           item.getItem().getName()));
     }
+    // by default, sort by item name
+    Collections.sort(bookedItems,
+        Comparator.comparing((TOBookedItem item) -> item.getBookableItemName()));
     return bookedItems;
   }
 

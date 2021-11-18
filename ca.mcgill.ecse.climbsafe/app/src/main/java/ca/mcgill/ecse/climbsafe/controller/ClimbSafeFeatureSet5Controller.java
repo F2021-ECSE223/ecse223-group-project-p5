@@ -1,6 +1,8 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
@@ -196,6 +198,9 @@ public class ClimbSafeFeatureSet5Controller {
     for (var bundle : climbSafe.getBundles()) {
       equipmentBundles.add(new TOEquipmentBundle(bundle.getName(), bundle.getDiscount()));
     }
+    // by default, sort by bundle name
+    Collections.sort(equipmentBundles,
+        Comparator.comparing((TOEquipmentBundle bundle) -> bundle.getName()));
     return equipmentBundles;
   }
 
@@ -221,6 +226,9 @@ public class ClimbSafeFeatureSet5Controller {
       bundleItems.add(new TOBundleItem(item.getQuantity(), item.getBundle().getName(),
           item.getEquipment().getName()));
     }
+    // by default, sort by equipment name
+    Collections.sort(bundleItems,
+        Comparator.comparing((TOBundleItem item) -> item.getEquipmentName()));
     return bundleItems;
   }
 
@@ -236,6 +244,9 @@ public class ClimbSafeFeatureSet5Controller {
       bundleItems.add(new TOBundleItem(item.getQuantity(), item.getBundle().getName(),
           item.getEquipment().getName()));
     }
+    // by default, sort by bundle name
+    Collections.sort(bundleItems,
+        Comparator.comparing((TOBundleItem item) -> item.getEquipmentBundleName()));
     return bundleItems;
   }
 
