@@ -66,11 +66,20 @@
 }
 
 /*
+ * Global TextField styling
+ */
+.text-field {
+	-fx-font-family: "Open Sans";
+	-fx-font-size: 14;
+}
+
+/*
  * Global Label styling
  */
- .label {
- 	-fx-font-family: "Montserrat Regular";
- }
+.label {
+	-fx-font-family: "Montserrat Regular";
+	-fx-font-size: 18;
+}
 
 /*
  * Global Button styling for a uniformed look
