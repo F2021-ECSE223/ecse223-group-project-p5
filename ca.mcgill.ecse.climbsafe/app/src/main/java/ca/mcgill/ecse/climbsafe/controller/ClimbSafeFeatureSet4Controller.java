@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
+import java.util.ArrayList;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.BookableItem;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
@@ -135,6 +136,21 @@ public class ClimbSafeFeatureSet4Controller {
       }
     }
 
+  }
+
+  /**
+   * Getter for a list of all equipments in the model
+   * 
+   * @return ArrayList
+   * @author Jimmy Sheng
+   */
+  public static ArrayList<TOEquipment> getEquipments() {
+    var equipments = new ArrayList<TOEquipment>();
+    for (var equipment : climbsafe.getEquipment()) {
+      equipments.add(
+          new TOEquipment(equipment.getName(), equipment.getWeight(), equipment.getPricePerWeek()));
+    }
+    return equipments;
   }
 
 }
