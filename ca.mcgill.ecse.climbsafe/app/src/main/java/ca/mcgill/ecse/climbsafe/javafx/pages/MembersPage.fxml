@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
@@ -10,7 +13,15 @@
         <tabs>
           <Tab text="Register Member">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="60.0" layoutY="14.0" prefHeight="62.0" prefWidth="219.0" text="Name" />
+                        <Label layoutX="60.0" layoutY="107.0" prefHeight="62.0" prefWidth="219.0" text="Email Address" />
+                        <TextField layoutX="60.0" layoutY="76.0" />
+                        <TextField layoutX="60.0" layoutY="169.0" />
+                        <PasswordField layoutX="60.0" layoutY="263.0" />
+                        <Label layoutX="60.0" layoutY="208.0" prefHeight="62.0" prefWidth="219.0" text="Password" />
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Modify Member">
