@@ -19,12 +19,13 @@ public class TOMember
   private int nrWeeks;
   private boolean guideRequired;
   private boolean hotelRequired;
+  private String banStatusFullName;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TOMember(String aEmail, String aPassword, String aName, String aEmergencyContact, int aNrWeeks, boolean aGuideRequired, boolean aHotelRequired)
+  public TOMember(String aEmail, String aPassword, String aName, String aEmergencyContact, int aNrWeeks, boolean aGuideRequired, boolean aHotelRequired, String aBanStatusFullName)
   {
     email = aEmail;
     password = aPassword;
@@ -33,6 +34,7 @@ public class TOMember
     nrWeeks = aNrWeeks;
     guideRequired = aGuideRequired;
     hotelRequired = aHotelRequired;
+    banStatusFullName = aBanStatusFullName;
   }
 
   //------------------------
@@ -95,6 +97,14 @@ public class TOMember
     return wasSet;
   }
 
+  public boolean setBanStatusFullName(String aBanStatusFullName)
+  {
+    boolean wasSet = false;
+    banStatusFullName = aBanStatusFullName;
+    wasSet = true;
+    return wasSet;
+  }
+
   public String getEmail()
   {
     return email;
@@ -129,6 +139,11 @@ public class TOMember
   {
     return hotelRequired;
   }
+
+  public String getBanStatusFullName()
+  {
+    return banStatusFullName;
+  }
   /* Code from template attribute_IsBoolean */
   public boolean isGuideRequired()
   {
@@ -153,6 +168,7 @@ public class TOMember
             "emergencyContact" + ":" + getEmergencyContact()+ "," +
             "nrWeeks" + ":" + getNrWeeks()+ "," +
             "guideRequired" + ":" + getGuideRequired()+ "," +
-            "hotelRequired" + ":" + getHotelRequired()+ "]";
+            "hotelRequired" + ":" + getHotelRequired()+ "," +
+            "banStatusFullName" + ":" + getBanStatusFullName()+ "]";
   }
 }
