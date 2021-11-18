@@ -61,17 +61,19 @@ public class ViewUtils {
 
     // create UI elements
     Text text = new Text(message);
+    text.setId("text-error");
     Button okButton = new Button("OK");
     okButton.setOnAction(a -> dialog.close());
 
     // display the popup window
-    int innerPadding = 10; // inner padding/spacing
-    int outerPadding = 100; // outer padding
+    int innerPadding = 15; // inner padding/spacing
+    int outerPadding = 120; // outer padding
     dialogPane.setSpacing(innerPadding);
     dialogPane.setAlignment(Pos.CENTER);
     dialogPane.setPadding(new Insets(innerPadding, innerPadding, innerPadding, innerPadding));
     dialogPane.getChildren().addAll(text, okButton);
-    Scene dialogScene = new Scene(dialogPane, outerPadding + 5 * message.length(), outerPadding);
+    Scene dialogScene = new Scene(dialogPane, outerPadding + 8 * message.length(), outerPadding);
+    dialogScene.getStylesheets().add("ca/mcgill/ecse/climbsafe/javafx/PopupWindowStyles.css");
     dialog.setScene(dialogScene);
     dialog.setTitle(title);
     dialog.show();
