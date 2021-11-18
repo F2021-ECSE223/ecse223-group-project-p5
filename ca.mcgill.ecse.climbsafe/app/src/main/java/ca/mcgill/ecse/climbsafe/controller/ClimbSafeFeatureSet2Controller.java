@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
@@ -169,6 +170,62 @@ public class ClimbSafeFeatureSet2Controller {
     } catch (RuntimeException e) {
       throw new InvalidInputException(e.getMessage());
     }
+  }
+
+  /**
+   * Getter for a list of members
+   * 
+   * @return ArrayList containing all TO members in the model
+   * @author Jimmy Sheng
+   */
+  public static ArrayList<TOMember> getMembers() {
+    var members = new ArrayList<TOMember>();
+    for (var member : cs.getMembers()) {
+      members.add(new TOMember(member.getEmail(), member.getPassword(), member.getName(),
+          member.getEmergencyContact(), member.getNrWeeks(), member.getGuideRequired(),
+          member.getHotelRequired(), member.getBanStatusFullName()));
+    }
+    return members;
+  }
+
+  /**
+   * Getter for a list of booked items for the member with the given email
+   * 
+   * @param memberEmail
+   * @return ArrayList
+   * @throws InvalidInputException if email doesn't link to a valid member
+   * @author Jimmy Sheng
+   */
+  public static ArrayList<TOBookedItem> getBookedItems(String memberEmail)
+      throws InvalidInputException {
+    // check if member exists
+    var usr = User.getWithEmail(memberEmail);
+    if (usr == null) {
+      throw new InvalidInputException("Member not found");
+    } else if (!(usr instanceof Member)) {
+      throw new InvalidInputException("Member not found");
+    }
+    var member = (Member) usr;
+    var bookedItems = new ArrayList<TOBookedItem>();
+    for (var item : member.getBookedItems()) {
+      bookedItems.add(new TOBookedItem(item.getQuantity(), memberEmail, item.getItem().getName()));
+    }
+    return bookedItems;
+  }
+
+  /**
+   * Getter for a list of all booked items in the model
+   * 
+   * @return ArrayList
+   * @author Jimmy Sheng
+   */
+  public static ArrayList<TOBookedItem> getBookedItems() {
+    var bookedItems = new ArrayList<TOBookedItem>();
+    for (var item : cs.getBookedItems()) {
+      bookedItems.add(new TOBookedItem(item.getQuantity(), item.getMember().getEmail(),
+          item.getItem().getName()));
+    }
+    return bookedItems;
   }
 
   /**

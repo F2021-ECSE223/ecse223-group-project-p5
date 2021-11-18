@@ -185,6 +185,59 @@ public class ClimbSafeFeatureSet5Controller {
     }
   }
 
+  /**
+   * Getter for a list of all available equipment bundles in the model
+   * 
+   * @return ArrayList
+   * @author Jimmy Sheng
+   */
+  public static ArrayList<TOEquipmentBundle> getEquipmentBundles() {
+    var equipmentBundles = new ArrayList<TOEquipmentBundle>();
+    for (var bundle : climbSafe.getBundles()) {
+      equipmentBundles.add(new TOEquipmentBundle(bundle.getName(), bundle.getDiscount()));
+    }
+    return equipmentBundles;
+  }
+
+  /**
+   * Getter for a list of bundle items in the given bundle
+   * 
+   * @param bundleName
+   * @return ArrayList
+   * @throws InvalidInputException if bundleName does not link to a valid bundle
+   */
+  public static ArrayList<TOBundleItem> getBundleItems(String bundleName)
+      throws InvalidInputException {
+    // check if bundle exists
+    var bookableItem = BookableItem.getWithName(bundleName);
+    if (bookableItem == null) {
+      throw new InvalidInputException("Bundle not found");
+    } else if (!(bookableItem instanceof EquipmentBundle)) {
+      throw new InvalidInputException("Bundle not found");
+    }
+    var bundle = (EquipmentBundle) bookableItem;
+    var bundleItems = new ArrayList<TOBundleItem>();
+    for (var item : bundle.getBundleItems()) {
+      bundleItems.add(new TOBundleItem(item.getQuantity(), item.getBundle().getName(),
+          item.getEquipment().getName()));
+    }
+    return bundleItems;
+  }
+
+  /**
+   * Getter for a list of all bundle items in the model
+   * 
+   * @return ArrayList
+   * @author Jimmy Sheng
+   */
+  public static ArrayList<TOBundleItem> getBundleItems() {
+    var bundleItems = new ArrayList<TOBundleItem>();
+    for (var item : climbSafe.getBundleItems()) {
+      bundleItems.add(new TOBundleItem(item.getQuantity(), item.getBundle().getName(),
+          item.getEquipment().getName()));
+    }
+    return bundleItems;
+  }
 
   /**
    * Helper method for validating equipment quantities list

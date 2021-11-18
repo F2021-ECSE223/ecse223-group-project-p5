@@ -36,6 +36,7 @@ class TOMember {
   Integer nrWeeks;
   Boolean guideRequired;
   Boolean hotelRequired;
+  banStatusFullName;
 }
 
 class TOBookedItem {
