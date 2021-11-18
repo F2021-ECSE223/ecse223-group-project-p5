@@ -79,7 +79,7 @@
  */
 .button {
 	-fx-font-family: "Open Sans Semibold";
-	-fx-font-size: 18;
+	-fx-font-size: 20;
 	-fx-text-fill: #5C5CCC;
 	-fx-pref-height: 50px;
 	-fx-base: #FFE2BF;
@@ -94,8 +94,8 @@
  * Or use another CSS file
  */
 .tab-pane {
-	-fx-tab-min-height: 48px;
-	-fx-tab-max-height: 48px;
+	-fx-tab-min-height: 56px;
+	-fx-tab-max-height: 56px;
 }
 
 .tab-pane .tab-header-area .tab-header-background {
@@ -113,15 +113,15 @@
 	-fx-background-color: #FFF4E9;
 }
 .tab-pane .tab:selected {
-	-fx-padding: 0px 40px -2px 40px;
+	-fx-padding: 0px 40px -3px 40px;
 	-fx-background-color: #FFECD9;
 	-fx-border-color: #5C5CCC;
-	-fx-border-width: 0px 0px 2px 0px;
+	-fx-border-width: 0px 0px 3px 0px;
 }
 
 .tab-pane .tab .tab-label {
 	-fx-font-family: "Open Sans Semibold";
-	-fx-font-size: 18;
+	-fx-font-size: 20;
 	-fx-text-fill: #909099;
 	-fx-alignment: CENTER;
 }
