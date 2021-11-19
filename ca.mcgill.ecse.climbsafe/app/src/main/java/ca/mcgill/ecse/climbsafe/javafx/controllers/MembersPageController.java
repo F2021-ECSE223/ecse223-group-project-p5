@@ -16,8 +16,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
@@ -63,15 +61,15 @@ public class MembersPageController {
   @FXML
   private TableColumn<TOEquipment, Spinner<Integer>> regEquipTableQuantity;
   @FXML
-  private TreeTableView regBundleTable;
+  private TableView<TOEquipmentBundle> regBundleTable;
   @FXML
-  private TreeTableColumn regBundleTableName;
+  private TableColumn<TOEquipmentBundle, String> regBundleTableName;
   @FXML
-  private TreeTableColumn regBundleTableDiscount;
+  private TableColumn<TOEquipmentBundle, Integer> regBundleTableDiscount;
   @FXML
-  private TreeTableColumn regBundleTablePrice;
+  private TableColumn<TOEquipmentBundle, Integer> regBundleTablePrice;
   @FXML
-  private TreeTableColumn regBundleTableQuantity;
+  private TableColumn<TOEquipmentBundle, Spinner<Integer>> regBundleTableQuantity;
   @FXML
   private Button regClear;
   @FXML
@@ -115,15 +113,15 @@ public class MembersPageController {
   @FXML
   private TableColumn modEquipTableQuantity;
   @FXML
-  private TreeTableView modBundleTable;
+  private TableView modBundleTable;
   @FXML
-  private TreeTableColumn modBundleTableName;
+  private TableColumn modBundleTableName;
   @FXML
-  private TreeTableColumn modBundleTableDiscount;
+  private TableColumn modBundleTableDiscount;
   @FXML
-  private TreeTableColumn modBundleTablePrice;
+  private TableColumn modBundleTablePrice;
   @FXML
-  private TreeTableColumn modBundleTableQuantity;
+  private TableColumn modBundleTableQuantity;
   @FXML
   private Button modClear;
   @FXML
