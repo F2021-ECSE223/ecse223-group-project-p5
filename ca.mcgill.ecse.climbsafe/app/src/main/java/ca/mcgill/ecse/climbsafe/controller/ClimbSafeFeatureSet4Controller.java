@@ -44,7 +44,7 @@ public class ClimbSafeFeatureSet4Controller {
       throw new InvalidInputException("The weight must be greater than 0");
     } else if (pricePerWeek < 0) {
       throw new InvalidInputException("The price per week must be greater than or equal to 0");
-    } else if (name == null || name.equals("") || name.equals(" ")) {
+    } else if (name == null || name.trim().equals("")) {
       throw new InvalidInputException("The name must not be empty");
     }
 
@@ -95,9 +95,9 @@ public class ClimbSafeFeatureSet4Controller {
       throw new InvalidInputException("The weight must be greater than 0");
     } else if (newPricePerWeek <= 0) {
       throw new InvalidInputException("The price per week must be greater than or equal to 0");
-    } else if (newName.equals("")) {
+    } else if (newName == null) {
       throw new InvalidInputException("The name must not be empty");
-    } else if (newName.equals(" ")) {
+    } else if (newName.trim().equals("")) {
       throw new InvalidInputException("The name must not be empty");
     }
 

@@ -140,21 +140,27 @@ public class ClimbSafeFeatureSet3Controller {
    * @throws InvalidInputException if the name is empty
    */
   private static void checkname(String name) throws InvalidInputException {
-    if ((name.equals("")) || (name == null)) {
+    if (name == null) {
+      throw new InvalidInputException("Name cannot be empty");
+    } else if (name.trim().equals("")) {
       throw new InvalidInputException("Name cannot be empty");
     }
   }
 
   /**
-   * The helper method to check if the password is empty
+   * Validate password
    * 
    * @param password
-   * @throws InvalidInputException if the password is empty
+   * @throws InvalidInputException
+   * @author Jimmy Sheng
    */
-
-  private static void checkpassword(String password) throws InvalidInputException {
-    if ((password.equals("")) || (password == null)) {
-      throw new InvalidInputException("Password cannot be empty");
+  private static void checkpassword(String psw) throws InvalidInputException {
+    if (psw == null) {
+      throw new InvalidInputException("The password cannot be empty");
+    } else if (psw.contains(" ")) {
+      throw new InvalidInputException("The password must not contain any spaces");
+    } else if (psw.equals("")) {
+      throw new InvalidInputException("The password cannot be empty");
     }
   }
 
@@ -165,7 +171,7 @@ public class ClimbSafeFeatureSet3Controller {
    * @throws InvalidInputException if the emergencycontact is empty
    */
   private static void checkemergencyContact(String emergencyContact) throws InvalidInputException {
-    if ((emergencyContact.equals("")) || (emergencyContact == null)) {
+    if ((emergencyContact.trim().equals("")) || (emergencyContact == null)) {
       throw new InvalidInputException("Emergency contact cannot be empty");
     }
   }

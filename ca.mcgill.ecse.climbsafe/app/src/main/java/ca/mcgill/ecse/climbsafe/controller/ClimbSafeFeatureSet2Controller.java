@@ -272,7 +272,7 @@ public class ClimbSafeFeatureSet2Controller {
   private static void validateName(String name) throws InvalidInputException {
     if (name == null) {
       throw new InvalidInputException("The name cannot be empty");
-    } else if (name.equals("")) {
+    } else if (name.trim().equals("")) {
       throw new InvalidInputException("The name cannot be empty");
     }
   }
@@ -286,7 +286,7 @@ public class ClimbSafeFeatureSet2Controller {
   private static void validateEmergencyContact(String contact) throws InvalidInputException {
     if (contact == null) {
       throw new InvalidInputException("The emergency contact cannot be empty");
-    } else if (contact.equals("")) {
+    } else if (contact.trim().equals("")) {
       throw new InvalidInputException("The emergency contact cannot be empty");
     }
   }

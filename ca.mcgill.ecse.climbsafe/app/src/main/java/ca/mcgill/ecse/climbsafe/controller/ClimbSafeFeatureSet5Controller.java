@@ -311,9 +311,7 @@ public class ClimbSafeFeatureSet5Controller {
 
     if (name == null) {
       throw new InvalidInputException("Equipment bundle name cannot be empty");
-    } else if (name.equals("")) {
-      throw new InvalidInputException("Equipment bundle name cannot be empty");
-    } else if (name.equals(" ")) {
+    } else if (name.trim().equals("")) {
       throw new InvalidInputException("Equipment bundle name cannot be empty");
     }
 
