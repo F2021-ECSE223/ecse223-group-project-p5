@@ -199,9 +199,9 @@
                                           <Label text="Select Bundles" GridPane.rowIndex="2" />
                                           <TableView fx:id="regBundleTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                             <columns>
-                                              <TableColumn fx:id="regBundleTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" text="Name" />
-                                              <TableColumn fx:id="regBundleTableDiscount" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="85.0" text="Discount" />
-                                                <TableColumn fx:id="regBundleTablePrice" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="120.0" text="Price/Week" />
+                                              <TableColumn fx:id="regBundleTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="125.0" text="Name" />
+                                                <TableColumn fx:id="regBundleTablePrice" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" text="Price/Week" />
+                                              <TableColumn fx:id="regBundleTableDiscount" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" text="\% Discount" />
                                                 <TableColumn fx:id="regBundleTableQuantity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="82.0" text="Quantity" />
                                             </columns>
                                              <GridPane.margin>
@@ -440,9 +440,9 @@
                                           <Label text="Select Bundles" GridPane.rowIndex="2" />
                                           <TableView fx:id="modBundleTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                              <columns>
-                                                <TableColumn fx:id="modBundleTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" text="Name" />
-                                                <TableColumn fx:id="modBundleTableDiscount" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="85.0" text="Discount" />
-                                                <TableColumn fx:id="modBundleTablePrice" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="120.0" text="Price/Week" />
+                                                <TableColumn fx:id="modBundleTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="125.0" text="Name" />
+                                                <TableColumn fx:id="modBundleTablePrice" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" text="Price/Week" />
+                                                <TableColumn fx:id="modBundleTableDiscount" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" text="\% Discount" />
                                                 <TableColumn fx:id="modBundleTableQuantity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="82.0" text="Quantity" />
                                              </columns>
                                              <GridPane.margin>
