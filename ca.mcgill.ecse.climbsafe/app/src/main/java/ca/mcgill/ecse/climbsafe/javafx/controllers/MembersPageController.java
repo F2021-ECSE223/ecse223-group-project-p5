@@ -447,6 +447,7 @@ public class MembersPageController {
       }
       totalCost += bundlePrice * (int) bundle.getMpQuantity().getValue();
     }
+    totalCost = this.regWeeks.getValue() * totalCost;
     regTotalCost.setText(Integer.toString(totalCost));
   }
 
@@ -465,6 +466,7 @@ public class MembersPageController {
       }
       totalCost += bundlePrice * (int) bundle.getMpQuantity().getValue();
     }
+    totalCost = this.modWeeks.getValue() * totalCost;
     modTotalCost.setText(Integer.toString(totalCost));
   }
 
