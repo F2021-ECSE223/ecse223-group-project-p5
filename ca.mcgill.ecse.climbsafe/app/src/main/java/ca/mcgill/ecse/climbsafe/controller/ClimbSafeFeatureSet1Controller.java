@@ -104,13 +104,23 @@ public class ClimbSafeFeatureSet1Controller {
   /**
    * Getter for the number of climbing weeks
    * 
-   * @return Integer
+   * @return int
    * @author Jimmy Sheng
    * 
    */
-  public static Integer getNrWeeks() {
+  public static int getNrWeeks() {
     ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
     return cs.getNrWeeks();
+  }
+
+  /***
+   * Getter for price of guide per week
+   * 
+   * @return int
+   * @author Jimmy Sheng
+   */
+  public static int getPriceOfGuidePerWeek() {
+    return ClimbSafeApplication.getClimbSafe().getPriceOfGuidePerWeek();
   }
 
   // this method needs to be implemented only by teams with seven team members
