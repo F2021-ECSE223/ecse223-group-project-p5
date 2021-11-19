@@ -470,6 +470,7 @@ public class MembersPageController {
     for (var bundle : this.curRegBundles) {
       int bundlePrice = bundle.getNoDiscountPrice();
       if (regNeedGuideYes.isSelected()) {
+        totalCost += ClimbSafeFeatureSet1Controller.getPriceOfGuidePerWeek();
         bundlePrice = Math.round(bundlePrice * (100 - bundle.getDiscount()) / 100);
       }
       totalCost += bundlePrice * (int) bundle.getMpQuantity().getValue();
@@ -489,6 +490,7 @@ public class MembersPageController {
     for (var bundle : this.curModBundles) {
       int bundlePrice = bundle.getNoDiscountPrice();
       if (modNeedGuideYes.isSelected()) {
+        totalCost += ClimbSafeFeatureSet1Controller.getPriceOfGuidePerWeek();
         bundlePrice = Math.round(bundlePrice * (100 - bundle.getDiscount()) / 100);
       }
       totalCost += bundlePrice * (int) bundle.getMpQuantity().getValue();
