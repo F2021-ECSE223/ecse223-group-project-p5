@@ -79,8 +79,6 @@ public class MembersPageController {
   @FXML
   private Button regClear;
   @FXML
-  private Button regUpdateCost;
-  @FXML
   private Button regRegister;
   @FXML
   private TextField regTotalCost;
@@ -132,8 +130,6 @@ public class MembersPageController {
   private Button modClear;
   @FXML
   private Button modAutofill;
-  @FXML
-  private Button modUpdateCost;
   @FXML
   private Button modModify;
   @FXML

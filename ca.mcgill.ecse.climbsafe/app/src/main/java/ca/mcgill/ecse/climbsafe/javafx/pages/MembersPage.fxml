@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -225,11 +226,6 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                                        <children>
                                           <Button fx:id="regClear" mnemonicParsing="false" onAction="#regDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button fx:id="regUpdateCost" mnemonicParsing="false" onAction="#regDoUpdateCost" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Update Cost">
                                              <HBox.margin>
                                                 <Insets left="40.0" />
                                              </HBox.margin>
@@ -467,18 +463,16 @@
                                        <children>
                                           <Button fx:id="modClear" mnemonicParsing="false" onAction="#modDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All" HBox.hgrow="NEVER">
                                              <HBox.margin>
-                                                <Insets left="5.0" />
+                                                <Insets left="40.0" />
                                              </HBox.margin>
                                           </Button>
                                           <Button fx:id="modAutofill" mnemonicParsing="false" onAction="#modDoAutofill" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Autofill">
                                              <HBox.margin>
-                                                <Insets left="5.0" />
+                                                <Insets left="40.0" />
                                              </HBox.margin>
-                                          </Button>
-                                          <Button fx:id="modUpdateCost" mnemonicParsing="false" onAction="#modDoUpdateCost" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Update Cost">
-                                             <HBox.margin>
-                                                <Insets left="5.0" />
-                                             </HBox.margin>
+                                             <tooltip>
+                                                <Tooltip text="Autofill member info based on email address" />
+                                             </tooltip>
                                           </Button>
                                        </children>
                                        <opaqueInsets>
@@ -517,7 +511,7 @@
                   </AnchorPane>
                </content>
           </Tab>
-            <Tab text="Delete Member">
+            <Tab text="View All Members">
                <content>
                   <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="900.0">
                      <children>
@@ -531,7 +525,7 @@
                                     <TableColumn fx:id="delTableWeeks" text="# Weeks" />
                                     <TableColumn fx:id="delTableGuide" prefWidth="75.0" text="Guide" />
                                     <TableColumn fx:id="delTableHotel" prefWidth="75.0" text="Hotel" />
-                                    <TableColumn fx:id="delTableBanned" prefWidth="74.0" text="Banned" />
+                                    <TableColumn fx:id="delTableBanned" prefWidth="70.0" text="Banned" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
