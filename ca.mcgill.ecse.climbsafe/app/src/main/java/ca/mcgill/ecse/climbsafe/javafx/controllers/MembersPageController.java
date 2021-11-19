@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -239,7 +240,7 @@ public class MembersPageController {
   // Event Listener on Button[#delClearSelection].onAction
   @FXML
   public void delDoClearSelection(ActionEvent event) {
-    System.out.println("Del Clear Selection");
+    delDoClearSelection();
   }
 
   // Event Listener on Button[#delDelete].onAction
@@ -313,6 +314,10 @@ public class MembersPageController {
       delTable.setItems(ViewUtils.getMembers());
     });
     ClimbSafeView.getInstance().registerRefreshEvent(delTable);
+    /*
+     * Enable multi rows selection
+     */
+    delTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
   }
 
 
@@ -508,6 +513,13 @@ public class MembersPageController {
       bundle.getMpQuantity().getValueFactory().setValue(0);
     }
     modTotalCost.setText("0");
+  }
+  
+  /**
+   * Helper method to clear Table selection
+   */
+  private void delDoClearSelection() {
+    delTable.getSelectionModel().clearSelection();
   }
 
 }
