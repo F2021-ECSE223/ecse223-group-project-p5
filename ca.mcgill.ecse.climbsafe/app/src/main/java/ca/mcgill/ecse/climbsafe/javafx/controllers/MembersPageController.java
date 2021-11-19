@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.climbsafe.javafx.controllers;
 
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.controller.TOMember;
 import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -131,21 +133,21 @@ public class MembersPageController {
   @FXML
   private TextField modTotalCost;
   @FXML
-  private TableView delTable;
+  private TableView<TOMember> delTable;
   @FXML
-  private TableColumn delTableName;
+  private TableColumn<TOMember, String> delTableName;
   @FXML
-  private TableColumn delTableEmail;
+  private TableColumn<TOMember, String> delTableEmail;
   @FXML
-  private TableColumn delTableContact;
+  private TableColumn<TOMember, String> delTableContact;
   @FXML
-  private TableColumn delTableWeeks;
+  private TableColumn<TOMember, Integer> delTableWeeks;
   @FXML
-  private TableColumn delTableGuide;
+  private TableColumn<TOMember, Boolean> delTableGuide;
   @FXML
-  private TableColumn delTableHotel;
+  private TableColumn<TOMember, Boolean> delTableHotel;
   @FXML
-  private TableColumn delTableBanned;
+  private TableColumn<TOMember, String> delTableBanned;
   @FXML
   private Button delClearSelection;
   @FXML
@@ -154,6 +156,7 @@ public class MembersPageController {
   @FXML
   public void initialize() {
     initSpinners();
+    initDelTable();
   }
 
   // Event Listener on Button[#regClear].onAction
@@ -265,14 +268,37 @@ public class MembersPageController {
       modDoUpdateCost();
     });
   }
-  
+
+  /**
+   * Helper method to setup the table on Delete tab
+   */
+  private void initDelTable() {
+    /*
+     * Create table mappings
+     */
+    delTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    delTableEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+    delTableContact.setCellValueFactory(new PropertyValueFactory<>("emergencyContact"));
+    delTableWeeks.setCellValueFactory(new PropertyValueFactory<>("nrWeeks"));
+    delTableGuide.setCellValueFactory(new PropertyValueFactory<>("guideRequired"));
+    delTableHotel.setCellValueFactory(new PropertyValueFactory<>("hotelRequired"));
+    delTableBanned.setCellValueFactory(new PropertyValueFactory<>("banStatusFullName"));
+    /*
+     * Update table on refresh event
+     */
+    delTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+      delTable.setItems(ViewUtils.getMembers());
+    });
+    ClimbSafeView.getInstance().registerRefreshEvent(delTable);
+  }
+
   /**
    * Helper method to update cost on Register tab
    */
   private void regDoUpdateCost() {
     System.out.println("Reg Update Cost");
   }
-  
+
   /**
    * Helper method to update cost on Modify tab
    */
