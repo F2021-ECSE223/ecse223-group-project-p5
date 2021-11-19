@@ -246,7 +246,7 @@ public class MembersPageController {
   // Event Listener on Button[#delDelete].onAction
   @FXML
   public void delDoDelete(ActionEvent event) {
-    System.out.println("Del Delete");
+    delDoDelete();
   }
 
   /**
@@ -514,12 +514,31 @@ public class MembersPageController {
     }
     modTotalCost.setText("0");
   }
-  
+
   /**
    * Helper method to clear Table selection
    */
   private void delDoClearSelection() {
     delTable.getSelectionModel().clearSelection();
+  }
+
+  /**
+   * Helper method to delete members on selected rows
+   */
+  private void delDoDelete() {
+    var selection = delTable.getSelectionModel().getSelectedItems();
+    var emailList = new ArrayList<String>();
+    /*
+     * Email need to be stored in another list since selection changes when a member is deleted
+     */
+    if (selection != null) {
+      for (var member : selection) {
+        emailList.add(member.getEmail());
+      }
+    }
+    for (var email : emailList) {
+      ViewUtils.successful(() -> ClimbSafeFeatureSet1Controller.deleteMember(email));
+    }
   }
 
 }
