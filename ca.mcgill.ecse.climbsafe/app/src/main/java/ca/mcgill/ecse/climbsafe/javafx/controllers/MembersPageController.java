@@ -1,8 +1,10 @@
 package ca.mcgill.ecse.climbsafe.javafx.controllers;
 
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
 import ca.mcgill.ecse.climbsafe.controller.TOMember;
 import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -51,15 +53,15 @@ public class MembersPageController {
   @FXML
   private RadioButton regNeedHotelNo;
   @FXML
-  private TableView regEquipTable;
+  private TableView<TOEquipment> regEquipTable;
   @FXML
-  private TableColumn regEquipTableName;
+  private TableColumn<TOEquipment, String> regEquipTableName;
   @FXML
-  private TableColumn regEquipTableWeight;
+  private TableColumn<TOEquipment, Integer> regEquipTableWeight;
   @FXML
-  private TableColumn regEquipTablePrice;
+  private TableColumn<TOEquipment, Integer> regEquipTablePrice;
   @FXML
-  private TableColumn regEquipTableQuantity;
+  private TableColumn<TOEquipment, Spinner<Integer>> regEquipTableQuantity;
   @FXML
   private TreeTableView regBundleTable;
   @FXML
@@ -153,10 +155,14 @@ public class MembersPageController {
   @FXML
   private Button delDelete;
 
+  // Fields
+  private ObservableList<TOEquipment> currentEquipments;
+
   @FXML
   public void initialize() {
     initSpinners();
     initDelTable();
+    initRegEquipTable();
   }
 
   // Event Listener on Button[#regClear].onAction
@@ -290,6 +296,36 @@ public class MembersPageController {
       delTable.setItems(ViewUtils.getMembers());
     });
     ClimbSafeView.getInstance().registerRefreshEvent(delTable);
+  }
+
+
+  /**
+   * Helper method to setup the equipment table on Register tab
+   */
+  private void initRegEquipTable() {
+    /*
+     * Create table mappings
+     */
+    regEquipTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    regEquipTableWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
+    regEquipTablePrice.setCellValueFactory(new PropertyValueFactory<>("pricePerWeek"));
+    regEquipTableQuantity.setCellValueFactory(new PropertyValueFactory<>("mpQuantity"));
+    /*
+     * Update table on refresh event
+     */
+    regEquipTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+      this.currentEquipments = ViewUtils.getEquipments();
+      regEquipTable.setItems(this.currentEquipments);
+      /*
+       * Add handler for all spinners
+       */
+      for (var equipment : this.currentEquipments) {
+        equipment.getMpQuantity().addEventHandler(MouseEvent.MOUSE_CLICKED, f -> {
+          regDoUpdateCost();
+        });
+      }
+    });
+    ClimbSafeView.getInstance().registerRefreshEvent(regEquipTable);
   }
 
   /**
