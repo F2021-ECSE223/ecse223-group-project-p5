@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet2Controller;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipmentBundle;
 import ca.mcgill.ecse.climbsafe.controller.TOMember;
@@ -222,7 +223,7 @@ public class MembersPageController {
   // Event Listener on Button[#modAutofill].onAction
   @FXML
   public void modDoAutofill(ActionEvent event) {
-    System.out.println("Mod Autofill");
+    modDoAutofill();
   }
 
   // Event Listener on Button[#modUpdateCost].onAction
@@ -234,7 +235,28 @@ public class MembersPageController {
   // Event Listener on Button[#modModify].onAction
   @FXML
   public void modDoModify(ActionEvent event) {
-    System.out.println("Mod Modify");
+    String email = modEmail.getText();
+    String password = modPassword.getText();
+    String name = modName.getText();
+    String contact = modContact.getText();
+    int nrWeeks = modWeeks.getValue();
+    Boolean guideRequired = modNeedGuideYes.isSelected();
+    Boolean hotelRequired = modNeedHotelYes.isSelected();
+    List<String> itemNames = new ArrayList<String>();
+    List<Integer> itemQuantities = new ArrayList<Integer>();
+    for (var equipment : this.curModEquipments) {
+      itemNames.add(equipment.getName());
+      itemQuantities.add((int) equipment.getMpQuantity().getValue());
+    }
+    for (var bundle : this.curModBundles) {
+      itemNames.add(bundle.getName());
+      itemQuantities.add((int) bundle.getMpQuantity().getValue());
+    }
+    // modify the member
+    if (ViewUtils.successful(() -> ClimbSafeFeatureSet2Controller.updateMember(email, password,
+        name, contact, nrWeeks, guideRequired, hotelRequired, itemNames, itemQuantities))) {
+      modDoClear();
+    }
   }
 
   // Event Listener on Button[#delClearSelection].onAction
@@ -539,6 +561,65 @@ public class MembersPageController {
     for (var email : emailList) {
       ViewUtils.successful(() -> ClimbSafeFeatureSet1Controller.deleteMember(email));
     }
+  }
+
+  /**
+   * Helper method to auto fill the Modify tab when given a valid member email
+   */
+  private void modDoAutofill() {
+    var email = modEmail.getText();
+    TOMember selectedMember = null;
+    // search for the member, return if not found
+    for (var member : ClimbSafeFeatureSet2Controller.getMembers()) {
+      if (member.getEmail().equals(email)) {
+        selectedMember = member;
+      }
+    }
+    if (selectedMember == null) {
+      return;
+    }
+    modPassword.setText(selectedMember.getPassword());
+    modName.setText(selectedMember.getName());
+    modContact.setText(selectedMember.getEmergencyContact());
+    if (selectedMember.getNrWeeks() <= ClimbSafeFeatureSet1Controller.getNrWeeks()) {
+      modWeeks.getValueFactory().setValue(selectedMember.getNrWeeks());
+    } else {
+      modWeeks.getValueFactory().setValue(ClimbSafeFeatureSet1Controller.getNrWeeks());
+    }
+    if (selectedMember.getGuideRequired()) {
+      modNeedGuide.selectToggle(modNeedGuideYes);
+    } else {
+      modNeedGuide.selectToggle(modNeedGuideNo);
+    }
+    if (selectedMember.getHotelRequired()) {
+      modNeedHotel.selectToggle(modNeedHotelYes);
+    } else {
+      modNeedHotel.selectToggle(modNeedHotelNo);
+    }
+    /*
+     * Autofill bookedItems
+     */
+    try {
+      var bookedItems = ClimbSafeFeatureSet2Controller.getBookedItems(email);
+      for (var item : bookedItems) {
+        for (var equipment : this.curModEquipments) {
+          if (item.getBookableItemName().equals(equipment.getName())) {
+            equipment.getMpQuantity().getValueFactory().setValue(item.getQuantity());
+          }
+        }
+        for (var bundle : this.curModBundles) {
+          if (item.getBookableItemName().equals(bundle.getName())) {
+            bundle.getMpQuantity().getValueFactory().setValue(item.getQuantity());
+          }
+        }
+      }
+    } catch (InvalidInputException e) {
+      System.out.println(e.getMessage());
+    }
+    /*
+     * Update totalCost
+     */
+    modDoUpdateCost();
   }
 
 }
