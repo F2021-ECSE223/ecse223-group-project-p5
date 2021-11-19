@@ -2,6 +2,7 @@ package ca.mcgill.ecse.climbsafe.javafx.controllers;
 
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
+import ca.mcgill.ecse.climbsafe.controller.TOEquipmentBundle;
 import ca.mcgill.ecse.climbsafe.controller.TOMember;
 import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import javafx.collections.ObservableList;
@@ -103,25 +104,25 @@ public class MembersPageController {
   @FXML
   private RadioButton modNeedHotelNo;
   @FXML
-  private TableView modEquipTable;
+  private TableView<TOEquipment> modEquipTable;
   @FXML
-  private TableColumn modEquipTableName;
+  private TableColumn<TOEquipment, String> modEquipTableName;
   @FXML
-  private TableColumn modEquipTableWeight;
+  private TableColumn<TOEquipment, Integer> modEquipTableWeight;
   @FXML
-  private TableColumn modEquipTablePrice;
+  private TableColumn<TOEquipment, Integer> modEquipTablePrice;
   @FXML
-  private TableColumn modEquipTableQuantity;
+  private TableColumn<TOEquipment, Spinner<Integer>> modEquipTableQuantity;
   @FXML
-  private TableView modBundleTable;
+  private TableView<TOEquipmentBundle> modBundleTable;
   @FXML
-  private TableColumn modBundleTableName;
+  private TableColumn<TOEquipmentBundle, String> modBundleTableName;
   @FXML
-  private TableColumn modBundleTableDiscount;
+  private TableColumn<TOEquipmentBundle, Integer> modBundleTableDiscount;
   @FXML
-  private TableColumn modBundleTablePrice;
+  private TableColumn<TOEquipmentBundle, Integer> modBundleTablePrice;
   @FXML
-  private TableColumn modBundleTableQuantity;
+  private TableColumn<TOEquipmentBundle, Spinner<Integer>> modBundleTableQuantity;
   @FXML
   private Button modClear;
   @FXML
@@ -154,13 +155,19 @@ public class MembersPageController {
   private Button delDelete;
 
   // Fields
-  private ObservableList<TOEquipment> currentEquipments;
+  private ObservableList<TOEquipment> curRegEquipments;
+  private ObservableList<TOEquipment> curModEquipments;
+  private ObservableList<TOEquipmentBundle> curRegBundles;
+  private ObservableList<TOEquipmentBundle> curModBundles;
 
   @FXML
   public void initialize() {
     initSpinners();
     initDelTable();
     initRegEquipTable();
+    initRegBundleTable();
+    initModEquipTable();
+    initModBundleTable();
   }
 
   // Event Listener on Button[#regClear].onAction
@@ -312,18 +319,105 @@ public class MembersPageController {
      * Update table on refresh event
      */
     regEquipTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
-      this.currentEquipments = ViewUtils.getEquipments();
-      regEquipTable.setItems(this.currentEquipments);
+      this.curRegEquipments = ViewUtils.getEquipments();
+      regEquipTable.setItems(this.curRegEquipments);
       /*
        * Add handler for all spinners
        */
-      for (var equipment : this.currentEquipments) {
+      for (var equipment : this.curRegEquipments) {
         equipment.getMpQuantity().addEventHandler(MouseEvent.MOUSE_CLICKED, f -> {
           regDoUpdateCost();
         });
       }
     });
     ClimbSafeView.getInstance().registerRefreshEvent(regEquipTable);
+  }
+
+  /**
+   * Helper method to setup the bundle table on Register tab
+   */
+  private void initRegBundleTable() {
+    /*
+     * Create tree table mappings
+     */
+    regBundleTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    regBundleTablePrice.setCellValueFactory(new PropertyValueFactory<>("noDiscountPrice"));
+    regBundleTableDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
+    regBundleTableQuantity.setCellValueFactory(new PropertyValueFactory<>("mpQuantity"));
+    /*
+     * Update table on refresh event
+     */
+    regBundleTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+      this.curRegBundles = ViewUtils.getEquipmentBundles();
+      regBundleTable.setItems(this.curRegBundles);
+      /*
+       * Add handler for all spinners
+       */
+      for (var bundle : this.curRegBundles) {
+        bundle.getMpQuantity().addEventHandler(MouseEvent.MOUSE_CLICKED, f -> {
+          regDoUpdateCost();
+        });
+      }
+    });
+    ClimbSafeView.getInstance().registerRefreshEvent(regBundleTable);
+  }
+  
+  /**
+   * Helper method to setup the equipment table on Modify tab
+   */
+  private void initModEquipTable() {
+    /*
+     * Create table mappings
+     */
+    modEquipTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    modEquipTableWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
+    modEquipTablePrice.setCellValueFactory(new PropertyValueFactory<>("pricePerWeek"));
+    modEquipTableQuantity.setCellValueFactory(new PropertyValueFactory<>("mpQuantity"));
+    /*
+     * Update table on refresh event
+     */
+    modEquipTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+      this.curModEquipments = ViewUtils.getEquipments();
+      modEquipTable.setItems(this.curModEquipments);
+      /*
+       * Add handler for all spinners
+       */
+      for (var equipment : this.curModEquipments) {
+        equipment.getMpQuantity().addEventHandler(MouseEvent.MOUSE_CLICKED, f -> {
+          modDoUpdateCost();
+        });
+      }
+    });
+    ClimbSafeView.getInstance().registerRefreshEvent(modEquipTable);
+  }
+  
+  /**
+   * Helper method to setup the bundle table on Modify tab
+   */
+  private void initModBundleTable() {
+    /*
+     * Create tree table mappings
+     */
+    modBundleTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    modBundleTablePrice.setCellValueFactory(new PropertyValueFactory<>("noDiscountPrice"));
+    modBundleTableDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
+    modBundleTableQuantity.setCellValueFactory(new PropertyValueFactory<>("mpQuantity"));
+    /*
+     * Update table on refresh event
+     */
+    modBundleTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+      this.curModBundles = ViewUtils.getEquipmentBundles();
+      modBundleTable.setItems(this.curModBundles);
+      /*
+       * Add handler for all spinners
+       */
+      for (var bundle : this.curModBundles) {
+        bundle.getMpQuantity().addEventHandler(MouseEvent.MOUSE_CLICKED, f -> {
+          modDoUpdateCost();
+        });
+      }
+    });
+    ClimbSafeView.getInstance().registerRefreshEvent(modBundleTable);
   }
 
   /**
