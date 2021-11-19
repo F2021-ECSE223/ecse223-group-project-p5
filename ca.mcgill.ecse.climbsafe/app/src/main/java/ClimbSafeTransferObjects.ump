@@ -49,6 +49,9 @@ class TOEquipment {
   name;
   Integer weight;
   Integer pricePerWeek;
+  // helper stuff for MembersPage
+  depend javafx.scene.control.Spinner;
+  Spinner mpQuantity;
 }
 
 class TOEquipmentBundle {

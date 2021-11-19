@@ -9,6 +9,8 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
 import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
 import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 
 /**
  * 
@@ -149,8 +151,13 @@ public class ClimbSafeFeatureSet4Controller {
   public static ArrayList<TOEquipment> getEquipments() {
     var equipments = new ArrayList<TOEquipment>();
     for (var equipment : climbsafe.getEquipment()) {
-      equipments.add(
-          new TOEquipment(equipment.getName(), equipment.getWeight(), equipment.getPricePerWeek()));
+      /*
+       * Initialize helper variable for MembersPage
+       */
+      Spinner<Integer> mpQuantity = new Spinner<Integer>();
+      mpQuantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999, 0));
+      equipments.add(new TOEquipment(equipment.getName(), equipment.getWeight(),
+          equipment.getPricePerWeek(), mpQuantity));
     }
     // by default, sort by name
     Comparator<TOEquipment> comp = Comparator.comparing(TOEquipment::getName);
