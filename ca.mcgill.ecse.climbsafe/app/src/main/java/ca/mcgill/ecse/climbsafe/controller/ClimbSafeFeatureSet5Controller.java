@@ -11,6 +11,8 @@ import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Equipment;
 import ca.mcgill.ecse.climbsafe.model.EquipmentBundle;
 import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 
 
 public class ClimbSafeFeatureSet5Controller {
@@ -196,7 +198,21 @@ public class ClimbSafeFeatureSet5Controller {
   public static ArrayList<TOEquipmentBundle> getEquipmentBundles() {
     var equipmentBundles = new ArrayList<TOEquipmentBundle>();
     for (var bundle : climbSafe.getBundles()) {
-      equipmentBundles.add(new TOEquipmentBundle(bundle.getName(), bundle.getDiscount()));
+      /*
+       * Calculate price per week of bundle without discount
+       */
+      int noDiscountPrice = 0;
+      var bundleItems = bundle.getBundleItems();
+      for (var item : bundleItems) {
+        noDiscountPrice += item.getQuantity() * item.getEquipment().getPricePerWeek();
+      }
+      /*
+       * Initialize spinner for MembersPage
+       */
+      Spinner<Integer> mpQuantity = new Spinner<Integer>();
+      mpQuantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999, 0));
+      equipmentBundles
+          .add(new TOEquipmentBundle(bundle.getName(), bundle.getDiscount(), noDiscountPrice, mpQuantity));
     }
     // by default, sort by bundle name
     Collections.sort(equipmentBundles,

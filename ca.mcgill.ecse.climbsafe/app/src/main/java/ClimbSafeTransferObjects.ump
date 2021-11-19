@@ -57,6 +57,10 @@ class TOEquipment {
 class TOEquipmentBundle {
   name;
   Integer discount;
+  // helper stuff for MembersPage
+  Integer noDiscountPrice;
+  depend javafx.scene.control.Spinner;
+  Spinner mpQuantity;
 }
 
 class TOBundleItem {
