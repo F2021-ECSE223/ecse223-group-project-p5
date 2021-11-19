@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.climbsafe.javafx.controllers;
 
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * View controller for MembersPage
@@ -169,7 +171,7 @@ public class MembersPageController {
   // Event Listener on Button[#regUpdateCost].onAction
   @FXML
   public void regDoUpdateCost(ActionEvent event) {
-    System.out.println("Reg Update Cost");
+    regDoUpdateCost();
   }
 
   // Event Listener on Button[#regRegister].onAction
@@ -199,7 +201,7 @@ public class MembersPageController {
   // Event Listener on Button[#modUpdateCost].onAction
   @FXML
   public void modDoUpdateCost(ActionEvent event) {
-    System.out.println("Mod Update Cost");
+    modDoUpdateCost();
   }
 
   // Event Listener on Button[#modModify].onAction
@@ -221,16 +223,61 @@ public class MembersPageController {
   }
 
   /**
-   * Helper method to initialize weeks spinners
+   * Helper method to initialize weeks spinners The max number is nrWeeks of the model
    */
   private void initSpinners() {
-    // TODO: max week should update according to nrWeeks setting in Setup NMC
-    var regWeeksSpinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 52, 1);
-    regWeeksSpinnerFactory.setWrapAround(true);
-    regWeeks.setValueFactory(regWeeksSpinnerFactory);
-    var modWeeksSpinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 52, 1);
-    modWeeksSpinnerFactory.setWrapAround(true);
-    modWeeks.setValueFactory(modWeeksSpinnerFactory);
+    Integer nrWeeks = ClimbSafeFeatureSet1Controller.getNrWeeks();
+    /*
+     * Update max number on refresh event
+     */
+    regWeeks.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+      if (nrWeeks > 0) {
+        var regWeeksSpinnerFactory =
+            new SpinnerValueFactory.IntegerSpinnerValueFactory(1, nrWeeks, 1);
+        regWeeksSpinnerFactory.setWrapAround(true);
+        regWeeks.setValueFactory(regWeeksSpinnerFactory);
+      } else {
+        var regWeeksSpinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1, 1);
+        regWeeksSpinnerFactory.setWrapAround(true);
+        regWeeks.setValueFactory(regWeeksSpinnerFactory);
+      }
+    });
+    modWeeks.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+      if (nrWeeks > 0) {
+        var modWeeksSpinnerFactory =
+            new SpinnerValueFactory.IntegerSpinnerValueFactory(1, nrWeeks, 1);
+        modWeeksSpinnerFactory.setWrapAround(true);
+        modWeeks.setValueFactory(modWeeksSpinnerFactory);
+      } else {
+        var modWeeksSpinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1, 1);
+        modWeeksSpinnerFactory.setWrapAround(true);
+        modWeeks.setValueFactory(modWeeksSpinnerFactory);
+      }
+    });
+    ClimbSafeView.getInstance().registerRefreshEvent(regWeeks, modWeeks);
+    /*
+     * Update cost when mouse clicked on spinners
+     */
+    regWeeks.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+      regDoUpdateCost();
+    });
+    modWeeks.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+      modDoUpdateCost();
+    });
+  }
+  
+  /**
+   * Helper method to update cost on Register tab
+   */
+  private void regDoUpdateCost() {
+    System.out.println("Reg Update Cost");
+  }
+  
+  /**
+   * Helper method to update cost on Modify tab
+   */
+  private void modDoUpdateCost() {
+    System.out.println("Mod Update Cost");
   }
 
 }
