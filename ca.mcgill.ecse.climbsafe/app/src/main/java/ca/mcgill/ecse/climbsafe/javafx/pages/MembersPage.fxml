@@ -122,7 +122,7 @@
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <Spinner fx:id="regWeeks" onMouseClicked="#regDoUpdateCost" GridPane.rowIndex="10">
+                                          <Spinner fx:id="regWeeks" GridPane.rowIndex="10">
                                              <opaqueInsets>
                                                 <Insets />
                                              </opaqueInsets>
@@ -224,11 +224,20 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button fx:id="regClear" mnemonicParsing="false" onAction="#regDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
-                                       <GridPane.margin>
-                                          <Insets left="40.0" />
-                                       </GridPane.margin>
-                                    </Button>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="regClear" mnemonicParsing="false" onAction="#regDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
+                                             <HBox.margin>
+                                                <Insets left="40.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="regUpdateCost" mnemonicParsing="false" onAction="#regDoUpdateCost" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Update Cost">
+                                             <HBox.margin>
+                                                <Insets left="40.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                     <Button fx:id="regRegister" mnemonicParsing="false" onAction="#regDoRegister" prefWidth="200.0" text="Register" GridPane.columnIndex="1" />
                                     <GridPane GridPane.columnIndex="2">
                                       <columnConstraints>
@@ -357,7 +366,7 @@
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <Spinner fx:id="modWeeks" onMouseClicked="#modDoUpdateCost" GridPane.rowIndex="10">
+                                          <Spinner fx:id="modWeeks" GridPane.rowIndex="10">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" />
                                              </GridPane.margin>
@@ -460,12 +469,17 @@
                                        <children>
                                           <Button fx:id="modClear" mnemonicParsing="false" onAction="#modDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All" HBox.hgrow="NEVER">
                                              <HBox.margin>
-                                                <Insets left="40.0" />
+                                                <Insets left="5.0" />
                                              </HBox.margin>
                                           </Button>
                                           <Button fx:id="modAutofill" mnemonicParsing="false" onAction="#modDoAutofill" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Autofill">
                                              <HBox.margin>
-                                                <Insets left="40.0" />
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="modUpdateCost" mnemonicParsing="false" onAction="#modDoUpdateCost" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Update Cost">
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
