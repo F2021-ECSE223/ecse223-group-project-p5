@@ -2,6 +2,7 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.climbsafe.controller;
+import javafx.scene.control.Spinner;
 
 // line 48 "../../../../../ClimbSafeTransferObjects.ump"
 public class TOEquipment
@@ -15,16 +16,18 @@ public class TOEquipment
   private String name;
   private int weight;
   private int pricePerWeek;
+  private Spinner mpQuantity;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TOEquipment(String aName, int aWeight, int aPricePerWeek)
+  public TOEquipment(String aName, int aWeight, int aPricePerWeek, Spinner aMpQuantity)
   {
     name = aName;
     weight = aWeight;
     pricePerWeek = aPricePerWeek;
+    mpQuantity = aMpQuantity;
   }
 
   //------------------------
@@ -55,6 +58,14 @@ public class TOEquipment
     return wasSet;
   }
 
+  public boolean setMpQuantity(Spinner aMpQuantity)
+  {
+    boolean wasSet = false;
+    mpQuantity = aMpQuantity;
+    wasSet = true;
+    return wasSet;
+  }
+
   public String getName()
   {
     return name;
@@ -70,6 +81,11 @@ public class TOEquipment
     return pricePerWeek;
   }
 
+  public Spinner getMpQuantity()
+  {
+    return mpQuantity;
+  }
+
   public void delete()
   {}
 
@@ -79,6 +95,7 @@ public class TOEquipment
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
             "weight" + ":" + getWeight()+ "," +
-            "pricePerWeek" + ":" + getPricePerWeek()+ "]";
+            "pricePerWeek" + ":" + getPricePerWeek()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "mpQuantity" + "=" + (getMpQuantity() != null ? !getMpQuantity().equals(this)  ? getMpQuantity().toString().replaceAll("  ","    ") : "this" : "null");
   }
 }
