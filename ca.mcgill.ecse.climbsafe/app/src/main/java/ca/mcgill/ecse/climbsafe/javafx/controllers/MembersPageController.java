@@ -1,11 +1,13 @@
 package ca.mcgill.ecse.climbsafe.javafx.controllers;
 
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -147,6 +149,11 @@ public class MembersPageController {
   @FXML
   private Button delDelete;
 
+  @FXML
+  public void initialize() {
+    initSpinners();
+  }
+
   // Event Listener on Button[#regClear].onAction
   @FXML
   public void regDoClear(ActionEvent event) {
@@ -154,6 +161,7 @@ public class MembersPageController {
     regPassword.setText("");
     regName.setText("");
     regContact.setText("");
+    regWeeks.getValueFactory().setValue(1);
     regNeedGuide.selectToggle(regNeedGuideNo);
     regNeedHotel.selectToggle(regNeedHotelNo);
   }
@@ -177,6 +185,7 @@ public class MembersPageController {
     modPassword.setText("");
     modName.setText("");
     modContact.setText("");
+    modWeeks.getValueFactory().setValue(1);
     modNeedGuide.selectToggle(modNeedGuideNo);
     modNeedHotel.selectToggle(modNeedHotelNo);
   }
@@ -210,4 +219,18 @@ public class MembersPageController {
   public void delDoDelete(ActionEvent event) {
     System.out.println("Del Delete");
   }
+
+  /**
+   * Helper method to initialize weeks spinners
+   */
+  private void initSpinners() {
+    // TODO: max week should update according to nrWeeks setting in Setup NMC
+    var regWeeksSpinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 52, 1);
+    regWeeksSpinnerFactory.setWrapAround(true);
+    regWeeks.setValueFactory(regWeeksSpinnerFactory);
+    var modWeeksSpinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 52, 1);
+    modWeeksSpinnerFactory.setWrapAround(true);
+    modWeeks.setValueFactory(modWeeksSpinnerFactory);
+  }
+
 }
