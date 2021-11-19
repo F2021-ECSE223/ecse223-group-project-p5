@@ -1,7 +1,6 @@
 package ca.mcgill.ecse.climbsafe.controller;
 
 import java.sql.Date;
-
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
@@ -28,12 +27,14 @@ public class ClimbSafeFeatureSet1Controller {
       throws InvalidInputException {
     // constraint ensuring positive number of weeks
     if (nrWeeks < 0) {
-      throw new InvalidInputException("The number of climbing weeks must be greater than or equal to zero.");
+      throw new InvalidInputException(
+          "The number of climbing weeks must be greater than or equal to zero.");
     }
 
     // constraint ensuring positive guide price
     if (priceOfGuidePerWeek < 0.0) {
-      throw new InvalidInputException("The price of guide per week must be greater than or equal to zero.");
+      throw new InvalidInputException(
+          "The price of guide per week must be greater than or equal to zero.");
     }
 
     // setup singleton ClimbSafe object with parameters
@@ -41,7 +42,7 @@ public class ClimbSafeFeatureSet1Controller {
     cs.setStartDate(startDate);
     cs.setNrWeeks(nrWeeks);
     cs.setPriceOfGuidePerWeek(priceOfGuidePerWeek);
-    
+
     // persistence save
     try {
       ClimbSafePersistence.save();
@@ -59,13 +60,13 @@ public class ClimbSafeFeatureSet1Controller {
   public static void deleteMember(String email) throws InvalidInputException {
     User targetUser = Member.getWithEmail(email);
     /*
-     * After checking the found User is not null, we must verify targetUser is indeed a Member because
-     * Member.getWithEmail calls the superclass method, User.getWithEmail which iterates through all
-     * users, including the Admin and Guides.
+     * After checking the found User is not null, we must verify targetUser is indeed a Member
+     * because Member.getWithEmail calls the superclass method, User.getWithEmail which iterates
+     * through all users, including the Admin and Guides.
      */
     if (targetUser != null && targetUser instanceof Member) {
       targetUser.delete();
-      
+
       // persistence save
       try {
         ClimbSafePersistence.save();
@@ -84,13 +85,13 @@ public class ClimbSafeFeatureSet1Controller {
   public static void deleteGuide(String email) throws InvalidInputException {
     User targetUser = Guide.getWithEmail(email);
     /*
-     * After checking the found User is not null, we must verify targetUser is indeed a Guide because
-     * Guide.getWithEmail calls the superclass method, User.getWithEmail which iterates through all
-     * users, including the Admin and Members.
+     * After checking the found User is not null, we must verify targetUser is indeed a Guide
+     * because Guide.getWithEmail calls the superclass method, User.getWithEmail which iterates
+     * through all users, including the Admin and Members.
      */
     if (targetUser != null && targetUser instanceof Guide) {
       targetUser.delete();
-      
+
       // persistence save
       try {
         ClimbSafePersistence.save();
@@ -98,6 +99,18 @@ public class ClimbSafeFeatureSet1Controller {
         throw new InvalidInputException(e.getMessage());
       }
     }
+  }
+
+  /**
+   * Getter for the number of climbing weeks
+   * 
+   * @return Integer
+   * @author Jimmy Sheng
+   * 
+   */
+  public static Integer getNrWeeks() {
+    ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
+    return cs.getNrWeeks();
   }
 
   // this method needs to be implemented only by teams with seven team members
