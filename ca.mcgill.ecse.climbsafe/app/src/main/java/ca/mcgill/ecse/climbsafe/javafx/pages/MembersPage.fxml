@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -121,11 +122,14 @@
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="regWeeks" onAction="#regDoRegister" promptText="Number of Weeks" GridPane.rowIndex="10">
+                                          <Spinner fx:id="regWeeks" onMouseClicked="#regDoUpdateCost" GridPane.rowIndex="10">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
                                              <GridPane.margin>
-                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                                <Insets bottom="10.0" left="40.0" />
                                              </GridPane.margin>
-                                          </TextField>
+                                          </Spinner>
                                           <GridPane GridPane.rowIndex="12">
                                             <columnConstraints>
                                               <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -138,12 +142,12 @@
                                                 <Insets bottom="5.0" left="40.0" right="40.0" top="-5.0" />
                                              </GridPane.margin>
                                              <children>
-                                                <RadioButton fx:id="regNeedGuideYes" mnemonicParsing="false" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="Yes">
+                                                <RadioButton fx:id="regNeedGuideYes" mnemonicParsing="false" onAction="#regDoUpdateCost" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="Yes">
                                                    <toggleGroup>
                                                       <ToggleGroup fx:id="regNeedGuide" />
                                                    </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton fx:id="regNeedGuideNo" mnemonicParsing="false" selected="true" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="No" toggleGroup="$regNeedGuide" GridPane.columnIndex="1" />
+                                                <RadioButton fx:id="regNeedGuideNo" mnemonicParsing="false" onAction="#regDoUpdateCost" selected="true" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="No" toggleGroup="$regNeedGuide" GridPane.columnIndex="1" />
                                              </children>
                                           </GridPane>
                                           <GridPane GridPane.rowIndex="14">
@@ -188,7 +192,7 @@
                                               <TableColumn fx:id="regEquipTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" text="Name" />
                                               <TableColumn fx:id="regEquipTableWeight" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="85.0" text="Weight" />
                                                 <TableColumn fx:id="regEquipTablePrice" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="120.0" text="Price/Week" />
-                                                <TableColumn fx:id="regEquipTableQuantity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onEditCommit="#regDoUpdateCost" prefWidth="84.0" text="Quantity" />
+                                                <TableColumn fx:id="regEquipTableQuantity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="84.0" text="Quantity" />
                                             </columns>
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" right="10.0" />
@@ -200,7 +204,7 @@
                                               <TreeTableColumn fx:id="regBundleTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" text="Name" />
                                               <TreeTableColumn fx:id="regBundleTableDiscount" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="85.0" text="Discount" />
                                                 <TreeTableColumn fx:id="regBundleTablePrice" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="120.0" text="Price/Week" />
-                                                <TreeTableColumn fx:id="regBundleTableQuantity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onEditCommit="#regDoUpdateCost" prefWidth="84.0" text="Quantity" />
+                                                <TreeTableColumn fx:id="regBundleTableQuantity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="84.0" text="Quantity" />
                                             </columns>
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" right="10.0" />
@@ -328,36 +332,36 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </Label>
-                                          <TextField promptText="Email" GridPane.rowIndex="2">
+                                          <TextField fx:id="modEmail" onAction="#modDoModify" promptText="Email" GridPane.rowIndex="2">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <PasswordField promptText="Password" GridPane.rowIndex="4">
+                                          <PasswordField fx:id="modPassword" onAction="#modDoModify" promptText="Password" GridPane.rowIndex="4">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </PasswordField>
-                                          <TextField visible="false" GridPane.rowIndex="4">
+                                          <TextField fx:id="modPasswordShow" onAction="#modDoModify" visible="false" GridPane.rowIndex="4">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField promptText="Firstname Lastname" GridPane.rowIndex="6">
+                                          <TextField fx:id="modName" onAction="#modDoModify" promptText="Firstname Lastname" GridPane.rowIndex="6">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField promptText="Phone #" GridPane.rowIndex="8">
+                                          <TextField fx:id="modContact" onAction="#modDoModify" promptText="Phone #" GridPane.rowIndex="8">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField promptText="Number of Weeks" GridPane.rowIndex="10">
+                                          <Spinner fx:id="modWeeks" onMouseClicked="#modDoUpdateCost" GridPane.rowIndex="10">
                                              <GridPane.margin>
-                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                                <Insets bottom="10.0" left="40.0" />
                                              </GridPane.margin>
-                                          </TextField>
+                                          </Spinner>
                                           <GridPane GridPane.rowIndex="12">
                                              <columnConstraints>
                                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -370,12 +374,12 @@
                                                 <Insets bottom="5.0" left="40.0" right="40.0" top="-5.0" />
                                              </GridPane.margin>
                                              <children>
-                                                <RadioButton mnemonicParsing="false" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="Yes">
+                                                <RadioButton fx:id="modNeedGuideYes" mnemonicParsing="false" onAction="#modDoUpdateCost" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="Yes">
                                                    <toggleGroup>
-                                                      <ToggleGroup fx:id="needGuide1" />
+                                                      <ToggleGroup fx:id="modNeedGuide" />
                                                    </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton mnemonicParsing="false" selected="true" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="No" toggleGroup="$needGuide1" GridPane.columnIndex="1" />
+                                                <RadioButton fx:id="modNeedGuideNo" mnemonicParsing="false" onAction="#modDoUpdateCost" selected="true" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="No" toggleGroup="$modNeedGuide" GridPane.columnIndex="1" />
                                              </children>
                                           </GridPane>
                                           <GridPane GridPane.rowIndex="14">
@@ -387,12 +391,12 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <RadioButton mnemonicParsing="false" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="Yes">
+                                                <RadioButton fx:id="modNeedHotelYes" mnemonicParsing="false" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="Yes">
                                                    <toggleGroup>
-                                                      <ToggleGroup fx:id="needHotel1" />
+                                                      <ToggleGroup fx:id="modNeedHotel" />
                                                    </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton mnemonicParsing="false" selected="true" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="No" toggleGroup="$needHotel1" GridPane.columnIndex="1" />
+                                                <RadioButton fx:id="modNeedHotelNo" mnemonicParsing="false" selected="true" style="-fx-font-size: 16; -fx-font-family: &quot;Montserrat Regular&quot;;" text="No" toggleGroup="$modNeedHotel" GridPane.columnIndex="1" />
                                              </children>
                                              <GridPane.margin>
                                                 <Insets bottom="5.0" left="40.0" right="40.0" top="-5.0" />
@@ -415,24 +419,24 @@
                                        </rowConstraints>
                                        <children>
                                           <Label text="Select Equipments" />
-                                          <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                          <TableView fx:id="modEquipTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                              <columns>
-                                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" text="Name" />
-                                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="85.0" text="Weight" />
-                                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="120.0" text="Price/Week" />
-                                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="84.0" text="Quantity" />
+                                                <TableColumn fx:id="modEquipTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" text="Name" />
+                                                <TableColumn fx:id="modEquipTableWeight" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="85.0" text="Weight" />
+                                                <TableColumn fx:id="modEquipTablePrice" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="120.0" text="Price/Week" />
+                                                <TableColumn fx:id="modEquipTableQuantity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="84.0" text="Quantity" />
                                              </columns>
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" right="10.0" />
                                              </GridPane.margin>
                                           </TableView>
                                           <Label text="Select Bundles" GridPane.rowIndex="2" />
-                                          <TreeTableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                          <TreeTableView fx:id="modBundleTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                              <columns>
-                                                <TreeTableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" text="Name" />
-                                                <TreeTableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="85.0" text="Discount" />
-                                                <TreeTableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="120.0" text="Price/Week" />
-                                                <TreeTableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="84.0" text="Quantity" />
+                                                <TreeTableColumn fx:id="modBundleTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" text="Name" />
+                                                <TreeTableColumn fx:id="modBundleTableDiscount" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="85.0" text="Discount" />
+                                                <TreeTableColumn fx:id="modBundleTablePrice" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="120.0" text="Price/Week" />
+                                                <TreeTableColumn fx:id="modBundleTableQuantity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="84.0" text="Quantity" />
                                              </columns>
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" right="10.0" />
@@ -454,12 +458,12 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button mnemonicParsing="false" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All" HBox.hgrow="NEVER">
+                                          <Button fx:id="modClear" mnemonicParsing="false" onAction="#modDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All" HBox.hgrow="NEVER">
                                              <HBox.margin>
                                                 <Insets left="40.0" />
                                              </HBox.margin>
                                           </Button>
-                                          <Button mnemonicParsing="false" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Autofill">
+                                          <Button fx:id="modAutofill" mnemonicParsing="false" onAction="#modDoAutofill" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Autofill">
                                              <HBox.margin>
                                                 <Insets left="40.0" />
                                              </HBox.margin>
@@ -469,7 +473,7 @@
                                           <Insets />
                                        </opaqueInsets>
                                     </HBox>
-                                    <Button mnemonicParsing="false" prefWidth="200.0" text="Modify" GridPane.columnIndex="1" />
+                                    <Button fx:id="modModify" mnemonicParsing="false" onAction="#modDoModify" prefWidth="200.0" text="Modify" GridPane.columnIndex="1" />
                                     <GridPane GridPane.columnIndex="2">
                                        <columnConstraints>
                                           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
@@ -485,7 +489,7 @@
                                                 <Insets right="5.0" />
                                              </padding>
                                           </Label>
-                                          <TextField alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
+                                          <TextField fx:id="modTotalCost" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
                                           <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="\$NEP" GridPane.columnIndex="2">
                                              <padding>
                                                 <Insets left="5.0" />
@@ -507,7 +511,7 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <TableView fx:id="delTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                 <columns>
                                   <TableColumn fx:id="delTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="154.0" text="Name" />
                                   <TableColumn fx:id="delTableEmail" minWidth="2.0" prefWidth="260.0" text="Email Address" />
@@ -531,12 +535,12 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Button mnemonicParsing="false" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
+                                    <Button fx:id="delClearSelection" mnemonicParsing="false" onAction="#delDoClearSelection" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear Selection">
                                        <GridPane.margin>
                                           <Insets left="40.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" prefWidth="200.0" text="Delete Selected" GridPane.columnIndex="1" />
+                                    <Button fx:id="delDelete" mnemonicParsing="false" onAction="#delDoDelete" prefWidth="200.0" text="Delete Selected" GridPane.columnIndex="1" />
                                     <GridPane GridPane.columnIndex="2">
                                        <columnConstraints>
                                           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
@@ -546,19 +550,6 @@
                                        <rowConstraints>
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
-                                       <children>
-                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="Selected">
-                                             <padding>
-                                                <Insets right="5.0" />
-                                             </padding>
-                                          </Label>
-                                          <TextField alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="43.0" prefWidth="95.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
-                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="Members" GridPane.columnIndex="2">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
                                     </GridPane>
                                  </children>
                               </GridPane>
