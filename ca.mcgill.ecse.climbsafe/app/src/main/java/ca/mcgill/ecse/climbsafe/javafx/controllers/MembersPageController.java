@@ -1,6 +1,9 @@
 package ca.mcgill.ecse.climbsafe.javafx.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet2Controller;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipment;
 import ca.mcgill.ecse.climbsafe.controller.TOEquipmentBundle;
 import ca.mcgill.ecse.climbsafe.controller.TOMember;
@@ -173,13 +176,7 @@ public class MembersPageController {
   // Event Listener on Button[#regClear].onAction
   @FXML
   public void regDoClear(ActionEvent event) {
-    regEmail.setText("");
-    regPassword.setText("");
-    regName.setText("");
-    regContact.setText("");
-    regWeeks.getValueFactory().setValue(1);
-    regNeedGuide.selectToggle(regNeedGuideNo);
-    regNeedHotel.selectToggle(regNeedHotelNo);
+    regDoClear();
   }
 
   // Event Listener on Button[#regUpdateCost].onAction
@@ -191,19 +188,34 @@ public class MembersPageController {
   // Event Listener on Button[#regRegister].onAction
   @FXML
   public void regDoRegister(ActionEvent event) {
-    System.out.println("Reg Register");
+    String email = regEmail.getText();
+    String password = regPassword.getText();
+    String name = regName.getText();
+    String contact = regContact.getText();
+    int nrWeeks = regWeeks.getValue();
+    Boolean guideRequired = regNeedGuideYes.isSelected();
+    Boolean hotelRequired = regNeedHotelYes.isSelected();
+    List<String> itemNames = new ArrayList<String>();
+    List<Integer> itemQuantities = new ArrayList<Integer>();
+    for (var equipment : this.curRegEquipments) {
+      itemNames.add(equipment.getName());
+      itemQuantities.add((int) equipment.getMpQuantity().getValue());
+    }
+    for (var bundle : this.curRegBundles) {
+      itemNames.add(bundle.getName());
+      itemQuantities.add((int) bundle.getMpQuantity().getValue());
+    }
+    // create the member
+    if (ViewUtils.successful(() -> ClimbSafeFeatureSet2Controller.registerMember(email, password,
+        name, contact, nrWeeks, guideRequired, hotelRequired, itemNames, itemQuantities))) {
+      regDoClear();
+    }
   }
 
   // Event Listener on Button[#modClear].onAction
   @FXML
   public void modDoClear(ActionEvent event) {
-    modEmail.setText("");
-    modPassword.setText("");
-    modName.setText("");
-    modContact.setText("");
-    modWeeks.getValueFactory().setValue(1);
-    modNeedGuide.selectToggle(modNeedGuideNo);
-    modNeedHotel.selectToggle(modNeedHotelNo);
+    modDoClear();
   }
 
   // Event Listener on Button[#modAutofill].onAction
@@ -361,7 +373,7 @@ public class MembersPageController {
     });
     ClimbSafeView.getInstance().registerRefreshEvent(regBundleTable);
   }
-  
+
   /**
    * Helper method to setup the equipment table on Modify tab
    */
@@ -390,7 +402,7 @@ public class MembersPageController {
     });
     ClimbSafeView.getInstance().registerRefreshEvent(modEquipTable);
   }
-  
+
   /**
    * Helper method to setup the bundle table on Modify tab
    */
@@ -424,14 +436,76 @@ public class MembersPageController {
    * Helper method to update cost on Register tab
    */
   private void regDoUpdateCost() {
-    System.out.println("Reg Update Cost");
+    int totalCost = 0;
+    for (var equipment : this.curRegEquipments) {
+      totalCost += equipment.getPricePerWeek() * (int) equipment.getMpQuantity().getValue();
+    }
+    for (var bundle : this.curRegBundles) {
+      int bundlePrice = bundle.getNoDiscountPrice();
+      if (regNeedGuideYes.isSelected()) {
+        bundlePrice = Math.round(bundlePrice * (100 - bundle.getDiscount()) / 100);
+      }
+      totalCost += bundlePrice * (int) bundle.getMpQuantity().getValue();
+    }
+    regTotalCost.setText(Integer.toString(totalCost));
   }
 
   /**
    * Helper method to update cost on Modify tab
    */
   private void modDoUpdateCost() {
-    System.out.println("Mod Update Cost");
+    int totalCost = 0;
+    for (var equipment : this.curModEquipments) {
+      totalCost += equipment.getPricePerWeek() * (int) equipment.getMpQuantity().getValue();
+    }
+    for (var bundle : this.curModBundles) {
+      int bundlePrice = bundle.getNoDiscountPrice();
+      if (modNeedGuideYes.isSelected()) {
+        bundlePrice = Math.round(bundlePrice * (100 - bundle.getDiscount()) / 100);
+      }
+      totalCost += bundlePrice * (int) bundle.getMpQuantity().getValue();
+    }
+    modTotalCost.setText(Integer.toString(totalCost));
+  }
+
+  /**
+   * Helper method to clear Register tab
+   */
+  private void regDoClear() {
+    regEmail.setText("");
+    regPassword.setText("");
+    regName.setText("");
+    regContact.setText("");
+    regWeeks.getValueFactory().setValue(1);
+    regNeedGuide.selectToggle(regNeedGuideNo);
+    regNeedHotel.selectToggle(regNeedHotelNo);
+    for (var equipment : this.curRegEquipments) {
+      equipment.getMpQuantity().getValueFactory().setValue(0);
+    }
+    for (var bundle : this.curRegBundles) {
+      bundle.getMpQuantity().getValueFactory().setValue(0);
+    }
+    regTotalCost.setText("0");
+  }
+
+  /**
+   * Helper method to clear Modify tab
+   */
+  private void modDoClear() {
+    modEmail.setText("");
+    modPassword.setText("");
+    modName.setText("");
+    modContact.setText("");
+    modWeeks.getValueFactory().setValue(1);
+    modNeedGuide.selectToggle(modNeedGuideNo);
+    modNeedHotel.selectToggle(modNeedHotelNo);
+    for (var equipment : this.curModEquipments) {
+      equipment.getMpQuantity().getValueFactory().setValue(0);
+    }
+    for (var bundle : this.curModBundles) {
+      bundle.getMpQuantity().getValueFactory().setValue(0);
+    }
+    modTotalCost.setText("0");
   }
 
 }
