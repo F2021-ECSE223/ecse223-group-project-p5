@@ -18,6 +18,8 @@ public class ClimbSafeApplication {
    * @author Jimmy Sheng
    */
   public static void main(String[] args) {
+    // TODO: for testing, use demo data file
+    ClimbSafePersistence.setFilename("ClimbSafeDemo.data");
     // start UI
     Application.launch(ClimbSafeView.class, args);
   }
