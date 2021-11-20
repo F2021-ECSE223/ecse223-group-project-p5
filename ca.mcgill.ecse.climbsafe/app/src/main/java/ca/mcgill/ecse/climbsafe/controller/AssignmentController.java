@@ -9,6 +9,7 @@ import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Hotel;
 import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
+import ca.mcgill.ecse.climbsafe.model.Assignment.AssignmentStatus;
 import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
 public class AssignmentController {
@@ -182,6 +183,60 @@ public class AssignmentController {
         }
       }
     }
+  }
+  
+  /**
+   * start trips for a target week and return 
+   * @param week the target week
+   * @return array containing: [ number of trips started, number of trips failed, detailed report ]
+   * @throws InvalidInputException if invalid week number
+   */
+  public static String[] startTripsForWeekReturnDetails(int week) throws InvalidInputException {
+    // reference to ClimbSafe
+    ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
+    
+    if (!(week > 0 && week <= cs.getNrWeeks())) {
+      throw new InvalidInputException(
+          "The week must be greater than zero and less than or equal to the number of climbing weeks in the climbing season");
+    }
+    
+    String ret[] = new String[3];
+    
+    int noTripsStarted = 0;
+    int noTripsFailed = 0;
+    int noBans = 0;
+    String details = "";
+    
+    for (Assignment a : cs.getAssignments()) {
+      if (a.getStartWeek() == week) {
+        String result = "";
+        
+        try {
+          a.start();
+          if (a.getAssignmentStatus().equals(AssignmentStatus.Assigned)) {
+            // member was banned because they have not paid
+            noTripsFailed++;
+            noBans++;
+            result = "Banned member";
+          }
+          else {
+            noTripsStarted++;
+            result = "Successfully started trip";
+          }
+        } catch (RuntimeException e) {
+          noTripsFailed++;
+          result = e.getMessage();
+        }
+        
+        details += String.format("%s: %s\n", a.getMember().getEmail(), result);
+      }
+    }
+    
+    ret[0] = String.valueOf(noTripsStarted);
+    ret[1] = String.format("%d (%d new bans)", noTripsFailed, noBans);
+    ret[2] = details;
+    
+    return ret;
   }
 
   /**
