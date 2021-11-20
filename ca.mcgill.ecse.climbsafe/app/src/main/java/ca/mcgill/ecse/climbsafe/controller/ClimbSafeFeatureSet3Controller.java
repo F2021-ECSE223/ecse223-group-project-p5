@@ -157,11 +157,11 @@ public class ClimbSafeFeatureSet3Controller {
    */
   private static void checkpassword(String psw) throws InvalidInputException {
     if (psw == null) {
-      throw new InvalidInputException("The password cannot be empty");
+      throw new InvalidInputException("Password cannot be empty");
     } else if (psw.contains(" ")) {
-      throw new InvalidInputException("The password must not contain any spaces");
+      throw new InvalidInputException("Password must not contain any spaces");
     } else if (psw.equals("")) {
-      throw new InvalidInputException("The password cannot be empty");
+      throw new InvalidInputException("Password cannot be empty");
     }
   }
 
