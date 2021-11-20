@@ -107,6 +107,27 @@ public class ClimbSafeFeatureSet6Controller {
 
     return TOAssignmentList;
   }
+  
+  /**
+   * Get assignment for single member
+   * 
+   * @param email the email of the target member
+   * @return the TOAssignment instance containing information about the target member's assignment
+   * @throws InvalidInputException if a member with the email does not exist
+   * @author Michael Grieco
+   */
+  public static TOAssignment getAssignment(String email) throws InvalidInputException {
+    var usr = Member.getWithEmail(email);
+    if (usr == null) {
+      throw new InvalidInputException("Member not found");
+    } else if (!(usr instanceof Member)) {
+      throw new InvalidInputException("Member not found");
+    }
+    
+    var retAssignment = ((Member)usr).getAssignment();
+    
+    return wrapAssignment(retAssignment);
+  }
 
   /**
    * Helper method used to wrap the information in an <code>Assignment</code> instance in an
