@@ -177,7 +177,6 @@ public class AssignmentController {
     // reference to ClimbSafe
     ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
     
-    String errorString = "";
 
     for (Assignment a : cs.getAssignments()) {
       if (a.getStartWeek() == week) {
@@ -185,14 +184,9 @@ public class AssignmentController {
         try {
           a.start();
         } catch (RuntimeException e) {
-          errorString += e.getMessage() + ";";
+          throw new InvalidInputException(e.getMessage());
         }
-        a.start();
       }
-    }
-    
-    if (!errorString.isEmpty()) {
-      throw new InvalidInputException(errorString.substring(0, errorString.length() - 1));
     }
   }
 
