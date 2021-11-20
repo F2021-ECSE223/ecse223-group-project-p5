@@ -192,6 +192,30 @@ public class ClimbSafeFeatureSet2Controller {
         Comparator.comparing((TOMember member) -> member.getName(), String.CASE_INSENSITIVE_ORDER));
     return members;
   }
+  
+  /**
+   * Getter for a single member
+   * 
+   * @param email identifying the target member
+   * @return null if email does not exist, TOMember with data otherwise
+   * @author Michael Grieco
+   */
+  public static TOMember getMember(String email) throws InvalidInputException {
+    var usr = Member.getWithEmail(email);
+    if (usr == null) {
+      throw new InvalidInputException("Member not found");
+    } else if (!(usr instanceof Member)) {
+      throw new InvalidInputException("Member not found");
+    }
+    
+    var retMember = (Member)usr;
+    
+    return new TOMember(email, retMember.getPassword(),
+        retMember.getName(), retMember.getEmergencyContact(),
+        retMember.getNrWeeks(),
+        retMember.getGuideRequired(), retMember.getHotelRequired(),
+        retMember.getBanStatusFullName());
+  }
 
   /**
    * Getter for a list of booked items for the member with the given email

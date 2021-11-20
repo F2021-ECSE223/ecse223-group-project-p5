@@ -105,6 +105,17 @@ public class ViewUtils {
     // javafx.collections.observableList
     return FXCollections.observableList(members);
   }
+  
+  /**
+   * Get a single member
+   * 
+   * @param email the email of the target member
+   * @return the TOMember if it exists
+   * @throws InvalidInputException if the member with the email does not exist
+   */
+  public static TOMember getMember(String email) throws InvalidInputException {
+    return ClimbSafeFeatureSet2Controller.getMember(email);
+  }
 
   /**
    * Get an observable list of guides
