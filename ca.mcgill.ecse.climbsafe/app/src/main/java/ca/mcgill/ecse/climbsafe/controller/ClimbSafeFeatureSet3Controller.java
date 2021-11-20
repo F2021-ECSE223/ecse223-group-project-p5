@@ -89,7 +89,8 @@ public class ClimbSafeFeatureSet3Controller {
           guide.getEmergencyContact()));
     }
     // by default, sort by name
-    Collections.sort(guides, Comparator.comparing((TOGuide guide) -> guide.getName()));
+    Collections.sort(guides,
+        Comparator.comparing((TOGuide guide) -> guide.getName(), String.CASE_INSENSITIVE_ORDER));
     return guides;
   }
 

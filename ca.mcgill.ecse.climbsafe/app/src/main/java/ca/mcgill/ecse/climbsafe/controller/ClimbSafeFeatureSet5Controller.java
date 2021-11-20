@@ -211,12 +211,12 @@ public class ClimbSafeFeatureSet5Controller {
        */
       Spinner<Integer> mpQuantity = new Spinner<Integer>();
       mpQuantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999, 0));
-      equipmentBundles
-          .add(new TOEquipmentBundle(bundle.getName(), bundle.getDiscount(), noDiscountPrice, mpQuantity));
+      equipmentBundles.add(new TOEquipmentBundle(bundle.getName(), bundle.getDiscount(),
+          noDiscountPrice, mpQuantity));
     }
     // by default, sort by bundle name
-    Collections.sort(equipmentBundles,
-        Comparator.comparing((TOEquipmentBundle bundle) -> bundle.getName()));
+    Collections.sort(equipmentBundles, Comparator
+        .comparing((TOEquipmentBundle bundle) -> bundle.getName(), String.CASE_INSENSITIVE_ORDER));
     return equipmentBundles;
   }
 
@@ -243,8 +243,8 @@ public class ClimbSafeFeatureSet5Controller {
           item.getEquipment().getName()));
     }
     // by default, sort by equipment name
-    Collections.sort(bundleItems,
-        Comparator.comparing((TOBundleItem item) -> item.getEquipmentName()));
+    Collections.sort(bundleItems, Comparator
+        .comparing((TOBundleItem item) -> item.getEquipmentName(), String.CASE_INSENSITIVE_ORDER));
     return bundleItems;
   }
 
@@ -261,8 +261,8 @@ public class ClimbSafeFeatureSet5Controller {
           item.getEquipment().getName()));
     }
     // by default, sort by bundle name
-    Collections.sort(bundleItems,
-        Comparator.comparing((TOBundleItem item) -> item.getEquipmentBundleName()));
+    Collections.sort(bundleItems, Comparator.comparing(
+        (TOBundleItem item) -> item.getEquipmentBundleName(), String.CASE_INSENSITIVE_ORDER));
     return bundleItems;
   }
 

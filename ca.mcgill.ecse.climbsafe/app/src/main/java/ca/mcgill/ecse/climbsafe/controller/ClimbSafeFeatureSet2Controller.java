@@ -188,7 +188,8 @@ public class ClimbSafeFeatureSet2Controller {
           member.getHotelRequired(), member.getBanStatusFullName()));
     }
     // by default, sort by name
-    Collections.sort(members, Comparator.comparing((TOMember member) -> member.getName()));
+    Collections.sort(members,
+        Comparator.comparing((TOMember member) -> member.getName(), String.CASE_INSENSITIVE_ORDER));
     return members;
   }
 
@@ -215,8 +216,8 @@ public class ClimbSafeFeatureSet2Controller {
       bookedItems.add(new TOBookedItem(item.getQuantity(), memberEmail, item.getItem().getName()));
     }
     // by default, sort by item name
-    Collections.sort(bookedItems,
-        Comparator.comparing((TOBookedItem item) -> item.getBookableItemName()));
+    Collections.sort(bookedItems, Comparator.comparing(
+        (TOBookedItem item) -> item.getBookableItemName(), String.CASE_INSENSITIVE_ORDER));
     return bookedItems;
   }
 
@@ -233,8 +234,8 @@ public class ClimbSafeFeatureSet2Controller {
           item.getItem().getName()));
     }
     // by default, sort by item name
-    Collections.sort(bookedItems,
-        Comparator.comparing((TOBookedItem item) -> item.getBookableItemName()));
+    Collections.sort(bookedItems, Comparator.comparing(
+        (TOBookedItem item) -> item.getBookableItemName(), String.CASE_INSENSITIVE_ORDER));
     return bookedItems;
   }
 

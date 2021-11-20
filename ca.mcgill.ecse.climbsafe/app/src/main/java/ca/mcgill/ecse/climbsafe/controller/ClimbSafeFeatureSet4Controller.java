@@ -160,7 +160,8 @@ public class ClimbSafeFeatureSet4Controller {
           equipment.getPricePerWeek(), mpQuantity));
     }
     // by default, sort by name
-    Comparator<TOEquipment> comp = Comparator.comparing(TOEquipment::getName);
+    Comparator<TOEquipment> comp =
+        Comparator.comparing(TOEquipment::getName, String.CASE_INSENSITIVE_ORDER);
     Collections.sort(equipments, comp);
     return equipments;
   }
