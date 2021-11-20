@@ -11,6 +11,7 @@ import ca.mcgill.ecse.climbsafe.controller.TOMember;
 import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -18,11 +19,14 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -32,6 +36,14 @@ import javafx.scene.input.MouseEvent;
  *
  */
 public class MembersPageController {
+  @FXML
+  private TabPane membersPageTabPane;
+  @FXML
+  private Tab regTab;
+  @FXML
+  private Tab modTab;
+  @FXML
+  private Tab delTab;
   @FXML
   private TextField regEmail;
   @FXML
@@ -154,6 +166,8 @@ public class MembersPageController {
   private Button delClearSelection;
   @FXML
   private Button delDelete;
+  @FXML
+  private Button delModifySelected;
 
   // Fields
   private ObservableList<TOEquipment> curRegEquipments;
@@ -267,6 +281,12 @@ public class MembersPageController {
     delDoDelete();
   }
 
+  // Event Listener on Button[#delModifySelected].onAction
+  @FXML
+  public void delDoModifySelected(ActionEvent event) {
+    delDoModifySelected();
+  }
+
   /**
    * Helper method to initialize weeks spinners The max number is nrWeeks of the model
    */
@@ -336,6 +356,21 @@ public class MembersPageController {
      * Enable multi rows selection
      */
     delTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    /*
+     * Add double click handler
+     */
+    delTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent mouseEvent) {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+          if (mouseEvent.getClickCount() == 2) {
+            if (delTable.getSelectionModel().getSelectedItem() != null) {
+              delDoModifySelected();
+            }
+          }
+        }
+      }
+    });
   }
 
 
@@ -618,6 +653,23 @@ public class MembersPageController {
      * Update totalCost
      */
     modDoUpdateCost();
+  }
+
+  /**
+   * Helper method to edit the selected member
+   */
+  private void delDoModifySelected() {
+    var selection = delTable.getSelectionModel().getSelectedItems();
+    if (selection.size() != 1) {
+      ViewUtils.showError("Only one member must be selected");
+      return;
+    }
+    TOMember member = selection.get(0);
+    // Fill the modify tab
+    modEmail.setText(member.getEmail());
+    modDoAutofill();
+    // Swap to the modify tab
+    membersPageTabPane.getSelectionModel().select(modTab);
   }
 
 }
