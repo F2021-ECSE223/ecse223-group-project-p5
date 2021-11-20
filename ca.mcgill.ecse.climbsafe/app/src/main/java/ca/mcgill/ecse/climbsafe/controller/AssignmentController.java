@@ -129,10 +129,7 @@ public class AssignmentController {
    * @throws InvalidInputException
    */
   public static void cancelTrip(String email) throws InvalidInputException {
-
-    validate_member(email);
-    var user = User.getWithEmail(email);
-    var member = (Member) user;
+    var member = validate_member(email);
 
     try {
       // cancel assignment
@@ -151,10 +148,7 @@ public class AssignmentController {
    * @throws InvalidInputException
    */
   public static void finishTrip(String email) throws InvalidInputException {
-
-    validate_member(email);
-    var user = User.getWithEmail(email);
-    var member = (Member) user;
+    var member = validate_member(email);
 
     try {
       // finish trip
@@ -198,14 +192,11 @@ public class AssignmentController {
    */
 
   public static void confirmPayment(String email, String code) throws InvalidInputException {
-    validate_member(email);
-    
     if (code == null || code.isEmpty()) {
       throw new InvalidInputException("Invalid authorization code");
     }
     
-    var user = User.getWithEmail(email);
-    var member = (Member) user;
+    var member = validate_member(email);
 
     // update state
     int startWeek = member.getAssignment().getStartWeek();
@@ -233,9 +224,7 @@ public class AssignmentController {
    * @throws InvalidInputException
    */
   public static void toggleBan(String email) throws InvalidInputException {
-    validate_member(email);
-    var user = User.getWithEmail(email);
-    var member = (Member) user;
+    var member = validate_member(email);
 
     // update state
     member.ban();
@@ -255,7 +244,7 @@ public class AssignmentController {
    * @param discount
    * @throws InvalidInputException
    */
-  private static void validate_member(String email) throws InvalidInputException {
+  private static Member validate_member(String email) throws InvalidInputException {
 
     var user = User.getWithEmail(email);
     if (user == null) {
@@ -264,8 +253,7 @@ public class AssignmentController {
       throw new InvalidInputException("Member with email address " + email + " does not exist");
     }
 
+    return (Member)user;
   }
-
-
 
 }
