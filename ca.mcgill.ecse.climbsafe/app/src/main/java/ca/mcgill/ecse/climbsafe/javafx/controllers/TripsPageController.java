@@ -5,6 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
+import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
+import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
+import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
@@ -48,28 +53,63 @@ public class TripsPageController {
 	@FXML
 	public void startTripsPushed(ActionEvent event) {
 	  Integer weekInteger = startTripsWeekField.getValue();
-	  System.out.println("Start trips for week " + weekInteger.toString());
 	  
-	  startTripsSuccessLabel.setText("x trips started");
-	  startTripsFailureLabel.setText("x trips failed");
-	  startTripsResultField.setText("More details here");
+	  try {
+	    // call controller and get results
+	    String[] results = AssignmentController.startTripsForWeekReturnDetails(weekInteger);
+	    
+	    startTripsSuccessLabel.setText(results[0]);
+	    startTripsFailureLabel.setText(results[1]);
+	    startTripsResultField.setText(results[2]);
+	    
+	    ClimbSafeView.getInstance().refresh();
+	  } catch (InvalidInputException e) {
+	    ViewUtils.showError(e.getMessage());
+	  }
 	}
 	
 	// Event Listener on Button[#manageTripSearchButton].onAction
 	@FXML
 	public void searchEmailPushed(ActionEvent event) {
 	  String emailString = manageTripEmailField.getText();
-	  System.out.println("Manage trip for member " + emailString);
-	  this.targetEmail = emailString;
 	  
-	  manageTripCancelButton.setDisable(false);
-	  manageTripFinishButton.setDisable(false);
+	  try {
+	    TOAssignment assignment = ClimbSafeFeatureSet6Controller.getAssignment(emailString);
+	    
+	    this.targetEmail = emailString;
+	    
+	    manageTripStatusLabel.setText(assignment.getStatus());
+	      
+	    boolean disableCancel = false;
+	    boolean disableFinish = false;
+	    
+	    switch (assignment.getStatus()) {
+	      // can do neither when unassigned, finished, or cancelled
+	      case "Unassigned":
+	      case "Finished":
+	      case "Cancelled":
+	        disableCancel = true;
+	      // cannot finish when assigned or paid
+	      case "Assigned":
+          case "Paid":
+            disableFinish = true;
+            break;
+	    }
+	      
+	    manageTripCancelButton.setDisable(disableCancel);
+	    manageTripFinishButton.setDisable(disableFinish);
+	  } catch (InvalidInputException e) {
+	    ViewUtils.showError(e.getMessage());
+	  }
 	}
 	
 	// Event Listener on Button[#manageTripCancelButton].onAction
 	@FXML
 	public void cancelTripPushed(ActionEvent event) {
-	  System.out.println("Cancel trip for " + targetEmail);
+	  if (ViewUtils.successful(() -> AssignmentController.cancelTrip(targetEmail))) {
+	    ViewUtils.makePopupWindow("Success", String.format("Trip for %s cancelled", targetEmail));
+	  }
+	  
 	  targetEmail = null;
 	  clearManageInputs();
 	}
@@ -77,13 +117,17 @@ public class TripsPageController {
 	// Event Listener on Button[#manageTripFinishButton].onAction
 	@FXML
 	public void finishTripPushed(ActionEvent event) {
-	  System.out.println("Cancel trip for " + targetEmail);
+	  if (ViewUtils.successful(() -> AssignmentController.cancelTrip(targetEmail))) {
+        ViewUtils.makePopupWindow("Success", String.format("Trip for %s finished", targetEmail));
+      }
+	  
       targetEmail = null;
       clearManageInputs();
 	}
 	
 	private void clearManageInputs() {
 	  manageTripEmailField.setText(null);
+	  manageTripStatusLabel.setText(null);
 	  manageTripCancelButton.setDisable(true);
       manageTripFinishButton.setDisable(true);
 	}

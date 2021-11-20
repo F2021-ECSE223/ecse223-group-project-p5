@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
-import java.util.List;
+import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
 import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
@@ -56,11 +56,10 @@ public class AssignmentsPageController {
 	// Event Listener on Button[#initiateAssignmentsButton].onAction
 	@FXML
 	public void initiateAssignmentsPressed(ActionEvent event) {
-	  System.out.println("Initiate assignments");
+	  System.out.println(ViewUtils.successful(() -> AssignmentController.initiateAssignment()));
 	}
 	
 	private ObservableList<TOAssignment> getAssignmentItems() {
-	  System.out.println("get items");
 	  return FXCollections.observableList(ClimbSafeFeatureSet6Controller.getAssignments());
 	}
 	
