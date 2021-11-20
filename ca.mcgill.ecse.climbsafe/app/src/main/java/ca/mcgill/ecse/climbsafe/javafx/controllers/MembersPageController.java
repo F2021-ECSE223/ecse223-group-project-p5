@@ -495,17 +495,23 @@ public class MembersPageController {
    */
   private void regDoUpdateCost() {
     int totalCost = 0;
+    // Cost of guide
+    if (regNeedGuideYes.isSelected()) {
+      totalCost += ClimbSafeFeatureSet1Controller.getPriceOfGuidePerWeek();
+    }
+    // Cost of equipments
     for (var equipment : this.curRegEquipments) {
       totalCost += equipment.getPricePerWeek() * (int) equipment.getMpQuantity().getValue();
     }
+    // Cost of bundles
     for (var bundle : this.curRegBundles) {
       int bundlePrice = bundle.getNoDiscountPrice();
       if (regNeedGuideYes.isSelected()) {
-        totalCost += ClimbSafeFeatureSet1Controller.getPriceOfGuidePerWeek();
         bundlePrice = Math.round(bundlePrice * (100 - bundle.getDiscount()) / 100);
       }
       totalCost += bundlePrice * (int) bundle.getMpQuantity().getValue();
     }
+    // Cost * nrWeeks
     totalCost = this.regWeeks.getValue() * totalCost;
     regTotalCost.setText(Integer.toString(totalCost));
   }
@@ -515,17 +521,23 @@ public class MembersPageController {
    */
   private void modDoUpdateCost() {
     int totalCost = 0;
+    // Cost of guide
+    if (modNeedGuideYes.isSelected()) {
+      totalCost += ClimbSafeFeatureSet1Controller.getPriceOfGuidePerWeek();
+    }
+    // Cost of equipments
     for (var equipment : this.curModEquipments) {
       totalCost += equipment.getPricePerWeek() * (int) equipment.getMpQuantity().getValue();
     }
+    // Cost of bundles
     for (var bundle : this.curModBundles) {
       int bundlePrice = bundle.getNoDiscountPrice();
       if (modNeedGuideYes.isSelected()) {
-        totalCost += ClimbSafeFeatureSet1Controller.getPriceOfGuidePerWeek();
         bundlePrice = Math.round(bundlePrice * (100 - bundle.getDiscount()) / 100);
       }
       totalCost += bundlePrice * (int) bundle.getMpQuantity().getValue();
     }
+    // Cost * nrWeeks
     totalCost = this.modWeeks.getValue() * totalCost;
     modTotalCost.setText(Integer.toString(totalCost));
   }
