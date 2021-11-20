@@ -35,7 +35,7 @@ public class ViewUtils {
       executable.execute();
       ClimbSafeView.getInstance().refresh();
       return true;
-    } catch (InvalidInputException e) {
+    } catch (Exception e) {
       showError(e.getMessage());
     } catch (Throwable t) {
       t.printStackTrace();
