@@ -35,11 +35,14 @@ public class ClimbSafeView extends Application {
   }
 
   public static final EventType<Event> REFRESH_EVENT = new EventType<>("REFRESH");
+  public static final EventType<Event> NAVIGATE_TRIP_EVENT = new EventType<>("NAVIGATE_TRIP");
+  
   private static ClimbSafeView instance;
   private List<Node> refreshableNodes = new ArrayList<>();
+  private List<Node> navigateResponseNodes = new ArrayList<>();
   private double xOffset = 0;
   private double yOffset = 0;
-
+  
   @Override
   public void start(Stage primaryStage) {
     instance = this;
@@ -79,6 +82,11 @@ public class ClimbSafeView extends Application {
   public void registerRefreshEvent(Node node) {
     refreshableNodes.add(node);
   }
+  
+  //Register the node for responding to navigation to the trips page
+  public void registerNavigationResponse(Node node) {
+    navigateResponseNodes.add(node);
+  }
 
   // Register multiple nodes for receiving refresh events
   public void registerRefreshEvent(Node... nodes) {
@@ -98,9 +106,15 @@ public class ClimbSafeView extends Application {
       node.fireEvent(new Event(REFRESH_EVENT));
     }
   }
+  
+  // fire the navigate event to all registered nodes with the message
+  public void activateTripsPage(String targetEmail) {
+    for (Node node : navigateResponseNodes) {
+      node.fireEvent(new MessageEvent(NAVIGATE_TRIP_EVENT, targetEmail));
+    }
+  }
 
   public static ClimbSafeView getInstance() {
     return instance;
   }
-
 }
