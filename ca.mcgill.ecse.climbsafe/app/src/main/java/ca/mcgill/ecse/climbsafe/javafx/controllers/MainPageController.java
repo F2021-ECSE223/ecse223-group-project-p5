@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.climbsafe.javafx.controllers;
 
+import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,6 +60,14 @@ public class MainPageController {
       if (newVal == null)
         oldVal.setSelected(true);
     });
+    
+    tripsPane.addEventHandler(ClimbSafeView.NAVIGATE_TRIP_EVENT,
+      e -> tripsPane.toFront());
+    ClimbSafeView.getInstance().registerNavigationResponse(tripsPane);
+    
+    dashboardTripsButton.addEventHandler(ClimbSafeView.NAVIGATE_TRIP_EVENT,
+      e -> dashboardTripsButton.fire());
+    ClimbSafeView.getInstance().registerNavigationResponse(dashboardTripsButton);
   }
 
   /**

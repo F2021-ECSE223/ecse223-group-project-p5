@@ -46,6 +46,14 @@ public class TripsPageController {
 	
 	@FXML
 	public void initialize() {
+	  manageTripEmailField.addEventHandler(ClimbSafeView.NAVIGATE_TRIP_EVENT,
+	      e -> manageTripEmailField.setText(((ClimbSafeView.MessageEvent)e).getMessage()));
+	  ClimbSafeView.getInstance().registerNavigationResponse(manageTripEmailField);
+	  
+	  manageTripSearchButton.addEventHandler(ClimbSafeView.NAVIGATE_TRIP_EVENT,
+	      e -> manageTripSearchButton.fire());
+	  ClimbSafeView.getInstance().registerNavigationResponse(manageTripSearchButton);
+	  
 	  // bound week selector
 	  startTripsWeekField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, ClimbSafeFeatureSet1Controller.getNrWeeks()));
 	}

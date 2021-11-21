@@ -20,5 +20,6 @@
             <TableView fx:id="overviewTable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="501.0" prefWidth="900.0" />
          </children>
       </VBox>
+      <Button fx:id="manageTripButton" alignment="CENTER_RIGHT" layoutX="645.6" layoutY="529.6" mnemonicParsing="false" onAction="#manageTripPressed" text="Manage Selected Trip" />
    </children>
 </AnchorPane>

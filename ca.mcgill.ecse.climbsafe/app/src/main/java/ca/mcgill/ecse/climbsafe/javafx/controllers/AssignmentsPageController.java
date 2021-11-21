@@ -19,6 +19,8 @@ public class AssignmentsPageController {
 	@FXML
 	private Button initiateAssignmentsButton;
 	@FXML
+	private Button manageTripButton;
+	@FXML
 	private TableView<TOAssignment> overviewTable;
 	
 	@FXML
@@ -59,6 +61,16 @@ public class AssignmentsPageController {
 	@FXML
 	public void initiateAssignmentsPressed(ActionEvent event) {
 	  ViewUtils.callController(() -> AssignmentController.initiateAssignment());
+	}
+	
+	// Event Listener on Button[#manageTripButton].onAction
+	@FXML
+	public void manageTripPressed(ActionEvent event) {
+	  // open manage trip page for selected trip
+	  TOAssignment target = overviewTable.getSelectionModel().getSelectedItem();
+	  if (target != null) {
+	    ClimbSafeView.getInstance().activateTripsPage(target.getMemberEmail());
+	  }
 	}
 	
 	/**
