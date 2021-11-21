@@ -15,8 +15,24 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
 public class ClimbSafeView extends Application {
+  /**
+   * JavaFX Event class with a message
+   * 
+   * @author Michael Grieco
+   */
+  public static class MessageEvent extends Event {
+    private String message;
+    
+    public MessageEvent(EventType<Event> type, String message) {
+      super(type);
+      this.message = message;
+    }
+    
+    public String getMessage() {
+      return this.message;
+    }
+  }
 
   public static final EventType<Event> REFRESH_EVENT = new EventType<>("REFRESH");
   private static ClimbSafeView instance;
