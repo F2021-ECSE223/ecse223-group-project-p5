@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
 import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet1Controller;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
@@ -46,7 +47,7 @@ public class TripsPageController {
 	@FXML
 	public void initialize() {
 	  // bound week selector
-	  startTripsWeekField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100));
+	  startTripsWeekField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, ClimbSafeFeatureSet1Controller.getNrWeeks()));
 	}
 
 	// Event Listener on Button[#startTripsButton].onAction
