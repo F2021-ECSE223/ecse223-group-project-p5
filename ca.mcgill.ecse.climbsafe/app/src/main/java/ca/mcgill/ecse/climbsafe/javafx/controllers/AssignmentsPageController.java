@@ -8,6 +8,7 @@ import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
 import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
 import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,20 +20,6 @@ public class AssignmentsPageController {
 	private Button initiateAssignmentsButton;
 	@FXML
 	private TableView<TOAssignment> overviewTable;
-	/*
-	 * memberEmail;
-  memberName;
-  guideEmail;
-  guideName;
-  hotelName;
-  Integer startWeek;
-  Integer endWeek;
-  Integer totalCostForGuide;
-  Integer totalCostForEquipment;
-  status;
-  authorizationCode;
-  Integer refundedPercentageAmount;
-	 */
 	
 	@FXML
 	public void initialize() {
@@ -47,22 +34,44 @@ public class AssignmentsPageController {
 	  overviewTable.getColumns().add(createTableColumn("Equipment Cost", "totalCostForEquipment"));
 	  overviewTable.getColumns().add(createTableColumn("Status", "status"));
 	  overviewTable.getColumns().add(createTableColumn("Authorization Code", "authorizationCode"));
-	  overviewTable.getColumns().add(createTableColumn("Refund", "refundedPercentageAmount"));
 	
-	  overviewTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> overviewTable.setItems(getAssignmentItems()));
+	  // only show refund if cancelled or finished
+	  var refundColumn = new TableColumn<TOAssignment, String>("Refund");
+	  refundColumn.setCellValueFactory(data -> Bindings.createStringBinding(
+	      () -> {
+	        String status = data.getValue().getStatus();
+	        if (status.equals("Finished") || status.equals("Cancelled")) {
+	          return String.valueOf(data.getValue().getRefundedPercentageAmount());
+	        }
+	        else {
+	          return null;
+	        }
+	      }));
+	  overviewTable.getColumns().add(refundColumn);
+	  
+	  // set table to refresh upon trigger
+	  overviewTable.addEventHandler(ClimbSafeView.REFRESH_EVENT,
+	      e -> overviewTable.setItems(ViewUtils.getAssignments()));
 	  ClimbSafeView.getInstance().registerRefreshEvent(overviewTable);
 	}
 
 	// Event Listener on Button[#initiateAssignmentsButton].onAction
 	@FXML
 	public void initiateAssignmentsPressed(ActionEvent event) {
-	  System.out.println(ViewUtils.successful(() -> AssignmentController.initiateAssignment()));
+	  ViewUtils.callController(() -> AssignmentController.initiateAssignment());
 	}
 	
-	private ObservableList<TOAssignment> getAssignmentItems() {
-	  return FXCollections.observableList(ClimbSafeFeatureSet6Controller.getAssignments());
-	}
-	
+	/**
+	 * helper function to link a table column to a specific property in each
+	 * TOAssignment instance
+	 * 
+	 * Based off of function from Tutorial 10
+	 * 
+	 * @param header the name to appear in the table
+	 * @param propertyName the corresponding property name in TOAssignment
+	 * @return the table column
+	 * @author Michael Grieco
+	 */
 	private static TableColumn<TOAssignment, String> createTableColumn(String header,
 	      String propertyName) {
 	    TableColumn<TOAssignment, String> column = new TableColumn<>(header);
