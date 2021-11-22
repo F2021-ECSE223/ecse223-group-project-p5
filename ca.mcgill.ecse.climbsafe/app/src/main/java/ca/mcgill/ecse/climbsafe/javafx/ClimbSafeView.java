@@ -24,7 +24,7 @@ public class ClimbSafeView extends Application {
   public static class MessageEvent extends Event {
     private String message;
     
-    public MessageEvent(EventType<Event> type, String message) {
+    public MessageEvent(EventType<MessageEvent> type, String message) {
       super(type);
       this.message = message;
     }
@@ -35,11 +35,11 @@ public class ClimbSafeView extends Application {
   }
 
   public static final EventType<Event> REFRESH_EVENT = new EventType<>("REFRESH");
-  public static final EventType<Event> NAVIGATE_TRIP_EVENT = new EventType<>("NAVIGATE_TRIP");
+  public static final EventType<MessageEvent> NAVIGATE_TRIP_EVENT = new EventType<>("NAVIGATE_TRIP");
   
   private static ClimbSafeView instance;
   private List<Node> refreshableNodes = new ArrayList<>();
-  private List<Node> navigateResponseNodes = new ArrayList<>();
+  private List<Node> navigateTripResponseNodes = new ArrayList<>();
   private double xOffset = 0;
   private double yOffset = 0;
   
@@ -84,8 +84,8 @@ public class ClimbSafeView extends Application {
   }
   
   //Register the node for responding to navigation to the trips page
-  public void registerNavigationResponse(Node node) {
-    navigateResponseNodes.add(node);
+  public void registerNavigationTripResponse(Node node) {
+    navigateTripResponseNodes.add(node);
   }
 
   // Register multiple nodes for receiving refresh events
@@ -109,7 +109,7 @@ public class ClimbSafeView extends Application {
   
   // fire the navigate event to all registered nodes with the message
   public void activateTripsPage(String targetEmail) {
-    for (Node node : navigateResponseNodes) {
+    for (Node node : navigateTripResponseNodes) {
       node.fireEvent(new MessageEvent(NAVIGATE_TRIP_EVENT, targetEmail));
     }
   }

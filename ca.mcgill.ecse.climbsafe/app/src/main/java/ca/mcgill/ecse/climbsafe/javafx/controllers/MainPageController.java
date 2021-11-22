@@ -63,11 +63,11 @@ public class MainPageController {
     
     tripsPane.addEventHandler(ClimbSafeView.NAVIGATE_TRIP_EVENT,
       e -> tripsPane.toFront());
-    ClimbSafeView.getInstance().registerNavigationResponse(tripsPane);
+    ClimbSafeView.getInstance().registerNavigationTripResponse(tripsPane);
     
     dashboardTripsButton.addEventHandler(ClimbSafeView.NAVIGATE_TRIP_EVENT,
       e -> dashboardTripsButton.fire());
-    ClimbSafeView.getInstance().registerNavigationResponse(dashboardTripsButton);
+    ClimbSafeView.getInstance().registerNavigationTripResponse(dashboardTripsButton);
   }
 
   /**

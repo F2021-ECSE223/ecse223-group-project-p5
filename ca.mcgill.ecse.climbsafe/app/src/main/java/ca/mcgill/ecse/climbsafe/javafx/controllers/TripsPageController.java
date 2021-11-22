@@ -46,16 +46,19 @@ public class TripsPageController {
 	
 	@FXML
 	public void initialize() {
+	  // register elements to respond to navigation event
+	  // email field should be populated with message contents
 	  manageTripEmailField.addEventHandler(ClimbSafeView.NAVIGATE_TRIP_EVENT,
-	      e -> manageTripEmailField.setText(((ClimbSafeView.MessageEvent)e).getMessage()));
-	  ClimbSafeView.getInstance().registerNavigationResponse(manageTripEmailField);
-	  
+	      e -> manageTripEmailField.setText(e.getMessage()));
+	  ClimbSafeView.getInstance().registerNavigationTripResponse(manageTripEmailField);
+	  // search button should be triggered
 	  manageTripSearchButton.addEventHandler(ClimbSafeView.NAVIGATE_TRIP_EVENT,
 	      e -> manageTripSearchButton.fire());
-	  ClimbSafeView.getInstance().registerNavigationResponse(manageTripSearchButton);
+	  ClimbSafeView.getInstance().registerNavigationTripResponse(manageTripSearchButton);
 	  
 	  // bound week selector
-	  startTripsWeekField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, ClimbSafeFeatureSet1Controller.getNrWeeks()));
+	  startTripsWeekField.setValueFactory(
+	      new SpinnerValueFactory.IntegerSpinnerValueFactory(1, ClimbSafeFeatureSet1Controller.getNrWeeks()));
 	}
 
 	// Event Listener on Button[#startTripsButton].onAction
@@ -89,6 +92,7 @@ public class TripsPageController {
 	    
 	    manageTripStatusLabel.setText(assignment.getStatus());
 	      
+	    // determine which buttons should be disabled
 	    boolean disableCancel = false;
 	    boolean disableFinish = false;
 	    
