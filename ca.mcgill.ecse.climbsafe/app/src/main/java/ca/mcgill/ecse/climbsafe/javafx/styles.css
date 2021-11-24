@@ -66,6 +66,13 @@
 }
 
 /*
+ * Adds an anti-aliasing effect to text
+ */
+.text {
+	-fx-font-smoothing-type: gray;
+}
+
+/*
  * Global TextField styling
  */
 .text-field {
