@@ -36,12 +36,9 @@
                <children>
                   <TableView fx:id="assignmentsOverviewTable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="501.0" prefWidth="400.0">
                      <columns>
-                        <TableColumn editable="false" minWidth="0.0" prefWidth="175.0" text="Member Name" />
-                        <TableColumn editable="false" prefWidth="225.0" text="Member Email" />
+                        <TableColumn editable="false" minWidth="0.0" prefWidth="-1.0" style="-fx-width: 40%;" text="Member Name" />
+                        <TableColumn editable="false" prefWidth="-1.0" style="-fx-width: 60%;" text="Member Email" />
                      </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
                   </TableView>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
