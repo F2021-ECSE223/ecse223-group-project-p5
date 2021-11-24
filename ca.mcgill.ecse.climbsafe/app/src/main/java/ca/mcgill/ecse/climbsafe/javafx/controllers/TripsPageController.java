@@ -64,7 +64,7 @@ public class TripsPageController {
 	      spinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, nrWeeks, 1);
 	    }
 	    else {
-	      spinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1, 1);
+	      spinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 0);
 	    }
 	    spinnerFactory.setWrapAround(true);
 	    startTripsWeekField.setValueFactory(spinnerFactory);
