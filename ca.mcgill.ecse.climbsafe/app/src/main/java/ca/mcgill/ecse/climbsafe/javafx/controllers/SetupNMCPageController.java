@@ -66,9 +66,12 @@ public class SetupNMCPageController {
          * The ClimbSafe application sets the constraint that the value for weekly guide price must
          * be >= 0. There is no specified upper limit for this value.
          * 
-         * The default value shown in the Spinner object will 0. This does not affect 
+         * The default value shown in the Spinner object will 0. This does not affect the value of
+         * guide price in the model.
          */
         new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1);
+
+    // Add a StringConverter to handle user-input
     priceSpinnerFactory.setConverter(new StringConverter<Integer>() {
       @Override
       public String toString(Integer object) {
@@ -77,6 +80,20 @@ public class SetupNMCPageController {
 
       @Override
       public Integer fromString(String string) {
+        /*
+         * When the value in the text-field is changed, SpinnerFactory will call this method to try
+         * and convert the user-input to a value.
+         * 
+         * We get the current value in priceSpinner's text-field. We assume that this value is not
+         * invalid. We can make this assumption because the SpinnerFactory will set a valid initial
+         * value, and our implementation of this method prevents invalid values from being set.
+         * 
+         * We try to convert the string value to an Integer. If an error NumberFormatException is
+         * caught, we assert that the string is invalid in some way. In this case, we revert the
+         * priceSpinner to its state before the user's input. To do this we reset the string in the
+         * text-field to the current value (the value before the user's input), and return the
+         * current value. We then display a pop-up to inform the user of their error.
+         */
         final int curValue = priceSpinner.getValue();
         try {
           return Integer.valueOf(string);
@@ -90,9 +107,24 @@ public class SetupNMCPageController {
     priceSpinner.setValueFactory(priceSpinnerFactory);
   }
 
+  /**
+   * Helper method to initialize {@link #weekSpinner}. Assigns a {@link SpinnerValueFactory} to
+   * manage its behavior
+   * 
+   * @author Harrison Wang
+   */
   private void initWeekSpinner() {
     var weekSpinnerFactory =
+        /*
+         * The ClimbSafe application sets the constraint that the value for number of weeks must be
+         * >= 0. There is no specified upper limit for this value.
+         * 
+         * The default value shown in the Spinner object will 0. This does not affect the value of
+         * number of weeks in the model.
+         */
         new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1);
+
+    // Add a StringConverter to handle user-input
     weekSpinnerFactory.setConverter(new StringConverter<Integer>() {
       @Override
       public String toString(Integer object) {
@@ -101,6 +133,20 @@ public class SetupNMCPageController {
 
       @Override
       public Integer fromString(String string) {
+        /*
+         * When the value in the text-field is changed, SpinnerFactory will call this method to try
+         * and convert the user-input to a value.
+         * 
+         * We get the current value in weekSpinner's text-field. We assume that this value is not
+         * invalid. We can make this assumption because the SpinnerFactory will set a valid initial
+         * value, and our implementation of this method prevents invalid values from being set.
+         * 
+         * We try to convert the string value to an Integer. If an error NumberFormatException is
+         * caught, we assert that the string is invalid in some way. In this case, we revert the
+         * weekSpinner to its state before the user's input. To do this we reset the string in the
+         * text-field to the current value (the value before the user's input), and return the
+         * current value. We then display a pop-up to inform the user of their error.
+         */
         final int curValue = weekSpinner.getValue();
         try {
           return Integer.valueOf(string);
@@ -114,9 +160,25 @@ public class SetupNMCPageController {
     weekSpinner.setValueFactory(weekSpinnerFactory);
   }
 
+  /**
+   * Helper method to initialize {@link #startDatePicker}. Assigns a {@link StringConverter} to
+   * handle user-input, and sets an initial value.
+   * 
+   * @author Harrison Wang
+   */
   private void initStartDate() {
+    // Set the initial value to today's date.
     startDatePicker.setValue(LocalDate.now());
+
+    /*
+     * Add a StringConverter to handle user-input
+     * 
+     * By default, the DatePicker control object holds an instance of LocalDate, which can be
+     * directly passed to the ClimbSafe controller to set up NMC information. This StringConverter
+     * is used to convert user-input of type String into an instance of LocalDate.
+     */
     var dateFormatConverter = new StringConverter<LocalDate>() {
+      // define a DateTimeFormatter instance, which checks for the yyyy-mm-dd convention
       final String pattern = "yyyy-MM-dd";
       final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
@@ -127,6 +189,22 @@ public class SetupNMCPageController {
 
       @Override
       public LocalDate fromString(String string) {
+        /*
+         * When the value in the text-field is changed, DatePicker will call this method to try and
+         * convert the user-input to a value.
+         * 
+         * We get the current value in startDatePicker's text-field. We assume that this value is
+         * not invalid. We can make this assumption because we set the initial value to be valid (we
+         * set it to Today), and our implementation of this method prevents invalid values from
+         * being set.
+         * 
+         * We try to convert the string value to a LocalDate instance, using our formatter. If an
+         * error DateTimeParseException is caught, we assert that the string is invalid in some way.
+         * In this case, we revert the startDatePicker to its state before the user's input. To do
+         * this we reset the string in the text-field to the current value (the value before the
+         * user's input), and return the current value. We then display a pop-up to inform the user
+         * of their error.
+         */
         final String curDate = startDatePicker.getEditor().getText();
         if (string == null || string.isEmpty())
           return null;
@@ -142,7 +220,13 @@ public class SetupNMCPageController {
     startDatePicker.setConverter(dateFormatConverter);
   }
 
+  /**
+   * Helper method to initialize the labels used to display the current NMC values for the user.
+   * 
+   * @author Harrison Wang
+   */
   private void initCurrentLabels() {
+    // Set the initial values for these labels
     String startDate = ClimbSafeFeatureSet1Controller.getStartDate();
     int nrWeeks = ClimbSafeFeatureSet1Controller.getNrWeeks();
     int guidePrice = ClimbSafeFeatureSet1Controller.getPriceOfGuidePerWeek();
@@ -151,6 +235,8 @@ public class SetupNMCPageController {
     curNrWeeksLabel.setText(Integer.toString(nrWeeks));
     curPriceLabel.setText(Integer.toString(guidePrice));
 
+    // Add a listener for REFRESH_EVENT so that when the NMC information is changed, the labels are
+    // also changed.
     curStartDate.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
       final String newStartDate = ClimbSafeFeatureSet1Controller.getStartDate();
       curStartDate.setText(newStartDate != null ? newStartDate : "Not Set");
@@ -167,6 +253,11 @@ public class SetupNMCPageController {
     ClimbSafeView.getInstance().registerRefreshEvent(curStartDate, curNrWeeksLabel, curPriceLabel);
   }
 
+  /**
+   * Initialize method, called when this page is first created.
+   * 
+   * @author Harrison Wang
+   */
   @FXML
   public void initialize() {
     initPriceSpinner();
