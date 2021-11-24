@@ -122,7 +122,18 @@ public class ClimbSafeFeatureSet1Controller {
   public static int getPriceOfGuidePerWeek() {
     return ClimbSafeApplication.getClimbSafe().getPriceOfGuidePerWeek();
   }
-
+  
+  /**
+   * Getter for start date 
+   * 
+   * @return string
+   * @author Harrison Wang
+   */
+  public static String getStartDate() {
+    Date startDate = ClimbSafeApplication.getClimbSafe().getStartDate();
+    return startDate.toString();
+  }
+  
   // this method needs to be implemented only by teams with seven team members
   public static void deleteHotel(String name) {}
 
