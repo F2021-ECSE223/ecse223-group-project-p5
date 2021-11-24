@@ -1,0 +1,32 @@
+#titleLabel {
+	-fx-font-family: "Open Sans Semibold";
+	-fx-font-size: 30;
+	-fx-text-fill: #5C5CCC;
+	-fx-alignment: CENTER-LEFT;
+	-fx-padding: 50 0 0 40;
+	
+	-fx-background-color: #FFECD9;
+	-fx-border-color: #5C5CCC;
+	-fx-border-width: 0 0 3 0;
+}
+
+#currentValuesGrid {
+	-fx-background-color: #FFECD9;
+}
+
+.currentValueLabel {
+	-fx-text-fill: #5C5CCC;
+}
+
+.label {
+	-fx-font-family: "Montserrat Regular";
+	-fx-font-size: 20;
+}
+
+.text-field {
+	-fx-font-family: "Montserrat Regular";
+	-fx-alignment: CENTER-RIGHT;
+	-fx-padding: 0 7 0 0;
+}
+
+
