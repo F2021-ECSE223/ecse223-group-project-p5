@@ -19,9 +19,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.climbsafe.javafx.controllers.GuidePageController">
    <children>
-      <TabPane fx:id="membersPageTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="guidesPageTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab fx:id="regTab" text="Register Guide">
+          <Tab fx:id="regGuideTab" text="Register Guide">
             <content>
               <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="900.0">
                      <children>
@@ -144,7 +144,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="modTab" text="Modify Guide">
+          <Tab fx:id="modGuideTab" text="Modify Guide">
                <content>
                   <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="900.0">
                      <children>
@@ -271,13 +271,13 @@
                   </AnchorPane>
                </content>
           </Tab>
-            <Tab fx:id="delTab" text="View All Guides">
+            <Tab fx:id="delGuideTab" text="View All Guides">
                <content>
                   <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="900.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="delTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <TableView fx:id="delGuideTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                 <columns>
                                   <TableColumn fx:id="delGuideTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="238.0" text="Name" />
                                   <TableColumn fx:id="delGuideTableEmail" minWidth="2.0" prefWidth="249.0" text="Email Address" />
