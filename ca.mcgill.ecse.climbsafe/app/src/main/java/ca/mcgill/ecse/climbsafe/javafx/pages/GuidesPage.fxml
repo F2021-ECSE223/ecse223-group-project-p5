@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.climbsafe.javafx.controllers.GuidePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.climbsafe.javafx.controllers.GuidesPageController">
    <children>
       <TabPane fx:id="guidesPageTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -85,11 +85,6 @@
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </PasswordField>
-                                          <TextField fx:id="regPasswordShow" onAction="#regDoRegister" visible="false" GridPane.rowIndex="3">
-                                             <GridPane.margin>
-                                                <Insets bottom="10.0" left="40.0" right="40.0" />
-                                             </GridPane.margin>
-                                          </TextField>
                                           <TextField fx:id="regGuideName" onAction="#regGuideDoRegister" promptText="Firstname Lastname" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
@@ -211,11 +206,6 @@
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </PasswordField>
-                                          <TextField fx:id="modPasswordShow" onAction="#modDoModify" visible="false" GridPane.rowIndex="3">
-                                             <GridPane.margin>
-                                                <Insets bottom="10.0" left="40.0" right="40.0" />
-                                             </GridPane.margin>
-                                          </TextField>
                                           <TextField fx:id="modGuideName" onAction="#modGuideDoModify" promptText="Firstname Lastname" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
