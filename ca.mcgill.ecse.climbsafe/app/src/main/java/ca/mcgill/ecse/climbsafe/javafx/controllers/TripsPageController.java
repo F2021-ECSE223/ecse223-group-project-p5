@@ -56,9 +56,20 @@ public class TripsPageController {
 	      e -> manageTripSearchButton.fire());
 	  ClimbSafeView.getInstance().registerNavigationTripResponse(manageTripSearchButton);
 	  
-	  // bound week selector
-	  startTripsWeekField.setValueFactory(
-	      new SpinnerValueFactory.IntegerSpinnerValueFactory(1, ClimbSafeFeatureSet1Controller.getNrWeeks()));
+	  // setup week selector
+	  startTripsWeekField.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+	    Integer nrWeeks = ClimbSafeFeatureSet1Controller.getNrWeeks();
+	    SpinnerValueFactory.IntegerSpinnerValueFactory spinnerFactory = null;
+	    if (nrWeeks > 0) {
+	      spinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, nrWeeks, 1);
+	    }
+	    else {
+	      spinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1, 1);
+	    }
+	    spinnerFactory.setWrapAround(true);
+	    startTripsWeekField.setValueFactory(spinnerFactory);
+	  });
+	  ClimbSafeView.getInstance().registerRefreshEvent(startTripsWeekField);
 	}
 
 	// Event Listener on Button[#startTripsButton].onAction
