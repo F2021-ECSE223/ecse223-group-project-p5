@@ -31,7 +31,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="455.0" text="Start Trips" textAlignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="455.0" style="-fx-font-weight: bold; -fx-font-size: 28px;" text="Start Trips" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
@@ -69,18 +69,18 @@
                         <Insets bottom="15.0" top="15.0" />
                      </VBox.margin>
                   </Separator>
-                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="455.0" text="Results:" textAlignment="CENTER">
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="455.0" style="-fx-font-weight: bold;" text="Results:" textAlignment="CENTER">
                      <VBox.margin>
-                        <Insets bottom="15.0" />
+                        <Insets />
                      </VBox.margin>
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                   <GridPane>
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.20001220703125" minWidth="10.0" prefWidth="287.4000244140625" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.39996337890625" minWidth="10.0" prefWidth="162.5999755859375" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -114,6 +114,9 @@
                            </font>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="15.0" />
+                     </VBox.margin>
                   </GridPane>
                   <Accordion>
                     <panes>
@@ -135,7 +138,7 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="455.0" text="Manage Trip" textAlignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="455.0" style="-fx-font-weight: bold; -fx-font-size: 28px;" text="Manage Trip" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
@@ -182,7 +185,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefWidth="455.0" text="Trip status:" textAlignment="RIGHT">
+                        <Label alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefWidth="455.0" style="-fx-font-weight: bold;" text="Trip status:" textAlignment="RIGHT">
                            <font>
                               <Font size="24.0" />
                            </font>
