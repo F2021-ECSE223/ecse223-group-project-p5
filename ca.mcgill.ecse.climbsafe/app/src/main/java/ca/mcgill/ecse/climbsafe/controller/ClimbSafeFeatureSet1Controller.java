@@ -129,9 +129,9 @@ public class ClimbSafeFeatureSet1Controller {
    * @return string
    * @author Harrison Wang
    */
-  public static String getStartDate() {
+  public static Date getStartDate() {
     Date startDate = ClimbSafeApplication.getClimbSafe().getStartDate();
-    return startDate.toString();
+    return startDate;
   }
   
   // this method needs to be implemented only by teams with seven team members
