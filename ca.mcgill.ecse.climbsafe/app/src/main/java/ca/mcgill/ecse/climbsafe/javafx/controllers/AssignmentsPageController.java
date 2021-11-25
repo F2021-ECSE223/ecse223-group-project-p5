@@ -4,14 +4,9 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
-import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet6Controller;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
 import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
-import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableView;
