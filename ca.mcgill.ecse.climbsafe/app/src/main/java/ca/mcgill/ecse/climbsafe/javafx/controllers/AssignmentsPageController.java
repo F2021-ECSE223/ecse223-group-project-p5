@@ -81,7 +81,10 @@ public class AssignmentsPageController {
 	// Event Listener on Button[#initiateAssignmentsButton].onAction
 	@FXML
 	public void initiateAssignmentsPressed(ActionEvent event) {
-	  ViewUtils.callController(() -> AssignmentController.initiateAssignment());
+	  // even if throw error, update table
+	  if (!ViewUtils.successful(() -> AssignmentController.initiateAssignment())) {
+	    ClimbSafeView.getInstance().refresh();
+	  }
 	}
 	
 	// Event Listener on Button[#manageTripButton].onAction
