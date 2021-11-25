@@ -203,37 +203,17 @@ public class ClimbSafeFeatureSet3Controller {
    */
   private static void checkvalidemail(String email, String name) throws InvalidInputException {
     // check if email has "@email.com" and throw exception if it does not have one
-    int firstindex = email.indexOf("@");
-    StringBuilder n = new StringBuilder();
-    for (int i = firstindex; i <= firstindex + 9; i++) {
-      try {
-        n.append(email.charAt(i));
-        // check if there is index out of bound exception
-      } catch (RuntimeException e) {
-        throw new InvalidInputException("Invalid email");
-      }
-    }
-    // throw exception
-    String EMAIL = n.toString();
-    System.out.println(EMAIL);
-    if (!EMAIL.equals("@email.com")) {
-      throw new InvalidInputException("Invalid email");
-    }
-    // check if the email has proper name in the start
-    int namelength = name.length();
-    StringBuilder m = new StringBuilder();
-    for (int j = 0; j <= namelength - 1; j++) {
-      try {
-        m.append(email.charAt(j));
-      } catch (RuntimeException e) {
-        throw new InvalidInputException("Invalid email");
-      }
-    }
-    String NAME = m.toString();
-    if (!NAME.equalsIgnoreCase(name)) {
-      throw new InvalidInputException("Invalid email");
-    }
+   if (!(email.indexOf("@") > 0)) {
+     throw new InvalidInputException("Invalid email");
+  } else if (!(email.indexOf("@") == email.lastIndexOf("@"))) {
+    throw new InvalidInputException("Invalid email");
+  } else if (!(email.indexOf("@") < email.lastIndexOf(".") - 1)) {
+    throw new InvalidInputException("Invalid email");
+  } else if (!(email.lastIndexOf(".") < email.length() - 1)) {
+    throw new InvalidInputException("Invalid email");
+}
   }
 }
+
 
 
