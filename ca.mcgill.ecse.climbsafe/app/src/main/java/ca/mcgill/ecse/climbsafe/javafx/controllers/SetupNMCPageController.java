@@ -61,16 +61,20 @@ public class SetupNMCPageController {
    * @author Harrison Wang
    */
   private void initPriceSpinner() {
-    // Define initial value
+    // Set initial value to the current value in the model. If this value is not within the bounds
+    // [0, infinity], set initial value to 0.
     int initialGuidePrice = ClimbSafeFeatureSet1Controller.getPriceOfGuidePerWeek();
+    if (initialGuidePrice < 0)
+      initialGuidePrice = 0;
 
     var priceSpinnerFactory =
         /*
          * The ClimbSafe application sets the constraint that the value for weekly guide price must
          * be >= 0. There is no specified upper limit for this value.
          * 
-         * The default value shown in the Spinner object will 0. This does not affect the value of
-         * guide price in the model.
+         * The default value shown in the Spinner object will be the value currently set in the
+         * model. If this value is not within the bounds [0, infinity], the value will be set to 0.
+         * This does not affect the value of guide price in the model.
          */
         new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, initialGuidePrice,
             1);
@@ -108,7 +112,8 @@ public class SetupNMCPageController {
           return newValue;
         } catch (NumberFormatException n) {
           priceSpinner.getEditor().setText(Integer.toString(curValue));
-          ViewUtils.showError("Guide Price per Week must be set to an Integer Value greater than 0");
+          ViewUtils
+              .showError("Guide Price per Week must be set to an Integer Value greater than 0");
           return curValue;
         }
       }
@@ -123,13 +128,17 @@ public class SetupNMCPageController {
    * @author Harrison Wang
    */
   private void initWeekSpinner() {
-    // Define initial value
+    // Set initial value to the current value in the model. If this value is not within the bounds
+    // [0, 52], set initial value to 0.
     int initialWeeksValue = ClimbSafeFeatureSet1Controller.getNrWeeks();
+    if (initialWeeksValue > 52 || initialWeeksValue < 0)
+      initialWeeksValue = 0;
 
     var weekSpinnerFactory =
         /*
          * The ClimbSafe application sets the constraint that the value for number of weeks must be
-         * >= 0. There is no specified upper limit for this value.
+         * >= 0. There is no specified upper limit for this value, however we assert that it must be
+         * <= 52.
          * 
          * The default value shown in the Spinner object will 0. This does not affect the value of
          * number of weeks in the model.
