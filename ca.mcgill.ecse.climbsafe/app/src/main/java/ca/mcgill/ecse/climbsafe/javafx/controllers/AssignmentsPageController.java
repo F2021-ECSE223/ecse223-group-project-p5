@@ -104,7 +104,7 @@ public class AssignmentsPageController {
 	    selectedGuideLabel.setText(String.format("%s (%s)", target.getGuideName(), target.getGuideEmail()));
 	  }
 	  else {
-	    selectedGuideLabel.setText("Not assigned");
+        selectedGuideLabel.setText("Not requested");
 	  }
 	  
 	  if (target.getHotelName() != null && !target.getHotelName().isEmpty()) {
