@@ -46,8 +46,12 @@ public class AssignmentsPageController {
 	@FXML
 	public void initialize() {
 	  // assign member name and email to columns of overview table
-	  assignmentsOverviewTable.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("memberName"));
-	  assignmentsOverviewTable.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("memberEmail"));
+	  assignmentsOverviewTable.getColumns().get(0).setCellValueFactory(
+	      new PropertyValueFactory<>("memberName"));
+	  assignmentsOverviewTable.getColumns().get(1).setCellValueFactory(
+	      new PropertyValueFactory<>("memberEmail"));
+	  assignmentsOverviewTable.getColumns().get(2).setCellValueFactory(
+	      new PropertyValueFactory<>("status"));
 	  
 	  // double click listener on overview table
 	  assignmentsOverviewTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
