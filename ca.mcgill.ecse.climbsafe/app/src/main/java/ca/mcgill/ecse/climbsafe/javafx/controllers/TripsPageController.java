@@ -61,10 +61,16 @@ public class TripsPageController {
 	    Integer nrWeeks = ClimbSafeFeatureSet1Controller.getNrWeeks();
 	    SpinnerValueFactory.IntegerSpinnerValueFactory spinnerFactory = null;
 	    if (nrWeeks > 0) {
+	      Integer curVal = startTripsWeekField.getValue();
 	      spinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, nrWeeks, 1);
+	      if (curVal != null) {
+	        spinnerFactory.setValue(curVal);
+	      }
+	      startTripsWeekField.setDisable(false);
 	    }
 	    else {
 	      spinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 0);
+	      startTripsWeekField.setDisable(true);
 	    }
 	    spinnerFactory.setWrapAround(true);
 	    startTripsWeekField.setValueFactory(spinnerFactory);
