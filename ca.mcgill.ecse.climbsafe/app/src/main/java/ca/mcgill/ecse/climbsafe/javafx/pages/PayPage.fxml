@@ -27,9 +27,9 @@
                      </VBox.margin></Label>
                   <TableView fx:id="memberTable" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="584.0">
                     <columns>
-                      <TableColumn fx:id="emailColumn" editable="false" maxWidth="250.0" minWidth="250.0" resizable="false" sortable="false" text="Member Email" />
-                      <TableColumn fx:id="nameColumn" editable="false" maxWidth="225.0" minWidth="225.0" resizable="false" sortable="false" text="Member Name" />
-                        <TableColumn fx:id="statusColumn" editable="false" maxWidth="107.0" minWidth="107.0" resizable="false" sortable="false" text="Status" />
+                      <TableColumn fx:id="emailColumn" editable="false" maxWidth="240.0" minWidth="240.0" resizable="false" sortable="false" text="Member Email" />
+                      <TableColumn fx:id="nameColumn" editable="false" maxWidth="215.0" minWidth="215.0" resizable="false" sortable="false" text="Member Name" />
+                        <TableColumn fx:id="statusColumn" editable="false" maxWidth="127.0" minWidth="127.0" resizable="false" sortable="false" text="Trip Status" />
                     </columns>
                      <VBox.margin>
                         <Insets />

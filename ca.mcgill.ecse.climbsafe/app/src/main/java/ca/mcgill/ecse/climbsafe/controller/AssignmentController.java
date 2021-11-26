@@ -242,6 +242,7 @@ public class AssignmentController {
    */
 
   public static void confirmPayment(String email, String code) throws InvalidInputException {
+    code = code.trim();
     if (code == null || code.isEmpty()) {
       throw new InvalidInputException("Invalid authorization code");
     }

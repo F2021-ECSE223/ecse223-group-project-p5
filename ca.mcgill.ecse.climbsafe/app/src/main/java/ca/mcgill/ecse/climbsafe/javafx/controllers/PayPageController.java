@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 
 /**
  * Controller Class for the <code>PayPage.fxml</code>
@@ -61,6 +62,7 @@ public class PayPageController {
 
       AssignmentController.confirmPayment(memberEmail, authCode);
     });
+    authCodeField.setText(null);
   }
 
   /**
