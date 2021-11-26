@@ -69,7 +69,11 @@ public class AssignmentsPageController {
 	  
 	  // set table to refresh upon trigger
 	  assignmentsOverviewTable.addEventHandler(ClimbSafeView.REFRESH_EVENT,
-	      e -> assignmentsOverviewTable.setItems(ViewUtils.getAssignments()));
+	      e -> {
+	        assignmentsOverviewTable.setItems(ViewUtils.getAssignments());
+	        // display updated information for selected assignment
+	        updateDetailsWindow(assignmentsOverviewTable.getSelectionModel().getSelectedItem());
+	      });
 	  ClimbSafeView.getInstance().registerRefreshEvent(assignmentsOverviewTable);
 	}
 
@@ -93,6 +97,20 @@ public class AssignmentsPageController {
 	}
 	
 	private void updateDetailsWindow(TOAssignment target) {
+	  if (target == null) {
+	    // clear labels
+	    selectedMemberLabel.setText(null);
+	    selectedGuideLabel.setText(null);
+	    selectedHotelLabel.setText(null);
+	    selectedDurationLabel.setText(null);
+	    selectedGuideCostLabel.setText(null);
+	    selectedEquipmentCostLabel.setText(null);
+	    selectedPaymentCodeLabel.setText(null);
+	    selectedStatusLabel.setText(null);
+	    
+	    return;
+	  }
+	  
 	  selectedMemberLabel.setText(String.format("%s (%s)", target.getMemberName(), target.getMemberEmail()));
 	  
 	  if (target.getGuideEmail() != null && !target.getGuideEmail().isEmpty()) {
