@@ -52,6 +52,7 @@ public class PayPageController {
    */
   @FXML
   void pay(ActionEvent event) {
+    authCodeField.setText(null);
     if (memberTable.getSelectionModel().getSelectedItem() == null) {
       ViewUtils.showError("Please select a Member Trip");
       return;
@@ -62,7 +63,6 @@ public class PayPageController {
 
       AssignmentController.confirmPayment(memberEmail, authCode);
     });
-    authCodeField.setText(null);
   }
 
   /**
