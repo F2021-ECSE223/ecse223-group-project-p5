@@ -4,12 +4,12 @@ package ca.mcgill.ecse.climbsafe.controller;
 import java.util.List;
 import ca.mcgill.ecse.climbsafe.application.ClimbSafeApplication;
 import ca.mcgill.ecse.climbsafe.model.Assignment;
+import ca.mcgill.ecse.climbsafe.model.Assignment.AssignmentStatus;
 import ca.mcgill.ecse.climbsafe.model.ClimbSafe;
 import ca.mcgill.ecse.climbsafe.model.Guide;
 import ca.mcgill.ecse.climbsafe.model.Hotel;
 import ca.mcgill.ecse.climbsafe.model.Member;
 import ca.mcgill.ecse.climbsafe.model.User;
-import ca.mcgill.ecse.climbsafe.model.Assignment.AssignmentStatus;
 import ca.mcgill.ecse.climbsafe.persistence.ClimbSafePersistence;
 
 public class AssignmentController {
@@ -61,12 +61,12 @@ public class AssignmentController {
       for (int i = 0; i <= memberlist.size() - 1; i++) {
 
         Member temp = memberlist.get(i);
-        
+
         // go to the next member if member already has assginment
         if (temp.hasAssignment() == true) {
           /*
-           * If the member already has an assignment with this particular guide, we subtract the weeks of their trip from the
-           * available weeks of the guide.
+           * If the member already has an assignment with this particular guide, we subtract the
+           * weeks of their trip from the available weeks of the guide.
            */
           Guide assignedGuide = temp.getAssignment().getGuide();
           if (temp.isGuideRequired() && assignedGuide.getEmail().equals(currentguide.getEmail())) {
@@ -95,7 +95,7 @@ public class AssignmentController {
           else {
             // the member can be assigned to the current guide
             if (leftweeks >= temp.getNrWeeks()) {
-              
+
               int startweek = numberofweeks - leftweeks + 1;
               int endweek = startweek + temp.getNrWeeks() - 1;
               Assignment tempassignment = new Assignment(startweek, endweek, temp, climbsafe);
@@ -242,8 +242,9 @@ public class AssignmentController {
    */
 
   public static void confirmPayment(String email, String code) throws InvalidInputException {
-    code = code.trim();
-    if (code == null || code.isEmpty()) {
+    if (code == null) {
+      throw new InvalidInputException("Invalid authorization code");
+    } else if (code.trim().equals("")) {
       throw new InvalidInputException("Invalid authorization code");
     }
 
