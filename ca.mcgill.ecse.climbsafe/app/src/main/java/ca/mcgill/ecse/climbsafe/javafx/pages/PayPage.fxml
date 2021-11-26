@@ -21,11 +21,15 @@
             <Label id="titleLabel" prefHeight="100.0" prefWidth="900.0" text="Pay for Member Trip" />
             <VBox alignment="CENTER">
                <children>
-                  <Label prefWidth="584.0" text="Member Trips" />
-                  <TableView fx:id="memberTable" fixedCellSize="0.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="584.0">
+                  <Label prefWidth="584.0" text="Member Trips">
+                     <VBox.margin>
+                        <Insets bottom="2.0" />
+                     </VBox.margin></Label>
+                  <TableView fx:id="memberTable" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="584.0">
                     <columns>
-                      <TableColumn fx:id="emailColumn" editable="false" prefWidth="300.0" resizable="false" sortable="false" text="Member Email" />
-                      <TableColumn fx:id="nameColumn" editable="false" prefWidth="284.0" resizable="false" sortable="false" text="Member Name" />
+                      <TableColumn fx:id="emailColumn" editable="false" maxWidth="250.0" minWidth="250.0" resizable="false" sortable="false" text="Member Email" />
+                      <TableColumn fx:id="nameColumn" editable="false" maxWidth="225.0" minWidth="225.0" resizable="false" sortable="false" text="Member Name" />
+                        <TableColumn fx:id="statusColumn" editable="false" maxWidth="107.0" minWidth="107.0" resizable="false" sortable="false" text="Status" />
                     </columns>
                      <VBox.margin>
                         <Insets />

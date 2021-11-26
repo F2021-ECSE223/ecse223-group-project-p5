@@ -7,13 +7,19 @@ import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.AccessibleAttribute;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewFocusModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.ScrollEvent;
 
 public class PayPageController {
 
@@ -25,6 +31,8 @@ public class PayPageController {
   private TableColumn<TOAssignment, String> emailColumn;
   @FXML
   private TableColumn<TOAssignment, String> nameColumn;
+  @FXML
+  private TableColumn<TOAssignment, String> statusColumn;
   @FXML
   private Button payButton;
   @FXML
@@ -49,6 +57,7 @@ public class PayPageController {
   private void initMemberTable() {
     emailColumn.setCellValueFactory(new PropertyValueFactory<>("memberEmail"));
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("memberName"));
+    statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     memberTable
         .setItems(FXCollections.observableList(ClimbSafeFeatureSet6Controller.getAssignments()));
 
@@ -60,11 +69,14 @@ public class PayPageController {
     memberTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
     memberTable.setOnMouseClicked(e -> {
-      TOAssignment selectedTrip = memberTable.getSelectionModel().getSelectedItem();
-
-      selectedMemberLabel.setText(selectedTrip.getMemberEmail());
-      tripPriceLabel.setText(Integer
-          .toString(selectedTrip.getTotalCostForGuide() + selectedTrip.getTotalCostForEquipment()));
+      if (e.getButton().equals(MouseButton.PRIMARY)) {
+        TOAssignment selectedTrip = memberTable.getSelectionModel().getSelectedItem();
+        if (selectedTrip != null) {
+          selectedMemberLabel.setText(selectedTrip.getMemberEmail());
+          tripPriceLabel.setText(Integer.toString(
+              selectedTrip.getTotalCostForGuide() + selectedTrip.getTotalCostForEquipment()));
+        }
+      }
     });
   }
 
