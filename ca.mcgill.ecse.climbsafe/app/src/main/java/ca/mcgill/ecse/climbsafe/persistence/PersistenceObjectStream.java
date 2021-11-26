@@ -1,37 +1,41 @@
 package ca.mcgill.ecse.climbsafe.persistence;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-/**
- * Modified from template from tutorial on persistence
- * 
- * @author Sibo Huang
- *
- */
 public class PersistenceObjectStream {
 
   private static String filename = "output.txt";
 
   public static void serialize(Object object) {
-    try (var oos = new ObjectOutputStream(new FileOutputStream(new File(filename)))) {
-      oos.writeObject(object);
-    } catch (IOException e) {
+    FileOutputStream fileOut;
+    try {
+      fileOut = new FileOutputStream(filename);
+      ObjectOutputStream out = new ObjectOutputStream(fileOut);
+      out.writeObject(object);
+      out.close();
+      fileOut.close();
+    } catch (Exception e) {
       throw new RuntimeException("Could not save data to file '" + filename + "'.");
     }
+
   }
 
   public static Object deserialize() {
-    try (var ois = new ObjectInputStream(new FileInputStream(new File(filename)))) {
-      return ois.readObject();
-    } catch (IOException | ClassNotFoundException e) {
-      e.printStackTrace();
+    Object o = null;
+    ObjectInputStream in;
+    try {
+      FileInputStream fileIn = new FileInputStream(filename);
+      in = new ObjectInputStream(fileIn);
+      o = in.readObject();
+      in.close();
+      fileIn.close();
+    } catch (Exception e) {
+      o = null;
     }
-    return null;
+    return o;
   }
 
   public static void setFilename(String newFilename) {
