@@ -218,6 +218,7 @@ public class GuidesPageController {
     }
     modGuidePassword.setText(selectedGuide.getPassword());
     modGuideName.setText(selectedGuide.getName());
+    modGuideContact.setText(selectedGuide.getEmergencyContact());
   }
 
   /**
