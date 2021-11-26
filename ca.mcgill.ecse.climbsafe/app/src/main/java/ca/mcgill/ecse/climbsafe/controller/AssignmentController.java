@@ -33,6 +33,25 @@ public class AssignmentController {
     List<Member> memberlist = climbsafe.getMembers();
     List<Guide> guidelist = climbsafe.getGuides();
 
+    // if there are no guides in the system, only assign the members who do not require a guide
+    if (guidelist.size() == 0) {
+      for (Member member : memberlist) {
+        // member does not require guide
+        if (member.isGuideRequired() == false) {
+          // create a new assignment
+          Assignment tempassignment = new Assignment(1, member.getNrWeeks(), member, climbsafe);
+          tempassignment.assign(1, member.getNrWeeks(), null, null);
+
+          // persistence save
+          try {
+            ClimbSafePersistence.save(climbsafe);
+          } catch (RuntimeException e) {
+            throw new Exception(e.getMessage());
+          }
+        }
+      }
+    }
+
     for (int j = 0; j <= guidelist.size() - 1; j++) {
 
 
