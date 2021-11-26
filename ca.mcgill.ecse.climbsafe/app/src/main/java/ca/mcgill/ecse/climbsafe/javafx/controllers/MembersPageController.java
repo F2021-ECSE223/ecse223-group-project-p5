@@ -177,6 +177,10 @@ public class MembersPageController {
 
   @FXML
   public void initialize() {
+    this.curRegEquipments = ViewUtils.getEquipments();
+    this.curRegBundles = ViewUtils.getEquipmentBundles();
+    this.curModEquipments = ViewUtils.getEquipments();
+    this.curModBundles = ViewUtils.getEquipmentBundles();
     initSpinners();
     initDelTable();
     initRegEquipTable();
@@ -291,11 +295,11 @@ public class MembersPageController {
    * Helper method to initialize weeks spinners The max number is nrWeeks of the model
    */
   private void initSpinners() {
-    Integer nrWeeks = ClimbSafeFeatureSet1Controller.getNrWeeks();
     /*
      * Update max number on refresh event
      */
     regWeeks.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+      Integer nrWeeks = ClimbSafeFeatureSet1Controller.getNrWeeks();
       if (nrWeeks > 0) {
         var regWeeksSpinnerFactory =
             new SpinnerValueFactory.IntegerSpinnerValueFactory(1, nrWeeks, 1);
@@ -308,6 +312,7 @@ public class MembersPageController {
       }
     });
     modWeeks.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
+      Integer nrWeeks = ClimbSafeFeatureSet1Controller.getNrWeeks();
       if (nrWeeks > 0) {
         var modWeeksSpinnerFactory =
             new SpinnerValueFactory.IntegerSpinnerValueFactory(1, nrWeeks, 1);
@@ -391,6 +396,7 @@ public class MembersPageController {
     regEquipTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
       this.curRegEquipments = ViewUtils.getEquipments();
       regEquipTable.setItems(this.curRegEquipments);
+      regDoUpdateCost();
       /*
        * Add handler for all spinners
        */
@@ -420,6 +426,7 @@ public class MembersPageController {
     regBundleTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
       this.curRegBundles = ViewUtils.getEquipmentBundles();
       regBundleTable.setItems(this.curRegBundles);
+      regDoUpdateCost();
       /*
        * Add handler for all spinners
        */
@@ -449,6 +456,7 @@ public class MembersPageController {
     modEquipTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
       this.curModEquipments = ViewUtils.getEquipments();
       modEquipTable.setItems(this.curModEquipments);
+      modDoUpdateCost();
       /*
        * Add handler for all spinners
        */
@@ -478,6 +486,7 @@ public class MembersPageController {
     modBundleTable.addEventHandler(ClimbSafeView.REFRESH_EVENT, e -> {
       this.curModBundles = ViewUtils.getEquipmentBundles();
       modBundleTable.setItems(this.curModBundles);
+      modDoUpdateCost();
       /*
        * Add handler for all spinners
        */
