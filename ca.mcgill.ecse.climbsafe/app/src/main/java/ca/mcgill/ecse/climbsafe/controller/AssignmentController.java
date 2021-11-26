@@ -33,6 +33,25 @@ public class AssignmentController {
     List<Member> memberlist = climbsafe.getMembers();
     List<Guide> guidelist = climbsafe.getGuides();
 
+    // if there are no guides in the system, only assign the members who do not require a guide
+    if (guidelist.size() == 0) {
+      for (Member member : memberlist) {
+        // member does not require guide
+        if (member.isGuideRequired() == false) {
+          // create a new assignment
+          Assignment tempassignment = new Assignment(1, member.getNrWeeks(), member, climbsafe);
+          tempassignment.assign(1, member.getNrWeeks(), null, null);
+
+          // persistence save
+          try {
+            ClimbSafePersistence.save(climbsafe);
+          } catch (RuntimeException e) {
+            throw new Exception(e.getMessage());
+          }
+        }
+      }
+    }
+
     for (int j = 0; j <= guidelist.size() - 1; j++) {
 
 
@@ -42,9 +61,17 @@ public class AssignmentController {
       for (int i = 0; i <= memberlist.size() - 1; i++) {
 
         Member temp = memberlist.get(i);
-
+        
         // go to the next member if member already has assginment
         if (temp.hasAssignment() == true) {
+          /*
+           * If the member already has an assignment with this particular guide, we subtract the weeks of their trip from the
+           * available weeks of the guide.
+           */
+          Guide assignedGuide = temp.getAssignment().getGuide();
+          if (temp.isGuideRequired() && assignedGuide.getEmail().equals(currentguide.getEmail())) {
+            leftweeks -= temp.getNrWeeks();
+          }
           continue;
         }
         // the member does not have assignment
@@ -55,7 +82,6 @@ public class AssignmentController {
             int endweek = temp.getNrWeeks();
             Assignment tempassignment = new Assignment(1, endweek, temp, climbsafe);
             tempassignment.assign(1, endweek, null, null);
-            climbsafe.addAssignment(tempassignment);
 
             // persistence save
             try {
@@ -69,54 +95,23 @@ public class AssignmentController {
           else {
             // the member can be assigned to the current guide
             if (leftweeks >= temp.getNrWeeks()) {
-              // there is no member assigned to the current guide
-              if (leftweeks == numberofweeks) {
+              
+              int startweek = numberofweeks - leftweeks + 1;
+              int endweek = startweek + temp.getNrWeeks() - 1;
+              Assignment tempassignment = new Assignment(startweek, endweek, temp, climbsafe);
+              tempassignment.assign(startweek, endweek, currentguide, null);
+              leftweeks -= temp.getNrWeeks();
 
-                int endweek = temp.getNrWeeks();
-                Assignment tempassignment = new Assignment(1, endweek, temp, climbsafe);
-                tempassignment.assign(1, endweek, currentguide, null);
-                climbsafe.addAssignment(tempassignment);
-                leftweeks -= endweek;
-
-                // persistence save
-                try {
-                  ClimbSafePersistence.save(climbsafe);
-                } catch (RuntimeException e) {
-                  throw new Exception(e.getMessage());
-                }
-
-              }
-              // there is some members assigned to the current guide already,and the member can
-              // still be assigned to the current guide
-              else if (leftweeks != numberofweeks && leftweeks >= temp.getNrWeeks()) {
-
-                int startweek = numberofweeks - leftweeks + 1;
-                int endweek = startweek + temp.getNrWeeks() - 1;
-                Assignment tempassignment = new Assignment(startweek, endweek, temp, climbsafe);
-                tempassignment.assign(startweek, endweek, currentguide, null);
-                climbsafe.addAssignment(tempassignment);
-                leftweeks -= temp.getNrWeeks();
-
-                // persistence save
-                try {
-                  ClimbSafePersistence.save(climbsafe);
-                } catch (RuntimeException e) {
-                  throw new Exception(e.getMessage());
-                }
-
+              // persistence save
+              try {
+                ClimbSafePersistence.save(climbsafe);
+              } catch (RuntimeException e) {
+                throw new Exception(e.getMessage());
               }
             }
-            // the member cannot be assgined to the current guide
-            else {
-
-              continue;
-            }
-            continue;
           }
-          continue;
         }
       }
-      continue;
     }
     if (climbsafe.getAssignments().size() != memberlist.size()) {
       throw new Exception("Assignments could not be completed for all members");
@@ -171,7 +166,7 @@ public class AssignmentController {
   public static void startTripsForWeek(int week) throws InvalidInputException {
     // reference to ClimbSafe
     ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
-    
+
 
     for (Assignment a : cs.getAssignments()) {
       if (a.getStartWeek() == week) {
@@ -184,9 +179,10 @@ public class AssignmentController {
       }
     }
   }
-  
+
   /**
-   * start trips for a target week and return 
+   * start trips for a target week and return
+   * 
    * @param week the target week
    * @return array containing: [ number of trips started, number of trips failed, detailed report ]
    * @throws InvalidInputException if invalid week number
@@ -194,23 +190,23 @@ public class AssignmentController {
   public static String[] startTripsForWeekReturnDetails(int week) throws InvalidInputException {
     // reference to ClimbSafe
     ClimbSafe cs = ClimbSafeApplication.getClimbSafe();
-    
+
     if (!(week > 0 && week <= cs.getNrWeeks())) {
       throw new InvalidInputException(
           "The week must be greater than zero and less than or equal to the number of climbing weeks in the climbing season");
     }
-    
+
     String ret[] = new String[3];
-    
+
     int noTripsStarted = 0;
     int noTripsFailed = 0;
     int noBans = 0;
     String details = "";
-    
+
     for (Assignment a : cs.getAssignments()) {
       if (a.getStartWeek() == week) {
         String result = "";
-        
+
         try {
           a.start();
           if (a.getAssignmentStatus().equals(AssignmentStatus.Assigned)) {
@@ -218,8 +214,7 @@ public class AssignmentController {
             noTripsFailed++;
             noBans++;
             result = "Banned member";
-          }
-          else {
+          } else {
             noTripsStarted++;
             result = "Successfully started trip";
           }
@@ -227,15 +222,15 @@ public class AssignmentController {
           noTripsFailed++;
           result = e.getMessage();
         }
-        
+
         details += String.format("%s: %s\n", a.getMember().getEmail(), result);
       }
     }
-    
+
     ret[0] = String.valueOf(noTripsStarted);
     ret[1] = String.format("%d (%d new bans)", noTripsFailed, noBans);
     ret[2] = details;
-    
+
     return ret;
   }
 
@@ -247,10 +242,11 @@ public class AssignmentController {
    */
 
   public static void confirmPayment(String email, String code) throws InvalidInputException {
+    code = code.trim();
     if (code == null || code.isEmpty()) {
       throw new InvalidInputException("Invalid authorization code");
     }
-    
+
     var member = validate_member(email);
 
     // update state
@@ -308,7 +304,7 @@ public class AssignmentController {
       throw new InvalidInputException("Member with email address " + email + " does not exist");
     }
 
-    return (Member)user;
+    return (Member) user;
   }
 
 }

@@ -147,7 +147,7 @@ public class TripsPageController {
 	// Event Listener on Button[#manageTripFinishButton].onAction
 	@FXML
 	public void finishTripPushed(ActionEvent event) {
-	  if (ViewUtils.successful(() -> AssignmentController.cancelTrip(targetEmail))) {
+	  if (ViewUtils.successful(() -> AssignmentController.finishTrip(targetEmail))) {
         ViewUtils.makePopupWindow("Success", String.format("Trip for %s finished", targetEmail));
       }
 	  
