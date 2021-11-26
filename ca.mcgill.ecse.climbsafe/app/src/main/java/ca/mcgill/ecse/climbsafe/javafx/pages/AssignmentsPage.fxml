@@ -34,12 +34,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView fx:id="assignmentsOverviewTable" maxWidth="400.0" minWidth="400.0" prefHeight="501.0" prefWidth="400.0">
+                  <TableView fx:id="assignmentsOverviewTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                      <columns>
                         <TableColumn editable="false" minWidth="120.0" prefWidth="130.0" style="-fx-font-size: 14px;" text="Member" />
                         <TableColumn editable="false" minWidth="120.0" prefWidth="140.0" style="-fx-font-size: 14px;" text="Email" />
-                        <TableColumn editable="false" minWidth="100.0" prefWidth="127.0" style="-fx-font-size: 14px;" text="Status" />
+                        <TableColumn editable="false" minWidth="100.0" prefWidth="125.0" style="-fx-font-size: 14px;" text="Status" />
                      </columns>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="2.0" />
+                     </GridPane.margin>
                   </TableView>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>

@@ -96,14 +96,14 @@
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <fx:include fx:id="assignmentsPane" source="pages/AssignmentsPage.fxml" />
-                  <fx:include fx:id="bundlesPane" source="pages/BundlesPage.fxml" />
-                  <fx:include fx:id="equipmentsPane" source="pages/EquipmentsPage.fxml" />
-                  <fx:include fx:id="guidesPane" source="pages/GuidesPage.fxml" />
-                  <fx:include fx:id="membersPane" source="pages/MembersPage.fxml" />
-                  <fx:include fx:id="payPane" source="pages/PayPage.fxml" />
-                  <fx:include fx:id="tripsPane" source="pages/TripsPage.fxml" />
-                  <fx:include fx:id="setupNMCPane" source="pages/SetupNMCPage.fxml" />
+                  <fx:include fx:id="assignmentsPane" source="pages/AssignmentsPage.fxml" StackPane.alignment="TOP_CENTER" />
+                  <fx:include fx:id="bundlesPane" source="pages/BundlesPage.fxml" StackPane.alignment="TOP_CENTER" />
+                  <fx:include fx:id="equipmentsPane" source="pages/EquipmentsPage.fxml" StackPane.alignment="TOP_CENTER" />
+                  <fx:include fx:id="guidesPane" source="pages/GuidesPage.fxml" StackPane.alignment="TOP_CENTER" />
+                  <fx:include fx:id="membersPane" source="pages/MembersPage.fxml" StackPane.alignment="TOP_CENTER" />
+                  <fx:include fx:id="payPane" source="pages/PayPage.fxml" StackPane.alignment="TOP_CENTER" />
+                  <fx:include fx:id="tripsPane" source="pages/TripsPage.fxml" StackPane.alignment="TOP_CENTER" />
+                  <fx:include fx:id="setupNMCPane" source="pages/SetupNMCPage.fxml" StackPane.alignment="TOP_CENTER" />
                </children></StackPane>
          </center>
          <bottom>
