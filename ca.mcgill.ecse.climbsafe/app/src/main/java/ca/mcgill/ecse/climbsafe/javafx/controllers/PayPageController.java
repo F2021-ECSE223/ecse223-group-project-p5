@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * Controller Class for the <code>PayPage.fxml</code>
@@ -23,6 +24,8 @@ import javafx.scene.input.MouseButton;
  */
 public class PayPageController {
 
+  @FXML
+  private AnchorPane rootPane;
   @FXML
   private TextField authCodeField;
   @FXML
@@ -111,6 +114,10 @@ public class PayPageController {
    */
   @FXML
   void initialize() {
+    // deselect any focused elements when the user clicks away
+    rootPane.setOnMouseClicked(e -> {
+      rootPane.requestFocus();
+    });
     initMemberTable();
     initLabels();
   }

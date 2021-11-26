@@ -13,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 
 /**
@@ -22,6 +23,8 @@ import javafx.util.StringConverter;
  */
 public class SetupNMCPageController {
 
+  @FXML
+  private AnchorPane rootPane;
   @FXML
   private Spinner<Integer> priceSpinner;
   @FXML
@@ -287,6 +290,10 @@ public class SetupNMCPageController {
    */
   @FXML
   public void initialize() {
+    // deselect any focused elements when the user clicks away
+    rootPane.setOnMouseClicked(e -> {
+      rootPane.requestFocus();
+    });
     initPriceSpinner();
     initWeekSpinner();
     initStartDate();
