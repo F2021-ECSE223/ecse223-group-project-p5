@@ -57,3 +57,11 @@ tasks.named('test') {
     // Use junit platform for unit tests.
     useJUnitPlatform()
 }
+tasks.register('copyResources', Copy) {
+    from "src/main/java/ca/mcgill/ecse/climbsafe/javafx"
+    into "build/classes/java/main/ca/mcgill/ecse/climbsafe/javafx"
+    exclude "**/*.java"
+}
+tasks.named('run') {
+    dependsOn tasks.named('copyResources')
+}
