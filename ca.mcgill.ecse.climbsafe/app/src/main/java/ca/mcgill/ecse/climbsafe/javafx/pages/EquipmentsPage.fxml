@@ -5,7 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.climbsafe.javafx.controllers.MembersPageControllerca.mcgill.ecse.climbsafe.javafx.controllers.EuipmentsPageController">
    <children>
       <TabPane prefHeight="200.0" prefWidth="240.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -59,17 +62,17 @@
                                                 <Insets left="40.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <TextField promptText="Name" GridPane.rowIndex="1">
+                                          <TextField fx:id="addName" onAction="#addDoAdd" promptText="Name" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField promptText="Weight" GridPane.rowIndex="3">
+                                          <TextField fx:id="addWeight" onAction="#addDoAdd" promptText="Weight" GridPane.rowIndex="3">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField promptText="Price" GridPane.rowIndex="5">
+                                          <TextField fx:id="addPrice" onAction="#addDoAdd" promptText="Price" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
@@ -93,14 +96,14 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button mnemonicParsing="false" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
+                                          <Button fx:id="addClear" mnemonicParsing="false" onAction="#addDoclear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
                                              <HBox.margin>
                                                 <Insets left="40.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <Button mnemonicParsing="false" prefWidth="200.0" text="Add" GridPane.columnIndex="1" />
+                                    <Button fx:id="addAdd" mnemonicParsing="false" onAction="#addDoAdd" prefWidth="200.0" text="Add" GridPane.columnIndex="1" />
                                     <GridPane GridPane.columnIndex="2">
                                        <columnConstraints>
                                           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
@@ -116,7 +119,7 @@
                                                 <Insets right="5.0" />
                                              </padding>
                                           </Label>
-                                          <TextField alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
+                                          <TextField fx:id="addTotalCost" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
                                           <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="\$NEP" GridPane.columnIndex="2">
                                              <padding>
                                                 <Insets left="5.0" />
@@ -173,17 +176,17 @@
                                                 <Insets left="40.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <TextField promptText="Name" GridPane.rowIndex="1">
+                                          <TextField fx:id="updateName" onAction="#updateDoUpdate" promptText="Name" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField promptText="Weight" GridPane.rowIndex="3">
+                                          <TextField fx:id="updateWeight" onAction="#updateDoUpdate" promptText="Weight" GridPane.rowIndex="3">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField promptText="Price" GridPane.rowIndex="5">
+                                          <TextField fx:id="updatePrice" onAction="#updateDoUpdate" promptText="Price" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
@@ -207,19 +210,19 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button mnemonicParsing="false" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
+                                          <Button fx:id="updateClear" mnemonicParsing="false" onAction="#updateDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
                                              <HBox.margin>
                                                 <Insets left="40.0" />
                                              </HBox.margin>
                                           </Button>
-                                          <Button mnemonicParsing="false" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Autofill">
+                                          <Button fx:id="updateAutofill" mnemonicParsing="false" onAction="#updateDoAutofill" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Autofill">
                                              <HBox.margin>
                                                 <Insets left="40.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <Button mnemonicParsing="false" prefWidth="200.0" text="Update" GridPane.columnIndex="1" />
+                                    <Button fx:id="updateUpdate" mnemonicParsing="false" onAction="#updateDoUpdate" prefWidth="200.0" text="Update" GridPane.columnIndex="1" />
                                     <GridPane GridPane.columnIndex="2">
                                        <columnConstraints>
                                           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
@@ -235,7 +238,7 @@
                                                 <Insets right="5.0" />
                                              </padding>
                                           </Label>
-                                          <TextField alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
+                                          <TextField fx:id="updateTotalCost" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
                                           <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="\$NEP" GridPane.columnIndex="2">
                                              <padding>
                                                 <Insets left="5.0" />
@@ -252,7 +255,50 @@
             </Tab>
             <Tab text="Delete Equipment">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="538.0" prefWidth="899.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TableView fx:id="delTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="delTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="217.50573790073395" text="Name" />
+                                    <TableColumn fx:id="delTableWeight" minWidth="2.0" prefWidth="223.4942626953125" text="Weight" />
+                                    <TableColumn fx:id="delTablePrice" prefWidth="331.78759765625" text="Price/Week" />
+                                    <TableColumn fx:id="delTableQuantity" prefWidth="127.456787109375" text="Quantity" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </TableView>
+                              <GridPane prefHeight="60.0" VBox.vgrow="NEVER">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Button fx:id="delClearSelection" mnemonicParsing="false" onAction="#delDoClearSelection" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear Selection">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Button fx:id="delDelete" mnemonicParsing="false" onAction="#delDoDelete" text="Delete All Selected" GridPane.columnIndex="1" />
+                                    <Button fx:id="delModifySelected" mnemonicParsing="false" onAction="#delDoModifySelected" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Modify Selected Equipment" GridPane.columnIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="40.0" />
+                                       </GridPane.margin>
+                                       <tooltip>
+                                          <Tooltip text="Double click a member to modify" />
+                                       </tooltip>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
                </content>
             </Tab>
         </tabs>
