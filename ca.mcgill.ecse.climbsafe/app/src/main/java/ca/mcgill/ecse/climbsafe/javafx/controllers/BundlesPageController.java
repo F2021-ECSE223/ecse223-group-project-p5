@@ -120,9 +120,13 @@ public class BundlesPageController {
        
           List<String> itemNames = new ArrayList<String>();
           List<Integer> itemQuantities = new ArrayList<Integer>();
+          
           for (var equipment : this.curAddEquipments) {
-            itemNames.add(equipment.getName());
-            itemQuantities.add((int) equipment.getMpQuantity().getValue());
+            int qty = (int) equipment.getMpQuantity().getValue();
+            if (qty > 0) {
+              itemNames.add(equipment.getName());
+              itemQuantities.add(qty);
+            }
           }
          
           // create the member
@@ -146,19 +150,21 @@ public class BundlesPageController {
 	public void updateDoUpdate(ActionEvent event) {
 	   String newName = updateNewName.getText();
 	   String oldName = updateOldName.getText();
-       Integer discount= Integer.parseInt(addDiscount.getText());
-       //Integer discount_int =  Integer.valueOf(discount); 
-       
+       int discount= Integer.parseInt(updateDiscount.getText());
+             
        List<String> itemNames = new ArrayList<String>();
        List<Integer> itemQuantities = new ArrayList<Integer>();
        for (var equipment : this.curUpdateEquipments) {
-         itemNames.add(equipment.getName());
-         itemQuantities.add((int) equipment.getMpQuantity().getValue());
+         int qty = (int) equipment.getMpQuantity().getValue();
+         if (qty > 0) {
+           itemNames.add(equipment.getName());
+           itemQuantities.add(qty);
+         }
        }
        
        // modify the member
        if (ViewUtils.successful(() -> ClimbSafeFeatureSet5Controller.updateEquipmentBundle(oldName, newName, discount, itemNames, itemQuantities))) {
-         addDoClear();
+         updateDoClear();
        }
 	}
 	// Event Listener on Button[#updateClear].onAction
