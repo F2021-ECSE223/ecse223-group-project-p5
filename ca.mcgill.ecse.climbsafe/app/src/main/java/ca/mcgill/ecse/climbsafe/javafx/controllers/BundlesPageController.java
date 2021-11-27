@@ -116,23 +116,31 @@ public class BundlesPageController {
       @FXML
       public void addDoAdd(ActionEvent event) {
           String name = addName.getText();
-          int discount= Integer.valueOf(addDiscount.getText());
-       
-          List<String> itemNames = new ArrayList<String>();
-          List<Integer> itemQuantities = new ArrayList<Integer>();
-          
-          for (var equipment : this.curAddEquipments) {
-            int qty = (int) equipment.getMpQuantity().getValue();
-            if (qty > 0) {
-              itemNames.add(equipment.getName());
-              itemQuantities.add(qty);
+                    
+          try {
+            int discount= Integer.valueOf(addDiscount.getText());
+
+            List<String> itemNames = new ArrayList<String>();
+            List<Integer> itemQuantities = new ArrayList<Integer>();
+            
+            for (var equipment : this.curAddEquipments) {
+              int qty = (int) equipment.getMpQuantity().getValue();
+              if (qty > 0) {
+                itemNames.add(equipment.getName());
+                itemQuantities.add(qty);
+              }
             }
+           
+            // create the member
+            if (ViewUtils.successful(() -> ClimbSafeFeatureSet5Controller.addEquipmentBundle(name, discount, itemNames, itemQuantities))) {
+              addDoClear();
+        }
+          }catch (NumberFormatException e) {
+            ViewUtils.showError("Discount must be numeric");
+           
           }
-         
-          // create the member
-          if (ViewUtils.successful(() -> ClimbSafeFeatureSet5Controller.addEquipmentBundle(name, discount, itemNames, itemQuantities))) {
-            addDoClear();
-      }
+          
+       
       }
 	// Event Listener on Button[#addClear].onAction
 	@FXML
@@ -150,22 +158,29 @@ public class BundlesPageController {
 	public void updateDoUpdate(ActionEvent event) {
 	   String newName = updateNewName.getText();
 	   String oldName = updateOldName.getText();
-       int discount= Integer.parseInt(updateDiscount.getText());
-             
-       List<String> itemNames = new ArrayList<String>();
-       List<Integer> itemQuantities = new ArrayList<Integer>();
-       for (var equipment : this.curUpdateEquipments) {
-         int qty = (int) equipment.getMpQuantity().getValue();
-         if (qty > 0) {
-           itemNames.add(equipment.getName());
-           itemQuantities.add(qty);
-         }
-       }
-       
-       // modify the member
-       if (ViewUtils.successful(() -> ClimbSafeFeatureSet5Controller.updateEquipmentBundle(oldName, newName, discount, itemNames, itemQuantities))) {
-         updateDoClear();
-       }
+	   try {
+	      int discount= Integer.valueOf(updateDiscount.getText());
+
+	       
+          
+	       List<String> itemNames = new ArrayList<String>();
+	       List<Integer> itemQuantities = new ArrayList<Integer>();
+	       for (var equipment : this.curUpdateEquipments) {
+	         int qty = (int) equipment.getMpQuantity().getValue();
+	         if (qty > 0) {
+	           itemNames.add(equipment.getName());
+	           itemQuantities.add(qty);
+	         }
+	       }
+	       
+	       // modify the member
+	       if (ViewUtils.successful(() -> ClimbSafeFeatureSet5Controller.updateEquipmentBundle(oldName, newName, discount, itemNames, itemQuantities))) {
+	         updateDoClear();
+	       }
+	   }catch (NumberFormatException e) {
+	     ViewUtils.showError("Discount must be a numeric");
+	   }
+	   
 	}
 	// Event Listener on Button[#updateClear].onAction
 	@FXML
