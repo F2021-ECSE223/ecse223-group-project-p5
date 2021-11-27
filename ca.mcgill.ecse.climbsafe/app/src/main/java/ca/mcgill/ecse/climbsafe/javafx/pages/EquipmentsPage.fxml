@@ -110,6 +110,19 @@
                                        <rowConstraints>
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
+                                       <children>
+                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="Total Cost:">
+                                             <padding>
+                                                <Insets right="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
+                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="\$NEP" GridPane.columnIndex="2">
+                                             <padding>
+                                                <Insets left="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
                                     </GridPane>
                                  </children>
                               </GridPane>
@@ -120,7 +133,121 @@
           </Tab>
             <Tab text="Update Equipment">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="661.0" minWidth="10.0" prefWidth="450.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="50.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label graphicTextGap="3.0" text="Name">
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Weight" GridPane.rowIndex="2">
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Price Per Week" GridPane.rowIndex="4">
+                                             <GridPane.margin>
+                                                <Insets left="40.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <TextField promptText="Name" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <TextField promptText="Weight" GridPane.rowIndex="3">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <TextField promptText="Price" GridPane.rowIndex="5">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="40.0" left="100.0" right="100.0" top="40.0" />
+                                       </GridPane.margin>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                              <GridPane prefHeight="60.0" VBox.vgrow="NEVER">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
+                                             <HBox.margin>
+                                                <Insets left="40.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button mnemonicParsing="false" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Autofill">
+                                             <HBox.margin>
+                                                <Insets left="40.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" prefWidth="200.0" text="Update" GridPane.columnIndex="1" />
+                                    <GridPane GridPane.columnIndex="2">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="112.0" />
+                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="70.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="Total Cost:">
+                                             <padding>
+                                                <Insets right="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
+                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="\$NEP" GridPane.columnIndex="2">
+                                             <padding>
+                                                <Insets left="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
                </content>
             </Tab>
             <Tab text="Delete Equipment">
