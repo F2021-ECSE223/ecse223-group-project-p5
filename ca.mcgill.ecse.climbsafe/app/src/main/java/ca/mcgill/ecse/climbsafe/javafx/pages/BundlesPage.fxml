@@ -63,7 +63,7 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </Label>
-                                          <Label text="Discount" GridPane.rowIndex="9">
+                                          <Label text="Discount %" GridPane.rowIndex="9">
                                              <GridPane.margin>
                                                 <Insets left="40.0" />
                                              </GridPane.margin>
@@ -73,7 +73,7 @@
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="addDiscount" onAction="#addDoAdd" promptText="Discount" GridPane.rowIndex="11">
+                                          <TextField fx:id="addDiscount" onAction="#addDoAdd" promptText="Discount %" GridPane.rowIndex="11">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
@@ -125,7 +125,7 @@
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <Button fx:id="addADD" mnemonicParsing="false" onAction="#addDoADD" prefWidth="200.0" text="ADD" GridPane.columnIndex="1" />
+                                    <Button fx:id="addADD" mnemonicParsing="false" onAction="#addDoAdd" prefWidth="200.0" text="ADD" GridPane.columnIndex="1" />
                                     <GridPane GridPane.columnIndex="2">
                                       <columnConstraints>
                                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
@@ -192,24 +192,36 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label text="Equipment Bundle Name" GridPane.rowIndex="4">
+                                          <Label text="New Name" GridPane.rowIndex="7">
                                              <padding>
                                                 <Insets left="40.0" />
                                              </padding>
                                           </Label>
-                                          <Label text="Discount" GridPane.rowIndex="9">
+                                          <Label text="Discount %" GridPane.rowIndex="12">
                                              <GridPane.margin>
                                                 <Insets left="40.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <TextField fx:id="updateName" onAction="#updateDoUpdate" promptText="Bundle Name" GridPane.rowIndex="6">
+                                          <TextField fx:id="updateNewName" onAction="#updateDoUpdate" promptText="New Name" GridPane.rowIndex="9">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="updateDiscount" onAction="#updateDoUpdate" promptText="Discount" GridPane.rowIndex="11">
+                                          <TextField fx:id="updateDiscount" onAction="#updateDoUpdate" promptText="Discount %" GridPane.rowIndex="14">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <Label text="Old Name" GridPane.rowIndex="2">
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField fx:id="updateOldName" onAction="#updateDoUpdate" promptText="Old Name" GridPane.rowIndex="4">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
@@ -227,7 +239,7 @@
                                        </rowConstraints>
                                        <children>
                                           <Label text="Select Equipments" />
-                                          <TableView fx:id="addEquipTable1" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                          <TableView fx:id="updateEquipTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                              <columns>
                                                 <TableColumn fx:id="updateEquipTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" text="Name" />
                                                 <TableColumn fx:id="updateEquipTableWeight" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="85.0" text="Weight" />
@@ -312,10 +324,9 @@
                            <children>
                               <TableView fx:id="delTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                 <columns>
-                                  <TableColumn fx:id="delTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="180.0" text="Name" />
-                                  <TableColumn fx:id="delTableDiscount" minWidth="2.0" prefWidth="100.0" text="Discount" />
-                                    <TableColumn fx:id="delTableEquipments" prefWidth="420.0" text="Contained Equipments" />
-                                    <TableColumn fx:id="delTableQuantities" prefWidth="200.0" text="Quantities" />
+                                  <TableColumn fx:id="delTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="300.0" text="Name" />
+                                  <TableColumn fx:id="delTablePricePerWeek" minWidth="2.0" prefWidth="200.0" text="Price Per Week" />
+                                    <TableColumn fx:id="delTableDiscount" prefWidth="420.0" text="Discount" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
