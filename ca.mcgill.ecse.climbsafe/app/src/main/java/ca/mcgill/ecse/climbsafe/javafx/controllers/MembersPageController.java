@@ -214,12 +214,18 @@ public class MembersPageController {
     List<String> itemNames = new ArrayList<String>();
     List<Integer> itemQuantities = new ArrayList<Integer>();
     for (var equipment : this.curRegEquipments) {
-      itemNames.add(equipment.getName());
-      itemQuantities.add((int) equipment.getMpQuantity().getValue());
+      int qty = (int) equipment.getMpQuantity().getValue();
+      if (qty > 0) {
+        itemNames.add(equipment.getName());
+        itemQuantities.add(qty);
+      }
     }
     for (var bundle : this.curRegBundles) {
-      itemNames.add(bundle.getName());
-      itemQuantities.add((int) bundle.getMpQuantity().getValue());
+      int qty = (int) bundle.getMpQuantity().getValue();
+      if (qty > 0) {
+        itemNames.add(bundle.getName());
+        itemQuantities.add(qty);
+      }
     }
     // create the member
     if (ViewUtils.successful(() -> ClimbSafeFeatureSet2Controller.registerMember(email, password,
@@ -259,12 +265,18 @@ public class MembersPageController {
     List<String> itemNames = new ArrayList<String>();
     List<Integer> itemQuantities = new ArrayList<Integer>();
     for (var equipment : this.curModEquipments) {
-      itemNames.add(equipment.getName());
-      itemQuantities.add((int) equipment.getMpQuantity().getValue());
+      int qty = (int) equipment.getMpQuantity().getValue();
+      if (qty > 0) {
+        itemNames.add(equipment.getName());
+        itemQuantities.add(qty);
+      }
     }
     for (var bundle : this.curModBundles) {
-      itemNames.add(bundle.getName());
-      itemQuantities.add((int) bundle.getMpQuantity().getValue());
+      int qty = (int) bundle.getMpQuantity().getValue();
+      if (qty > 0) {
+        itemNames.add(bundle.getName());
+        itemQuantities.add(qty);
+      }
     }
     // modify the member
     if (ViewUtils.successful(() -> ClimbSafeFeatureSet2Controller.updateMember(email, password,
