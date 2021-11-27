@@ -39,7 +39,7 @@ class Assignment {
       } -> Assigned;
 
       cancel() [!isBanned()] / {
-        setRefundPercentage(100);
+        setRefundPercentage(0);
       } -> Cancelled;
 
       cancel() [isBanned()] / {

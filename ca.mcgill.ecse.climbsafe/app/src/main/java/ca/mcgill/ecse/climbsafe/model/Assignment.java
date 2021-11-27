@@ -268,7 +268,7 @@ public class Assignment implements Serializable
         if (!(isBanned()))
         {
         // line 41 "../../../../../ClimbSafeStates.ump"
-          setRefundPercentage(100);
+          setRefundPercentage(0);
           setAssignmentStatus(AssignmentStatus.Cancelled);
           wasEventProcessed = true;
           break;
