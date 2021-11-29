@@ -1,15 +1,272 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.climbsafe.javafx.controllers.EquipmentsPageController">
    <children>
-      <Label layoutX="341.0" layoutY="285.0" text="This is the equipments page">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+      <TabPane fx:id="equipmentsPageTabPane" prefHeight="200.0" prefWidth="240.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab fx:id="addEquipmentTab" text="Add Equipment">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="661.0" minWidth="10.0" prefWidth="450.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="50.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label graphicTextGap="3.0" text="Name">
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Weight" GridPane.rowIndex="2">
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Price Per Week" GridPane.rowIndex="4">
+                                             <GridPane.margin>
+                                                <Insets left="40.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <TextField fx:id="addName" onAction="#addDoAdd" promptText="Name" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <TextField fx:id="addWeight" onAction="#addDoAdd" promptText="Weight" GridPane.rowIndex="3">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <TextField fx:id="addPrice" onAction="#addDoAdd" promptText="Price" GridPane.rowIndex="5">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="40.0" left="100.0" right="100.0" top="40.0" />
+                                       </GridPane.margin>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                              <GridPane prefHeight="60.0" VBox.vgrow="NEVER">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="addClear" mnemonicParsing="false" onAction="#addDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
+                                             <HBox.margin>
+                                                <Insets left="40.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <Button fx:id="addAdd" mnemonicParsing="false" onAction="#addDoAdd" prefWidth="200.0" text="Add" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="updateEquipmentTab" text="Update Equipment">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <GridPane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="661.0" minWidth="10.0" prefWidth="450.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="50.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label graphicTextGap="3.0" text="Old Name">
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label graphicTextGap="3.0" text="New Name" GridPane.rowIndex="2">
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Weight" GridPane.rowIndex="4">
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Price Per Week" GridPane.rowIndex="6">
+                                             <GridPane.margin>
+                                                <Insets left="40.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <TextField fx:id="updateOldName" onAction="#updateDoUpdate" promptText="Old Name" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <TextField fx:id="updateNewName" onAction="#updateDoUpdate" promptText="New Name" GridPane.rowIndex="3">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <TextField fx:id="updateWeight" onAction="#updateDoUpdate" promptText="Weight" GridPane.rowIndex="5">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <TextField fx:id="updatePrice" onAction="#updateDoUpdate" promptText="Price" GridPane.rowIndex="7">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="40.0" left="100.0" right="100.0" top="40.0" />
+                                       </GridPane.margin>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                              <GridPane prefHeight="60.0" VBox.vgrow="NEVER">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="updateClear" mnemonicParsing="false" onAction="#updateDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
+                                             <HBox.margin>
+                                                <Insets left="40.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="updateAutofill" mnemonicParsing="false" onAction="#updateDoAutofill" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Autofill">
+                                             <HBox.margin>
+                                                <Insets left="40.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <Button fx:id="updateUpdate" mnemonicParsing="false" onAction="#updateDoUpdate" prefWidth="200.0" text="Update" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="delEquipmentTab" text="Delete Equipment">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="538.0" prefWidth="899.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TableView fx:id="delTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="delTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="316.0" text="Name" />
+                                    <TableColumn fx:id="delTableWeight" minWidth="2.0" prefWidth="293.0" text="Weight" />
+                                    <TableColumn fx:id="delTablePrice" prefWidth="290.0" text="Price/Week" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </TableView>
+                              <GridPane prefHeight="60.0" VBox.vgrow="NEVER">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Button fx:id="delClearSelection" mnemonicParsing="false" onAction="#delDoClearSelection" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear Selection">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Button fx:id="delDelete" mnemonicParsing="false" onAction="#delDoDelete" text="Delete All Selected" GridPane.columnIndex="1" />
+                                    <Button fx:id="delModifySelected" mnemonicParsing="false" onAction="#delDoModifySelected" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Modify Selected Equipment" GridPane.columnIndex="2">
+                                       <GridPane.margin>
+                                          <Insets right="40.0" />
+                                       </GridPane.margin>
+                                       <tooltip>
+                                          <Tooltip text="Double click a member to modify" />
+                                       </tooltip>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>
