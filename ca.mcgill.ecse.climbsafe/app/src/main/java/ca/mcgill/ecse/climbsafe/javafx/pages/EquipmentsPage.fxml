@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.climbsafe.javafx.controllers.MembersPageControllerca.mcgill.ecse.climbsafe.javafx.controllers.EuipmentsPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #fff4e9;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.climbsafe.javafx.controllers.EquipmentsPageController">
    <children>
-      <TabPane prefHeight="200.0" prefWidth="240.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="equipmentsPageTabPane" prefHeight="200.0" prefWidth="240.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Add Equipment">
+          <Tab fx:id="addEquipmentTab" text="Add Equipment">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -96,7 +96,7 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button fx:id="addClear" mnemonicParsing="false" onAction="#addDoclear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
+                                          <Button fx:id="addClear" mnemonicParsing="false" onAction="#addDoClear" style="-fx-font-size: 16; -fx-pref-height: 30;" text="Clear All">
                                              <HBox.margin>
                                                 <Insets left="40.0" />
                                              </HBox.margin>
@@ -104,29 +104,6 @@
                                        </children>
                                     </HBox>
                                     <Button fx:id="addAdd" mnemonicParsing="false" onAction="#addDoAdd" prefWidth="200.0" text="Add" GridPane.columnIndex="1" />
-                                    <GridPane GridPane.columnIndex="2">
-                                       <columnConstraints>
-                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="112.0" />
-                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="70.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="Total Cost:">
-                                             <padding>
-                                                <Insets right="5.0" />
-                                             </padding>
-                                          </Label>
-                                          <TextField fx:id="addTotalCost" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
-                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="\$NEP" GridPane.columnIndex="2">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </GridPane>
                                  </children>
                               </GridPane>
                            </children>
@@ -134,7 +111,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Update Equipment">
+            <Tab fx:id="updateEquipmentTab" text="Update Equipment">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -159,34 +136,46 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label graphicTextGap="3.0" text="Name">
+                                          <Label graphicTextGap="3.0" text="Old Name">
                                              <padding>
                                                 <Insets left="40.0" />
                                              </padding>
                                           </Label>
-                                          <Label text="Weight" GridPane.rowIndex="2">
+                                          <Label graphicTextGap="3.0" text="New Name" GridPane.rowIndex="2">
                                              <padding>
                                                 <Insets left="40.0" />
                                              </padding>
                                           </Label>
-                                          <Label text="Price Per Week" GridPane.rowIndex="4">
+                                          <Label text="Weight" GridPane.rowIndex="4">
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Price Per Week" GridPane.rowIndex="6">
                                              <GridPane.margin>
                                                 <Insets left="40.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <TextField fx:id="updateName" onAction="#updateDoUpdate" promptText="Name" GridPane.rowIndex="1">
+                                          <TextField fx:id="updateOldName" onAction="#updateDoUpdate" promptText="Old Name" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="updateWeight" onAction="#updateDoUpdate" promptText="Weight" GridPane.rowIndex="3">
+                                          <TextField fx:id="updateNewName" onAction="#updateDoUpdate" promptText="New Name" GridPane.rowIndex="3">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="updatePrice" onAction="#updateDoUpdate" promptText="Price" GridPane.rowIndex="5">
+                                          <TextField fx:id="updateWeight" onAction="#updateDoUpdate" promptText="Weight" GridPane.rowIndex="5">
+                                             <GridPane.margin>
+                                                <Insets bottom="10.0" left="40.0" right="40.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <TextField fx:id="updatePrice" onAction="#updateDoUpdate" promptText="Price" GridPane.rowIndex="7">
                                              <GridPane.margin>
                                                 <Insets bottom="10.0" left="40.0" right="40.0" />
                                              </GridPane.margin>
@@ -223,29 +212,6 @@
                                        </children>
                                     </HBox>
                                     <Button fx:id="updateUpdate" mnemonicParsing="false" onAction="#updateDoUpdate" prefWidth="200.0" text="Update" GridPane.columnIndex="1" />
-                                    <GridPane GridPane.columnIndex="2">
-                                       <columnConstraints>
-                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="112.0" />
-                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="70.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="Total Cost:">
-                                             <padding>
-                                                <Insets right="5.0" />
-                                             </padding>
-                                          </Label>
-                                          <TextField fx:id="updateTotalCost" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" prefHeight="40.0" style="-fx-font-size: 20;" text="0" GridPane.columnIndex="1" />
-                                          <Label style="-fx-font-family: &quot;Montserrat Semibold&quot;;" text="\$NEP" GridPane.columnIndex="2">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </GridPane>
                                  </children>
                               </GridPane>
                            </children>
@@ -253,7 +219,7 @@
                      </children></AnchorPane>
                </content>
             </Tab>
-            <Tab text="Delete Equipment">
+            <Tab fx:id="delEquipmentTab" text="Delete Equipment">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -261,10 +227,9 @@
                            <children>
                               <TableView fx:id="delTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                  <columns>
-                                    <TableColumn fx:id="delTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="217.50573790073395" text="Name" />
-                                    <TableColumn fx:id="delTableWeight" minWidth="2.0" prefWidth="223.4942626953125" text="Weight" />
-                                    <TableColumn fx:id="delTablePrice" prefWidth="331.78759765625" text="Price/Week" />
-                                    <TableColumn fx:id="delTableQuantity" prefWidth="127.456787109375" text="Quantity" />
+                                    <TableColumn fx:id="delTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="316.0" text="Name" />
+                                    <TableColumn fx:id="delTableWeight" minWidth="2.0" prefWidth="293.0" text="Weight" />
+                                    <TableColumn fx:id="delTablePrice" prefWidth="290.0" text="Price/Week" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
