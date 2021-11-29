@@ -1,16 +1,17 @@
 package ca.mcgill.ecse.climbsafe.javafx.controllers;
 
-import javafx.fxml.FXML;
-
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
 import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
@@ -55,10 +56,7 @@ public class AssignmentsPageController {
 	      if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
 	        if (mouseEvent.getClickCount() == 1) {
 	          // display information for selected assignment
-	          TOAssignment target = assignmentsOverviewTable.getSelectionModel().getSelectedItem();
-	          if (target != null) {
-	            updateDetailsWindow(target);
-	          }
+	          updateDetailsWindow();
 	        }
 	        else if (mouseEvent.getClickCount() == 2) {
 	          manageTripPressed(null);
@@ -67,12 +65,26 @@ public class AssignmentsPageController {
 	    }
 	  });
 	  
+	  // key listener on overview table
+	  assignmentsOverviewTable.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+          if (event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.UP) {
+            // display information for selected assignment
+            updateDetailsWindow();
+          }
+          if (event.getCode() == KeyCode.ENTER) {
+            manageTripPressed(null);
+          }
+        }
+	  });
+	  
 	  // set table to refresh upon trigger
 	  assignmentsOverviewTable.addEventHandler(ClimbSafeView.REFRESH_EVENT,
 	      e -> {
 	        assignmentsOverviewTable.setItems(ViewUtils.getAssignments());
 	        // display updated information for selected assignment
-	        updateDetailsWindow(assignmentsOverviewTable.getSelectionModel().getSelectedItem());
+	        updateDetailsWindow();
 	      });
 	  ClimbSafeView.getInstance().registerRefreshEvent(assignmentsOverviewTable);
 	}
@@ -96,7 +108,8 @@ public class AssignmentsPageController {
 	  }
 	}
 	
-	private void updateDetailsWindow(TOAssignment target) {
+	private void updateDetailsWindow() {
+	  TOAssignment target = assignmentsOverviewTable.getSelectionModel().getSelectedItem();
 	  if (target == null) {
 	    // clear labels
 	    selectedMemberLabel.setText(null);
