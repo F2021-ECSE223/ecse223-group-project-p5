@@ -142,6 +142,7 @@ public class EquipmentsPageController {
 	    if (selectedEquipment == null) {
 	      return;
 	    }
+	    updateNewName.setText(name);
 	    updateWeight.setText(Integer.toString(selectedEquipment.getWeight()));
 	    updatePrice.setText(Integer.toString(selectedEquipment.getPricePerWeek()));
 	    

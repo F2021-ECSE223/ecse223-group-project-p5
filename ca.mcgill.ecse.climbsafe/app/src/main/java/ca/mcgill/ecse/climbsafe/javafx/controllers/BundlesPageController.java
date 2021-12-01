@@ -265,6 +265,7 @@ public class BundlesPageController {
      */
     private void updateDoAutofill() {
       var oldName = updateOldName.getText();
+      updateNewName.setText(oldName);
       TOEquipmentBundle selectedBundle = null;
       // search for the member, return if not found
       for (var bundle : ClimbSafeFeatureSet5Controller.getEquipmentBundles()) {
