@@ -66,6 +66,14 @@
 }
 
 /*
+ * Table cell styling
+ */
+.table-view .table-cell {
+	-fx-font-family: "Open Sans";
+	-fx-font-size: 14px;
+}
+
+/*
  * Adds an anti-aliasing effect to text
  */
 .text {

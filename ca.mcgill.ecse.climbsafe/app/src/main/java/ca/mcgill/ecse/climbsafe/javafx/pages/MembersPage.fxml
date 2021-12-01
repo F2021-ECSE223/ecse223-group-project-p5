@@ -520,12 +520,12 @@
                               <TableView fx:id="delTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                 <columns>
                                   <TableColumn fx:id="delTableName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="154.0" text="Name" />
-                                  <TableColumn fx:id="delTableEmail" minWidth="2.0" prefWidth="260.0" text="Email Address" />
+                                  <TableColumn fx:id="delTableEmail" minWidth="2.0" prefWidth="230.0" text="Email Address" />
                                     <TableColumn fx:id="delTableContact" prefWidth="180.0" text="Emergency Contact" />
                                     <TableColumn fx:id="delTableWeeks" text="# Weeks" />
                                     <TableColumn fx:id="delTableGuide" prefWidth="75.0" text="Guide" />
                                     <TableColumn fx:id="delTableHotel" prefWidth="75.0" text="Hotel" />
-                                    <TableColumn fx:id="delTableBanned" prefWidth="70.0" text="Banned" />
+                                    <TableColumn fx:id="delTableBanned" prefWidth="100.0" text="Banned" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
