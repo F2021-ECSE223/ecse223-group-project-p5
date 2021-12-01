@@ -66,6 +66,14 @@
 }
 
 /*
+ * Text area styling
+ */
+.text-area {
+	-fx-font-family: "Open Sans";
+	-fx-font-size: 14px;
+}
+
+/*
  * Table cell styling
  */
 .table-view .table-cell {
