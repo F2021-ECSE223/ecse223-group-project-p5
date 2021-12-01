@@ -178,6 +178,13 @@ public class AssignmentController {
         }
       }
     }
+    
+    try {
+      // persistence save
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
+    }
   }
 
   /**
@@ -225,6 +232,13 @@ public class AssignmentController {
 
         details += String.format("%s: %s\n", a.getMember().getEmail(), result);
       }
+    }
+    
+    try {
+      // persistence save
+      ClimbSafePersistence.save();
+    } catch (RuntimeException e) {
+      throw new InvalidInputException(e.getMessage());
     }
 
     ret[0] = String.valueOf(noTripsStarted);
