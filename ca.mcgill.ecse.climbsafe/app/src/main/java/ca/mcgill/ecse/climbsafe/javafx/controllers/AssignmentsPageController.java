@@ -51,16 +51,18 @@ public class AssignmentsPageController {
 	  assignmentsOverviewTable.getColumns().get(2).setCellValueFactory(
 	      new PropertyValueFactory<>("status"));
 	  
+	  // selection listener on overview table
+      assignmentsOverviewTable.getSelectionModel().selectedItemProperty().addListener(
+          (obs, oldSelection, newSelection) -> {
+            updateDetailsWindow();
+          });
+	  
 	  // double click listener on overview table
 	  assignmentsOverviewTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	    @Override
 	    public void handle(MouseEvent mouseEvent) {
 	      if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-	        if (mouseEvent.getClickCount() == 1) {
-	          // display information for selected assignment
-	          updateDetailsWindow();
-	        }
-	        else if (mouseEvent.getClickCount() == 2) {
+	        if (mouseEvent.getClickCount() == 2) {
 	          manageTripPressed(null);
 	        }
 	      }
@@ -71,10 +73,6 @@ public class AssignmentsPageController {
 	  assignmentsOverviewTable.setOnKeyPressed(new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent event) {
-          if (event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.UP) {
-            // display information for selected assignment
-            updateDetailsWindow();
-          }
           if (event.getCode() == KeyCode.ENTER) {
             manageTripPressed(null);
           }
