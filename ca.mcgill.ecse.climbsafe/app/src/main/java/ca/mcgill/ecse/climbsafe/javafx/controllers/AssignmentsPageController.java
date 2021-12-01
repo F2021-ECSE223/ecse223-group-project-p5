@@ -1,6 +1,8 @@
 package ca.mcgill.ecse.climbsafe.javafx.controllers;
 
 import ca.mcgill.ecse.climbsafe.controller.AssignmentController;
+import ca.mcgill.ecse.climbsafe.controller.ClimbSafeFeatureSet2Controller;
+import ca.mcgill.ecse.climbsafe.controller.InvalidInputException;
 import ca.mcgill.ecse.climbsafe.controller.TOAssignment;
 import ca.mcgill.ecse.climbsafe.javafx.ClimbSafeView;
 import javafx.event.ActionEvent;
@@ -154,15 +156,24 @@ public class AssignmentsPageController {
       }
 	  
 	  switch (target.getStatus()) {
-	    case "Unassigned":
-	    case "Assigned":
-	    case "Paid":
-	    case "Started":
-	      selectedStatusLabel.setText(target.getStatus());
-	      break;
-	    case "Finished":
-	    case "Cancelled":
-	      selectedStatusLabel.setText(String.format("%s (%d%% refund)", target.getStatus(), target.getRefundedPercentageAmount()));
-	  }
+        case "Unassigned":
+        case "Assigned":
+        case "Paid":
+        case "Started":
+          selectedStatusLabel.setText(target.getStatus());
+          break;
+        case "Finished":
+        case "Cancelled":
+          selectedStatusLabel.setText(String.format("%s (%d%% refund)", target.getStatus(), target.getRefundedPercentageAmount()));
+      }
+	  
+	  try {
+	    if (ClimbSafeFeatureSet2Controller.getMember(
+	          target.getMemberEmail()).getBanStatusFullName().equals("Banned")) {
+	      selectedStatusLabel.setText(selectedStatusLabel.getText() + " (Banned)");
+	    }
+	  } catch (InvalidInputException e) {
+        ViewUtils.showError(e.getMessage());
+      }
 	}
 }
