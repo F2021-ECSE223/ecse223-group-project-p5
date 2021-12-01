@@ -56,8 +56,8 @@
                         </Label>
                         <GridPane>
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.199951171875" minWidth="10.0" prefWidth="170.40003662109376" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.4" minWidth="10.0" prefWidth="280.7999633789062" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.199951171875" minWidth="10.0" prefWidth="188.399951171875" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.200048828125" minWidth="10.0" prefWidth="311.200048828125" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -72,24 +72,24 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label alignment="CENTER_RIGHT" text="Member:" textAlignment="RIGHT" GridPane.halignment="RIGHT">
+                              <Label alignment="CENTER_RIGHT" text="Member" textAlignment="RIGHT" GridPane.halignment="LEFT">
                                  <GridPane.margin>
-                                    <Insets right="10.0" />
+                                    <Insets left="30.0" right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" text="Assigned Guide:" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                              <Label alignment="CENTER_RIGHT" text="Assigned Guide" textAlignment="RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets right="10.0" />
+                                    <Insets left="30.0" right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Assigned Hotel:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                              <Label text="Assigned Hotel" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                                  <GridPane.margin>
-                                    <Insets right="10.0" />
+                                    <Insets left="30.0" right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Trip Duration:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                              <Label text="Trip Duration" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                                  <GridPane.margin>
-                                    <Insets right="10.0" />
+                                    <Insets left="30.0" right="10.0" />
                                  </GridPane.margin>
                               </Label>
                               <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
@@ -97,9 +97,9 @@
                                     <Insets left="15.0" right="15.0" />
                                  </GridPane.margin>
                               </Separator>
-                              <Label text="Guide Cost:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                              <Label text="Guide Cost" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                                  <GridPane.margin>
-                                    <Insets right="10.0" />
+                                    <Insets left="30.0" right="10.0" />
                                  </GridPane.margin>
                               </Label>
                               <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="8">
@@ -107,59 +107,59 @@
                                     <Insets left="15.0" right="15.0" />
                                  </GridPane.margin>
                               </Separator>
-                              <Label text="Equipment Cost:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                              <Label text="Equipment Cost" GridPane.halignment="LEFT" GridPane.rowIndex="6">
                                  <GridPane.margin>
-                                    <Insets right="10.0" />
+                                    <Insets left="30.0" right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Payment Code:" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                              <Label text="Payment Code" GridPane.halignment="LEFT" GridPane.rowIndex="7">
                                  <GridPane.margin>
-                                    <Insets right="10.0" />
+                                    <Insets left="30.0" right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Trip Status:" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
+                              <Label text="Trip Status" GridPane.halignment="LEFT" GridPane.rowIndex="9">
                                  <GridPane.margin>
-                                    <Insets right="10.0" />
+                                    <Insets left="30.0" right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="selectedMemberLabel" alignment="CENTER_RIGHT" textAlignment="RIGHT" GridPane.columnIndex="1">
+                              <Label fx:id="selectedMemberLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: #5C5CCC;" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" right="30.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="selectedGuideLabel" alignment="CENTER_RIGHT" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Label fx:id="selectedGuideLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: #5C5CCC;" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" right="30.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="selectedHotelLabel" alignment="CENTER_RIGHT" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Label fx:id="selectedHotelLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: #5C5CCC;" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" right="30.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="selectedDurationLabel" alignment="CENTER_RIGHT" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Label fx:id="selectedDurationLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: #5C5CCC;" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" right="30.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="selectedGuideCostLabel" alignment="CENTER_RIGHT" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <Label fx:id="selectedGuideCostLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: #5C5CCC;" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" right="30.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="selectedEquipmentCostLabel" alignment="CENTER_RIGHT" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                              <Label fx:id="selectedEquipmentCostLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: #5C5CCC;" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" right="30.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="selectedPaymentCodeLabel" alignment="CENTER_RIGHT" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                              <Label fx:id="selectedPaymentCodeLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: #5C5CCC;" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" right="30.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="selectedStatusLabel" alignment="CENTER_RIGHT" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                              <Label fx:id="selectedStatusLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: #5C5CCC;" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" right="30.0" />
                                  </GridPane.margin>
                               </Label>
                            </children>

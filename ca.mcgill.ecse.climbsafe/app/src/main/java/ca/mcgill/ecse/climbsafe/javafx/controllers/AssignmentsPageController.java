@@ -114,14 +114,14 @@ public class AssignmentsPageController {
 	  TOAssignment target = assignmentsOverviewTable.getSelectionModel().getSelectedItem();
 	  if (target == null) {
 	    // clear labels
-	    selectedMemberLabel.setText(null);
-	    selectedGuideLabel.setText(null);
-	    selectedHotelLabel.setText(null);
-	    selectedDurationLabel.setText(null);
-	    selectedGuideCostLabel.setText(null);
-	    selectedEquipmentCostLabel.setText(null);
-	    selectedPaymentCodeLabel.setText(null);
-	    selectedStatusLabel.setText(null);
+	    selectedMemberLabel.setText("None Selected");
+	    selectedGuideLabel.setText("None Selected");
+	    selectedHotelLabel.setText("None Selected");
+	    selectedDurationLabel.setText("None Selected");
+	    selectedGuideCostLabel.setText("None Selected");
+	    selectedEquipmentCostLabel.setText("None Selected");
+	    selectedPaymentCodeLabel.setText("None Selected");
+	    selectedStatusLabel.setText("None Selected");
 	    
 	    return;
 	  }
