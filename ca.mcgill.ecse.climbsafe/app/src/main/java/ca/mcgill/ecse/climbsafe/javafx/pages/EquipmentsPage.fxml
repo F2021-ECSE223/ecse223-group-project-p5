@@ -219,7 +219,7 @@
                      </children></AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="delEquipmentTab" text="Delete Equipment">
+            <Tab fx:id="delEquipmentTab" text="View All Equipments">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

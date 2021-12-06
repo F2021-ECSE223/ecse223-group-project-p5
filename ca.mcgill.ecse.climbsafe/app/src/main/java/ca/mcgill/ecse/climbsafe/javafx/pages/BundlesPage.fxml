@@ -316,7 +316,7 @@
                   </AnchorPane>
                </content>
           </Tab>
-            <Tab fx:id="delTab" text="Delete Bundle">
+            <Tab fx:id="delTab" text="View All Bundles">
                <content>
                   <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="900.0">
                      <children>
