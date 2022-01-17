@@ -17,6 +17,7 @@ This project follows the Model-View-Controller pattern.
 
 ## Running the program
 
+- Clone the repository (or download as ZIP then extract)
 - Open the command line (or terminal)
 - Navigate to the directory [ecse223-group-project-p5/ca.mcgill.ecse.climbsafe](ca.mcgill.ecse.climbsafe)
 - Execute the command `gradlew run`
